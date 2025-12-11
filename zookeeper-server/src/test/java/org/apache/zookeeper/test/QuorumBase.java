@@ -57,8 +57,8 @@ public class QuorumBase extends ClientBase {
     private static final String oraclePath_4 = "/oraclePath/0/mastership/";
     private static final String mastership = "value";
 
-    File s1dir, s2dir, s3dir, s4dir, s5dir;
-    QuorumPeer s1, s2, s3, s4, s5;
+    public File s1dir, s2dir, s3dir, s4dir, s5dir;
+    public QuorumPeer s1, s2, s3, s4, s5;
     protected int port1;
     protected int port2;
     protected int port3;
@@ -71,11 +71,11 @@ public class QuorumBase extends ClientBase {
     protected int portLE4;
     protected int portLE5;
 
-    protected int portClient1;
-    protected int portClient2;
-    protected int portClient3;
-    protected int portClient4;
-    protected int portClient5;
+    public int portClient1;
+    public int portClient2;
+    public int portClient3;
+    public int portClient4;
+    public int portClient5;
 
     protected boolean localSessionsEnabled = false;
     protected boolean localSessionsUpgradingEnabled = false;

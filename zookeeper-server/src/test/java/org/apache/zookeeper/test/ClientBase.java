@@ -68,10 +68,10 @@ public abstract class ClientBase extends ZKTestCase {
 
     public static int CONNECTION_TIMEOUT = 30000;
 
-    protected String hostPort = "127.0.0.1:" + PortAssignment.unique();
-    protected int maxCnxns = 0;
-    protected ServerCnxnFactory serverFactory = null;
-    protected File tmpDir = null;
+    public String hostPort = "127.0.0.1:" + PortAssignment.unique();
+    public int maxCnxns = 0;
+    public ServerCnxnFactory serverFactory = null;
+    public File tmpDir = null;
     protected boolean exceptionOnFailedConnect = false;
 
     long initialFdCount;
@@ -439,7 +439,7 @@ public abstract class ClientBase extends ZKTestCase {
         return factory;
     }
 
-    static void shutdownServerInstance(ServerCnxnFactory factory, String hostPort) {
+    public static void shutdownServerInstance(ServerCnxnFactory factory, String hostPort) {
         if (factory != null) {
             ZKDatabase zkDb = null;
             {

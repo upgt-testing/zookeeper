@@ -1,0 +1,3 @@
+org.restarttest.adapter.zookeeper.ClientBaseAdapter
+org.restarttest.adapter.zookeeper.MainThreadAdapter
+org.restarttest.adapter.zookeeper.QuorumBaseAdapter
