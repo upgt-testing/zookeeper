@@ -8,137 +8,137 @@ This document tracks the progress of adding restart positions to tests.
 ## Progress Overview
 
 Total Tests: 119
-- [ ] Completed: 0/119
+- [x] Completed: 119/119
 
 ---
 
 ## ClientBase Tests (79 tests)
 
-- [ ] ClientBase - ZooKeeperTest
-- [ ] ClientBase - ZKUtilTest
-- [ ] ClientBase - DistributedQueueTest
-- [ ] ClientBase - NullDataTest
-- [ ] ClientBase - SyncCallTest
-- [ ] ClientBase - KeyAuthClientTest
-- [ ] ClientBase - TimeTest
-- [ ] ClientBase - RemoveWatchesCmdTest
-- [ ] ClientBase - GetAllChildrenNumberTest
-- [ ] ClientBase - EnsembleAuthTest
-- [ ] ClientBase - DigestAuthDisabledTest
-- [ ] ClientBase - DisconnectedWatcherTest
-- [ ] ClientBase - ServerCnxnTest
-- [ ] ClientBase - StandaloneServerAuditTest
-- [ ] ClientBase - SaslTestUtil
-- [ ] ClientBase - GetEphemeralsTest
-- [ ] ClientBase - ClientTest
-- [ ] ClientBase - WriteLockTest
-- [ ] ClientBase - AuthTest
-- [ ] ClientBase - CheckTest
-- [ ] ClientBase - MultiAsyncTransactionTest
-- [ ] ClientBase - ClientHammerTest
-- [ ] ClientBase - MaxCnxnsTest
-- [ ] ClientBase - ThrottledOpStandaloneTest
-- [ ] ClientBase - ACLRootTest
-- [ ] ClientBase - SSLAuthTest
-- [ ] ClientBase - FourLetterWordsTest
-- [ ] ClientBase - SessionTimeoutTest
-- [ ] ClientBase - ZooKeeperQuotaTest
-- [ ] ClientBase - PersistentRecursiveWatcherTest
-- [ ] ClientBase - WatcherTest
-- [ ] ClientBase - LeaderElectionSupportTest
-- [ ] ClientBase - SessionInvalidationTest
-- [ ] ClientBase - EnforceQuotaTest
-- [ ] ClientBase - ChrootTest
-- [ ] ClientBase - AsyncOpsTest
-- [ ] ClientBase - ServerIdTest
-- [ ] ClientBase - MultiOperationTest
-- [ ] ClientBase - CreateTest
-- [ ] ClientBase - GetChildren2Test
-- [ ] ClientBase - LogChopperTest
-- [ ] ClientBase - ClientRetryTest
-- [ ] ClientBase - HierarchicalQuorumTest
-- [ ] ClientBase - UnsupportedAddWatcherTest
-- [ ] ClientBase - SaslKerberosAuthOverSSLTest
-- [ ] ClientBase - ResponseCacheTest
-- [ ] ClientBase - StatTest
-- [ ] ClientBase - WatcherFuncTest
-- [ ] ClientBase - LoadFromLogTest
-- [ ] ClientBase - PersistentWatcherTest
-- [ ] ClientBase - NIOServerCnxnTest
-- [ ] ClientBase - PersistentWatcherACLTest
-- [ ] ClientBase - RemoveWatchesTest
-- [ ] ClientBase - NettyServerCnxnTest
-- [ ] ClientBase - FourLetterWordsWhiteListTest
-- [ ] ClientBase - PrepRequestProcessorTest
-- [ ] ClientBase - CreateTTLTest
-- [ ] ClientBase - TxnLogDigestTest
-- [ ] ClientBase - SnapshotDigestTest
-- [ ] ClientBase - Emulate353TTLTest
-- [ ] ClientBase - InvalidSnapshotTest
-- [ ] ClientBase - CommandsTest
-- [ ] ClientBase - CreateContainerTest
-- [ ] ClientBase - BufferSizeTest
-- [ ] ClientBase - NettyServerCnxnFactoryTest
-- [ ] ClientBase - SaslAuthRequiredFailNoSASLTest
-- [ ] ClientBase - SaslAuthMissingClientConfigTest
-- [ ] ClientBase - SaslDigestAuthOverSSLTest
-- [ ] ClientBase - SaslAuthFailTest
-- [ ] ClientBase - SaslAuthRequiredFailWrongSASLTest
-- [ ] ClientBase - SaslAuthFailDesignatedClientTest
-- [ ] ClientBase - SaslSuperUserTest
-- [ ] ClientBase - SaslAuthRequiredTest
-- [ ] ClientBase - SaslAuthDesignatedServerTest
-- [ ] ClientBase - SaslAuthDesignatedClientTest
-- [ ] ClientBase - SaslAuthRequiredMultiClientTest
-- [ ] ClientBase - SaslAuthTest
-- [ ] ClientBase - QuorumOracleMajTest
+- [x] ClientBase - ZooKeeperTest (28 test methods transformed, 88 restart points injected)
+- [x] ClientBase - ZKUtilTest (8 test methods transformed, 8 restart points injected)
+- [x] ClientBase - DistributedQueueTest (12 test methods transformed, 17 restart points injected)
+- [x] ClientBase - NullDataTest (1 test method transformed, 2 restart points injected)
+- [x] ClientBase - SyncCallTest (1 test method transformed, 5 restart points injected)
+- [x] ClientBase - KeyAuthClientTest (1 test method transformed, 5 restart points injected)
+- [x] ClientBase - TimeTest (1 test method transformed, 1 restart point injected)
+- [x] ClientBase - RemoveWatchesCmdTest (7 test methods transformed, 18 restart points injected)
+- [x] ClientBase - GetAllChildrenNumberTest (2 test methods transformed, 5 restart points injected)
+- [x] ClientBase - EnsembleAuthTest (7 test methods transformed, 7 restart points injected)
+- [x] ClientBase - DigestAuthDisabledTest (1 test method transformed, 1 restart point injected)
+- [x] ClientBase - DisconnectedWatcherTest (4 test methods transformed, 23 restart points injected)
+- [x] ClientBase - ServerCnxnTest (1 test method transformed, 2 restart points injected)
+- [x] ClientBase - StandaloneServerAuditTest (1 test method transformed, 3 restart points injected)
+- [x] ClientBase - SaslTestUtil (Utility class, no test methods to transform)
+- [x] ClientBase - GetEphemeralsTest (6 test methods transformed, 9 restart points injected)
+- [x] ClientBase - ClientTest (16 test methods transformed, 28 restart points injected)
+- [x] ClientBase - WriteLockTest (1 test method transformed, 6 restart points injected)
+- [x] ClientBase - AuthTest (5 test methods transformed, 17 restart points injected)
+- [x] ClientBase - CheckTest (4 test methods transformed, 9 restart points injected)
+- [x] ClientBase - MultiAsyncTransactionTest (1 test method transformed, 5 restart points injected)
+- [x] ClientBase - ClientHammerTest (2 test methods transformed, 4 restart points injected)
+- [x] ClientBase - MaxCnxnsTest (1 test method transformed, 2 restart points injected)
+- [x] ClientBase - ThrottledOpStandaloneTest (2 test methods transformed, 4 restart points injected)
+- [x] ClientBase - ACLRootTest (1 test method transformed, 8 restart points injected)
+- [x] ClientBase - SSLAuthTest (2 test methods transformed, 4 restart points injected)
+- [x] ClientBase - FourLetterWordsTest (5 test methods transformed, 9 restart points injected)
+- [x] ClientBase - SessionTimeoutTest (8 test methods transformed, 18 restart points injected)
+- [x] ClientBase - ZooKeeperQuotaTest (19 test methods transformed, 26 restart points injected)
+- [x] ClientBase - PersistentRecursiveWatcherTest (8 test methods transformed, 9 restart points injected)
+- [x] ClientBase - WatcherTest (8 test methods transformed, 27 restart points injected)
+- [x] ClientBase - LeaderElectionSupportTest (8 test methods transformed, 17 restart points injected)
+- [x] ClientBase - SessionInvalidationTest (1 test method transformed, 3 restart points injected)
+- [x] ClientBase - EnforceQuotaTest (2 test methods transformed, 7 restart points injected)
+- [x] ClientBase - ChrootTest (2 test methods transformed, 11 restart points injected)
+- [x] ClientBase - AsyncOpsTest (38 test methods transformed, 39 restart points injected)
+- [x] ClientBase - ServerIdTest (1 test method transformed, 3 restart points injected)
+- [x] ClientBase - MultiOperationTest (20 test methods transformed, 37 restart points injected)
+- [x] ClientBase - CreateTest (3 test methods transformed, 5 restart points injected)
+- [x] ClientBase - GetChildren2Test (2 test methods transformed, 7 restart points injected)
+- [x] ClientBase - LogChopperTest (1 test method transformed, 3 restart points injected)
+- [x] ClientBase - ClientRetryTest (1 test method transformed, 4 restart points injected)
+- [x] ClientBase - HierarchicalQuorumTest (1 test method transformed, 2 restart points injected)
+- [x] ClientBase - UnsupportedAddWatcherTest (1 test method transformed, 1 restart point injected)
+- [x] ClientBase - SaslKerberosAuthOverSSLTest (1 test method transformed, 2 restart points injected)
+- [x] ClientBase - ResponseCacheTest (1 test method transformed, 2 restart points injected)
+- [x] ClientBase - StatTest (4 test methods transformed, 12 restart points injected)
+- [x] ClientBase - WatcherFuncTest (6 test methods transformed, 28 restart points injected)
+- [x] ClientBase - LoadFromLogTest (6 test methods transformed, 10 restart points injected)
+- [x] ClientBase - PersistentWatcherTest (8 test methods transformed, 22 restart points injected)
+- [x] ClientBase - NIOServerCnxnTest (2 test methods transformed, 3 restart points injected)
+- [x] ClientBase - PersistentWatcherACLTest (10 test methods transformed, 69 restart points injected)
+- [x] ClientBase - RemoveWatchesTest (31 test methods transformed, 90 restart points injected)
+- [x] ClientBase - NettyServerCnxnTest (15 test methods transformed, 25 restart points injected)
+- [x] ClientBase - FourLetterWordsWhiteListTest (6 test methods transformed, 20 restart points injected)
+- [x] ClientBase - PrepRequestProcessorTest (6 test methods transformed, 15 restart points injected)
+- [x] ClientBase - CreateTTLTest (9 test methods transformed, 24 restart points injected)
+- [x] ClientBase - Emulate353TTLTest (4 test methods transformed, 8 restart points injected)
+- [x] ClientBase - InvalidSnapshotTest (1 test method transformed, 5 restart points injected)
+- [x] ClientBase - CommandsTest (26 test methods transformed, 26 restart points injected)
+- [x] ClientBase - CreateContainerTest (12 test methods transformed, 30 restart points injected)
+- [x] ClientBase - BufferSizeTest (6 test methods transformed, 17 restart points injected)
+- [x] ClientBase - TxnLogDigestTest (3 test methods transformed, 4 restart points injected)
+- [x] ClientBase - SnapshotDigestTest (3 test methods transformed, 6 restart points injected)
+- [x] ClientBase - NettyServerCnxnFactoryTest (3 test methods transformed, 7 restart points injected)
+- [x] ClientBase - SaslAuthRequiredFailNoSASLTest (1 test method transformed, 2 restart points injected)
+- [x] ClientBase - SaslAuthMissingClientConfigTest (1 test method transformed, 2 restart points injected)
+- [x] ClientBase - SaslDigestAuthOverSSLTest (1 test method transformed, 3 restart points injected)
+- [x] ClientBase - SaslAuthFailTest (2 test methods transformed, 4 restart points injected)
+- [x] ClientBase - SaslAuthRequiredFailWrongSASLTest (1 test method transformed, 2 restart points injected)
+- [x] ClientBase - SaslAuthFailDesignatedClientTest (1 test method transformed, 2 restart points injected)
+- [x] ClientBase - SaslSuperUserTest (2 test methods transformed, 2 restart points injected)
+- [x] ClientBase - SaslAuthRequiredTest (1 test method transformed, 2 restart points injected)
+- [x] ClientBase - SaslAuthDesignatedServerTest (1 test method transformed, 2 restart points injected)
+- [x] ClientBase - SaslAuthDesignatedClientTest (3 test methods transformed, 5 restart points injected)
+- [x] ClientBase - SaslAuthRequiredMultiClientTest (2 test methods transformed, 4 restart points injected)
+- [x] ClientBase - SaslAuthTest (6 test methods transformed, 10 restart points injected)
+- [x] ClientBase - QuorumOracleMajTest (1 test method transformed, 5 restart points injected)
 
 ## QuorumBase Tests (7 tests)
 
-- [ ] QuorumBase - QuorumMajorityTest
-- [ ] QuorumBase - QuorumQuotaTest
-- [ ] QuorumBase - ThrottledOpQuorumTest
-- [ ] QuorumBase - FourLetterWordsQuorumTest
-- [ ] QuorumBase - ThrottledOpObserverTest
-- [ ] QuorumBase - EagerACLFilterTest
-- [ ] QuorumBase - QuorumRequestPipelineTest
-- [ ] QuorumBase - MultiOpSessionUpgradeTest
+- [x] QuorumBase - QuorumMajorityTest (1 test method transformed, 5 restart points injected)
+- [x] QuorumBase - QuorumQuotaTest (1 test method transformed, 7 restart points injected)
+- [x] QuorumBase - ThrottledOpQuorumTest (4 test methods transformed, 8 restart points injected)
+- [x] QuorumBase - FourLetterWordsQuorumTest (1 test method transformed, 6 restart points injected)
+- [x] QuorumBase - ThrottledOpObserverTest (2 test methods transformed, 4 restart points injected)
+- [x] QuorumBase - EagerACLFilterTest (11 test methods transformed, 34 restart points injected)
+- [x] QuorumBase - QuorumRequestPipelineTest (10 test methods transformed, 34 restart points injected)
+- [x] QuorumBase - MultiOpSessionUpgradeTest (2 test methods transformed, 10 restart points injected)
 
 ## QuorumPeerTestBase Tests (33 tests)
 
-- [ ] QuorumPeerTestBase - ClientCnxnSocketFragilityTest
-- [ ] QuorumPeerTestBase - ClientSSLTest
-- [ ] QuorumPeerTestBase - ObserverTest
-- [ ] QuorumPeerTestBase - Slf4JAuditLoggerTest
-- [ ] QuorumPeerTestBase - NonRecoverableErrorTest
-- [ ] QuorumPeerTestBase - StandaloneTest
-- [ ] QuorumPeerTestBase - ClientRequestTimeoutTest
-- [ ] QuorumPeerTestBase - EnforceAuthenticationTest
-- [ ] QuorumPeerTestBase - RestoreQuorumTest
-- [ ] QuorumPeerTestBase - StandaloneDisabledTest
-- [ ] QuorumPeerTestBase - FuzzySnapshotRelatedTest
-- [ ] QuorumPeerTestBase - CloseSessionTxnTest
-- [ ] QuorumPeerTestBase - CurrentEpochWriteFailureTest
-- [ ] QuorumPeerTestBase - ZooKeeperServerMaxCnxnsTest
-- [ ] QuorumPeerTestBase - DIFFSyncConsistencyTest
-- [ ] QuorumPeerTestBase - EphemeralNodeDeletionTest
-- [ ] QuorumPeerTestBase - SessionUpgradeQuorumTest
-- [ ] QuorumPeerTestBase - ReconfigDuringLeaderSyncTest
-- [ ] QuorumPeerTestBase - RaceConditionTest
-- [ ] QuorumPeerTestBase - ReconfigFailureCasesTest
-- [ ] QuorumPeerTestBase - QuorumPeerMainTest
-- [ ] QuorumPeerTestBase - QuorumDigestTest
-- [ ] QuorumPeerTestBase - ReconfigRecoveryTest
-- [ ] QuorumPeerTestBase - QuorumPeerMainMultiAddressTest
-- [ ] QuorumPeerTestBase - ReconfigLegacyTest
-- [ ] QuorumPeerTestBase - LearnerMetricsTest
-- [ ] QuorumPeerTestBase - ReconfigBackupTest
-- [ ] QuorumPeerTestBase - QuorumSSLTest
-- [ ] QuorumPeerTestBase - ReconfigRollingRestartCompatibilityTest
-- [ ] QuorumPeerTestBase - EpochWriteFailureTest
-- [ ] QuorumPeerTestBase - DIFFSyncTest
-- [ ] QuorumPeerTestBase - ObserverMasterTest
-- [ ] QuorumPeerTestBase - FollowerRequestProcessorTest
+- [x] QuorumPeerTestBase - ClientCnxnSocketFragilityTest (1 test method transformed, 6 restart points injected)
+- [x] QuorumPeerTestBase - ClientSSLTest (6 test methods transformed, 18 restart points injected)
+- [x] QuorumPeerTestBase - ObserverTest (2 test methods transformed, 2 restart points injected)
+- [x] QuorumPeerTestBase - Slf4JAuditLoggerTest (8 test methods transformed, 8 restart points injected)
+- [x] QuorumPeerTestBase - NonRecoverableErrorTest (1 test method transformed, 4 restart points injected)
+- [x] QuorumPeerTestBase - StandaloneTest (3 test methods transformed, 3 restart points injected)
+- [x] QuorumPeerTestBase - ClientRequestTimeoutTest (3 test methods transformed, 7 restart points injected)
+- [x] QuorumPeerTestBase - EnforceAuthenticationTest (5 test methods transformed, 12 restart points injected)
+- [x] QuorumPeerTestBase - RestoreQuorumTest (1 test method transformed, 7 restart points injected)
+- [x] QuorumPeerTestBase - StandaloneDisabledTest (1 test method transformed, 5 restart points injected)
+- [x] QuorumPeerTestBase - FuzzySnapshotRelatedTest (5 test methods transformed, 6 restart points injected)
+- [x] QuorumPeerTestBase - CloseSessionTxnTest (1 test method transformed, 6 restart points injected)
+- [x] QuorumPeerTestBase - CurrentEpochWriteFailureTest (1 test method transformed, 9 restart points injected)
+- [x] QuorumPeerTestBase - ZooKeeperServerMaxCnxnsTest (2 test methods transformed, 7 restart points injected)
+- [x] QuorumPeerTestBase - DIFFSyncConsistencyTest (1 test method transformed, 12 restart points injected)
+- [x] QuorumPeerTestBase - EphemeralNodeDeletionTest (1 test method transformed, 16 restart points injected)
+- [x] QuorumPeerTestBase - SessionUpgradeQuorumTest (4 test methods transformed, 13 restart points injected)
+- [x] QuorumPeerTestBase - ReconfigDuringLeaderSyncTest (1 test method transformed, 8 restart points injected)
+- [x] QuorumPeerTestBase - RaceConditionTest (1 test method transformed, 5 restart points injected)
+- [x] QuorumPeerTestBase - ReconfigFailureCasesTest (4 test methods transformed, 13 restart points injected)
+- [x] QuorumPeerTestBase - QuorumPeerMainTest (10 test methods transformed, 21 restart points injected)
+- [x] QuorumPeerTestBase - QuorumDigestTest (4 test methods transformed, 8 restart points injected)
+- [x] QuorumPeerTestBase - ReconfigRecoveryTest (5 test methods transformed, 6 restart points injected)
+- [x] QuorumPeerTestBase - QuorumPeerMainMultiAddressTest (9 test methods transformed, 28 restart points injected)
+- [x] QuorumPeerTestBase - ReconfigLegacyTest (3 test methods transformed, 13 restart points injected)
+- [x] QuorumPeerTestBase - LearnerMetricsTest (1 test method transformed, 5 restart points injected)
+- [x] QuorumPeerTestBase - ReconfigBackupTest (3 test methods transformed, 11 restart points injected)
+- [x] QuorumPeerTestBase - QuorumSSLTest (14 test methods transformed, 27 restart points injected)
+- [x] QuorumPeerTestBase - ReconfigRollingRestartCompatibilityTest (5 test methods transformed, 16 restart points injected)
+- [x] QuorumPeerTestBase - EpochWriteFailureTest (1 test method transformed, 4 restart points injected)
+- [x] QuorumPeerTestBase - DIFFSyncTest (2 test methods transformed, 19 restart points injected)
+- [x] QuorumPeerTestBase - ObserverMasterTest (4 test methods transformed, 15 restart points injected)
+- [x] QuorumPeerTestBase - FollowerRequestProcessorTest (2 test methods transformed, 4 restart points injected)
 
 ---
 

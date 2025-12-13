@@ -1,0 +1,222 @@
+{
+  "tests": [
+    {
+      "testClass": "org.apache.zookeeper.recipes.leader.LeaderElectionSupportTest_RestartInjected",
+      "testMethod": "testNode",
+      "restartPoints": [
+        {
+          "position": "after_start_election",
+          "targets": [
+            "server"
+          ],
+          "modes": [
+            "GRACEFUL",
+            "CRASH"
+          ]
+        },
+        {
+          "position": "before_stop_election",
+          "targets": [
+            "server"
+          ],
+          "modes": [
+            "GRACEFUL",
+            "CRASH"
+          ]
+        }
+      ]
+    },
+    {
+      "testClass": "org.apache.zookeeper.recipes.leader.LeaderElectionSupportTest_RestartInjected",
+      "testMethod": "testNodes3",
+      "restartPoints": [
+        {
+          "position": "after_spawn_election_threads",
+          "targets": [
+            "server"
+          ],
+          "modes": [
+            "GRACEFUL",
+            "CRASH"
+          ]
+        },
+        {
+          "position": "after_threads_complete",
+          "targets": [
+            "server"
+          ],
+          "modes": [
+            "GRACEFUL",
+            "CRASH"
+          ]
+        }
+      ]
+    },
+    {
+      "testClass": "org.apache.zookeeper.recipes.leader.LeaderElectionSupportTest_RestartInjected",
+      "testMethod": "testNodes9",
+      "restartPoints": [
+        {
+          "position": "after_spawn_election_threads",
+          "targets": [
+            "server"
+          ],
+          "modes": [
+            "GRACEFUL",
+            "CRASH"
+          ]
+        },
+        {
+          "position": "after_threads_complete",
+          "targets": [
+            "server"
+          ],
+          "modes": [
+            "GRACEFUL",
+            "CRASH"
+          ]
+        }
+      ]
+    },
+    {
+      "testClass": "org.apache.zookeeper.recipes.leader.LeaderElectionSupportTest_RestartInjected",
+      "testMethod": "testNodes20",
+      "restartPoints": [
+        {
+          "position": "after_spawn_election_threads",
+          "targets": [
+            "server"
+          ],
+          "modes": [
+            "GRACEFUL",
+            "CRASH"
+          ]
+        },
+        {
+          "position": "after_threads_complete",
+          "targets": [
+            "server"
+          ],
+          "modes": [
+            "GRACEFUL",
+            "CRASH"
+          ]
+        }
+      ]
+    },
+    {
+      "testClass": "org.apache.zookeeper.recipes.leader.LeaderElectionSupportTest_RestartInjected",
+      "testMethod": "testNodes100",
+      "restartPoints": [
+        {
+          "position": "after_spawn_election_threads",
+          "targets": [
+            "server"
+          ],
+          "modes": [
+            "GRACEFUL",
+            "CRASH"
+          ]
+        },
+        {
+          "position": "after_threads_complete",
+          "targets": [
+            "server"
+          ],
+          "modes": [
+            "GRACEFUL",
+            "CRASH"
+          ]
+        }
+      ]
+    },
+    {
+      "testClass": "org.apache.zookeeper.recipes.leader.LeaderElectionSupportTest_RestartInjected",
+      "testMethod": "testOfferShuffle",
+      "restartPoints": [
+        {
+          "position": "after_spawn_delayed_threads",
+          "targets": [
+            "server"
+          ],
+          "modes": [
+            "GRACEFUL",
+            "CRASH"
+          ]
+        },
+        {
+          "position": "after_threads_complete",
+          "targets": [
+            "server"
+          ],
+          "modes": [
+            "GRACEFUL",
+            "CRASH"
+          ]
+        }
+      ]
+    },
+    {
+      "testClass": "org.apache.zookeeper.recipes.leader.LeaderElectionSupportTest_RestartInjected",
+      "testMethod": "testGetLeaderHostName",
+      "restartPoints": [
+        {
+          "position": "after_start_election",
+          "targets": [
+            "server"
+          ],
+          "modes": [
+            "GRACEFUL",
+            "CRASH"
+          ]
+        },
+        {
+          "position": "after_get_leader_hostname",
+          "targets": [
+            "server"
+          ],
+          "modes": [
+            "GRACEFUL",
+            "CRASH"
+          ]
+        }
+      ]
+    },
+    {
+      "testClass": "org.apache.zookeeper.recipes.leader.LeaderElectionSupportTest_RestartInjected",
+      "testMethod": "testReadyOffer",
+      "restartPoints": [
+        {
+          "position": "after_start_first_election",
+          "targets": [
+            "server"
+          ],
+          "modes": [
+            "GRACEFUL",
+            "CRASH"
+          ]
+        },
+        {
+          "position": "after_start_second_election",
+          "targets": [
+            "server"
+          ],
+          "modes": [
+            "GRACEFUL",
+            "CRASH"
+          ]
+        },
+        {
+          "position": "after_reelection_complete",
+          "targets": [
+            "server"
+          ],
+          "modes": [
+            "GRACEFUL",
+            "CRASH"
+          ]
+        }
+      ]
+    }
+  ]
+}

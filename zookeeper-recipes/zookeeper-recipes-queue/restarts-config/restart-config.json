@@ -1,0 +1,161 @@
+{
+  "tests": [
+    {
+      "testClass": "org.apache.zookeeper.recipes.queue.DistributedQueueTest_RestartInjected",
+      "testMethod": "testOffer1",
+      "restartPoints": [
+        {
+          "position": "after_queue_offer",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        }
+      ]
+    },
+    {
+      "testClass": "org.apache.zookeeper.recipes.queue.DistributedQueueTest_RestartInjected",
+      "testMethod": "testOffer2",
+      "restartPoints": [
+        {
+          "position": "after_queue_offer",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        }
+      ]
+    },
+    {
+      "testClass": "org.apache.zookeeper.recipes.queue.DistributedQueueTest_RestartInjected",
+      "testMethod": "testTake1",
+      "restartPoints": [
+        {
+          "position": "after_queue_offer",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        }
+      ]
+    },
+    {
+      "testClass": "org.apache.zookeeper.recipes.queue.DistributedQueueTest_RestartInjected",
+      "testMethod": "testRemove1",
+      "restartPoints": [
+        {
+          "position": "after_queue_creation",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        }
+      ]
+    },
+    {
+      "testClass": "org.apache.zookeeper.recipes.queue.DistributedQueueTest_RestartInjected",
+      "testMethod": "testRemove2",
+      "restartPoints": [
+        {
+          "position": "after_queue_offers",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        },
+        {
+          "position": "after_queue_removes",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        }
+      ]
+    },
+    {
+      "testClass": "org.apache.zookeeper.recipes.queue.DistributedQueueTest_RestartInjected",
+      "testMethod": "testRemove3",
+      "restartPoints": [
+        {
+          "position": "after_queue_offers",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        },
+        {
+          "position": "after_queue_removes",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        }
+      ]
+    },
+    {
+      "testClass": "org.apache.zookeeper.recipes.queue.DistributedQueueTest_RestartInjected",
+      "testMethod": "testElement1",
+      "restartPoints": [
+        {
+          "position": "after_queue_offers",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        }
+      ]
+    },
+    {
+      "testClass": "org.apache.zookeeper.recipes.queue.DistributedQueueTest_RestartInjected",
+      "testMethod": "testElement2",
+      "restartPoints": [
+        {
+          "position": "after_queue_offers",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        },
+        {
+          "position": "after_queue_removes",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        }
+      ]
+    },
+    {
+      "testClass": "org.apache.zookeeper.recipes.queue.DistributedQueueTest_RestartInjected",
+      "testMethod": "testElement3",
+      "restartPoints": [
+        {
+          "position": "after_queue_offers",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        },
+        {
+          "position": "after_queue_removes",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        }
+      ]
+    },
+    {
+      "testClass": "org.apache.zookeeper.recipes.queue.DistributedQueueTest_RestartInjected",
+      "testMethod": "testElement4",
+      "restartPoints": [
+        {
+          "position": "after_queue_offers",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        },
+        {
+          "position": "after_queue_removes",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        }
+      ]
+    },
+    {
+      "testClass": "org.apache.zookeeper.recipes.queue.DistributedQueueTest_RestartInjected",
+      "testMethod": "testTakeWait1",
+      "restartPoints": [
+        {
+          "position": "after_queue_offer",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        }
+      ]
+    },
+    {
+      "testClass": "org.apache.zookeeper.recipes.queue.DistributedQueueTest_RestartInjected",
+      "testMethod": "testTakeWait2",
+      "restartPoints": [
+        {
+          "position": "after_queue_offer_iteration",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        }
+      ]
+    }
+  ]
+}

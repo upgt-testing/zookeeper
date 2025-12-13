@@ -1,0 +1,40 @@
+{
+  "tests": [
+    {
+      "testClass": "org.apache.zookeeper.recipes.lock.WriteLockTest_RestartInjected",
+      "testMethod": "testRun",
+      "restartPoints": [
+        {
+          "position": "after_initial_lock_acquisition",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        },
+        {
+          "position": "after_first_leader_assertion",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        },
+        {
+          "position": "after_kill_leader",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        },
+        {
+          "position": "after_second_leader_assertion",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        },
+        {
+          "position": "after_server_restart",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        },
+        {
+          "position": "after_reacquire_locks",
+          "targets": ["server"],
+          "modes": ["GRACEFUL", "CRASH"]
+        }
+      ]
+    }
+  ]
+}
