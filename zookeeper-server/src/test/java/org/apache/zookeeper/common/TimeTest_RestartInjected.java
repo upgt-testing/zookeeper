@@ -55,7 +55,7 @@ public class TimeTest_RestartInjected extends ClientBase {
 
     public static void main(String[] args) throws Exception {
         System.out.print("Starting\n");
-        final TimeTest test = new TimeTest();
+        final TimeTest_RestartInjected test = new TimeTest_RestartInjected();
         System.out.print("After construct\n");
         test.setUp();
         ZooKeeper zk = test.createClient();

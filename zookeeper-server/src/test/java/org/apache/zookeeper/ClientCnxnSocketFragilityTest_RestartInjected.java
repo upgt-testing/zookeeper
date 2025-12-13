@@ -400,7 +400,7 @@ public class ClientCnxnSocketFragilityTest_RestartInjected extends QuorumPeerTes
         ) throws IOException {
             assertTrue(clientCnxnSocket instanceof FragileClientCnxnSocketNIO);
             socket = (FragileClientCnxnSocketNIO) clientCnxnSocket;
-            ClientCnxnSocketFragilityTest.this.cnxn = new CustomClientCnxn(
+            ClientCnxnSocketFragilityTest_RestartInjected.this.cnxn = new CustomClientCnxn(
                 chrootPath,
                 hostProvider,
                 sessionTimeout,
@@ -408,7 +408,7 @@ public class ClientCnxnSocketFragilityTest_RestartInjected extends QuorumPeerTes
                 defaultWatcher,
                 clientCnxnSocket,
                 canBeReadOnly);
-            return ClientCnxnSocketFragilityTest.this.cnxn;
+            return ClientCnxnSocketFragilityTest_RestartInjected.this.cnxn;
         }
     }
 }
