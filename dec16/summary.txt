@@ -1,0 +1,95 @@
+======================================================================
+Test Result Analysis Summary
+======================================================================
+Generated: 2025-12-16 17:03:14
+
+Step 1: Execution Parsing
+----------------------------------------------------------------------
+Total baseline executions: 566
+Total restart executions: 1344
+
+Step 2: Failure Analysis
+----------------------------------------------------------------------
+Baseline failures: 22
+Restart failures (baseline passed): 674
+Ignored restart executions (baseline failed): 53
+
+Step 3: Failure Grouping
+----------------------------------------------------------------------
+Unique failure groups: 39
+Total restart failures analyzed: 0
+
+Group Distribution:
+----------------------------------------------------------------------
+Group   1:  182 executions (  0.0%) - Example: org.apache.zookeeper.audit.Slf4JAuditLoggerTest_RestartInjected.testEphemralZNodeAuditLogs @ after_create_ephemeral_audit/server
+Group   2:   54 executions (  0.0%) - Example: org.apache.zookeeper.test.ClientTest_RestartInjected.testPathValidation @ after_create_parent/server
+Group   3:   46 executions (  0.0%) - Example: org.apache.zookeeper.server.NettyServerCnxnTest_RestartInjected.testSendCloseSession @ after_create_znode/server
+Group   4:   35 executions (  0.0%) - Example: org.apache.zookeeper.RemoveWatchesTest_RestartInjected.testRemoveAllChildWatchers @ after_remove_child_watches/server
+Group   5:   25 executions (  0.0%) - Example: org.apache.zookeeper.test.ClientTest_RestartInjected.testCXidRollover @ after_set_data_loop/server
+Group   6:   23 executions (  0.0%) - Example: org.apache.zookeeper.test.CheckTest_RestartInjected.testCluster @ after_follower_test/follower
+Group   7:   22 executions (  0.0%) - Example: org.apache.zookeeper.test.MultiOperationTest_RestartInjected.testChRootSetData @ after_chroot_multi_setdata/server
+Group   8:   22 executions (  0.0%) - Example: org.apache.zookeeper.RemoveWatchesTest_RestartInjected.testRemoveAllChildWatchers @ after_create_node/server
+Group   9:   18 executions (  0.0%) - Example: org.apache.zookeeper.RemoveWatchesTest_RestartInjected.testRemoveAllPersistentWatchers @ after_create_node/server
+Group  10:   16 executions (  0.0%) - Example: org.apache.zookeeper.RemoveWatchesCmdTest_RestartInjected.testRemoveAnyWatches @ after_create_node/server
+Group  11:   13 executions (  0.0%) - Example: org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected.testSetAndGetACL @ after_get_acl/leader
+Group  12:   13 executions (  0.0%) - Example: org.apache.zookeeper.ZooKeeperTest_RestartInjected.testDeleteRecursiveCli @ after_create_nodes/server
+Group  13:   10 executions (  0.0%) - Example: org.apache.zookeeper.test.ClientTest_RestartInjected.testMutipleWatcherObjs @ after_create_nodes/server
+Group  14:   10 executions (  0.0%) - Example: org.apache.zookeeper.test.MultiOperationTest_RestartInjected.testMultiGetChildrenAuthentication @ after_create_auth_nodes/server
+Group  15:    9 executions (  0.0%) - Example: org.apache.zookeeper.test.NonRecoverableErrorTest_RestartInjected.testZooKeeperServiceAvailableOnLeader @ after_create_initial_node/server
+Group  16:    8 executions (  0.0%) - Example: org.apache.zookeeper.test.PersistentRecursiveWatcherTest_RestartInjected.testRemoval @ after_create_nodes/server
+Group  17:    7 executions (  0.0%) - Example: org.apache.zookeeper.RemoveWatchesCmdTest_RestartInjected.testRemoveAnyWatches @ after_add_watchers/server
+Group  18:    6 executions (  0.0%) - Example: org.apache.zookeeper.test.EnforceQuotaTest_RestartInjected.testSetQuotaDisableWhenExceedBytesHardQuota @ after_create_path/server
+Group  19:    5 executions (  0.0%) - Example: org.apache.zookeeper.test.ZooKeeperQuotaTest_RestartInjected.testMultiCreateThenSetDataShouldWork @ after_set_quota_for_multi/server
+Group  20:    4 executions (  0.0%) - Example: org.apache.zookeeper.test.HierarchicalQuorumTest_RestartInjected.testHierarchicalQuorum @ before_hammer_test/server
+Group  21:    4 executions (  0.0%) - Example: org.apache.zookeeper.test.ACLRootTest_RestartInjected.testRootAcl @ after_create_delete_apps/server
+Group  22:    3 executions (  0.0%) - Example: org.apache.zookeeper.server.SnapshotDigestTest_RestartInjected.testBackwardCompatible @ after_create_compatible_node/server
+Group  23:    3 executions (  0.0%) - Example: org.apache.zookeeper.test.MultiOperationTest_RestartInjected.testChRootCheck @ after_create_nodes/server
+Group  24:    3 executions (  0.0%) - Example: org.apache.zookeeper.GetAllChildrenNumberTest_RestartInjected.testGetAllChildrenNumberSync @ after_setup/server
+Group  25:    3 executions (  0.0%) - Example: org.apache.zookeeper.ZooKeeperTest_RestartInjected.testLsrCommand @ after_create_nodes/server
+Group  26:    2 executions (  0.0%) - Example: org.apache.zookeeper.ZKUtilTest_RestartInjected.testListNoneRootPathSuccess @ after_create_nodes/server
+Group  27:    2 executions (  0.0%) - Example: org.apache.zookeeper.test.CheckTest_RestartInjected.testClusterDatabaseReloadAfterCheck @ after_leader_shutdown/follower
+Group  28:    2 executions (  0.0%) - Example: org.apache.zookeeper.server.MultiOpSessionUpgradeTest_RestartInjected.ephemeralCreateMultiOpTest @ after_create_client/leader
+Group  29:    2 executions (  0.0%) - Example: org.apache.zookeeper.ZooKeeperTest_RestartInjected.testCreateNodeWithoutData @ after_create_sequential_node/server
+Group  30:    2 executions (  0.0%) - Example: org.apache.zookeeper.test.ZooKeeperQuotaTest_RestartInjected.testListQuota @ after_set_all_quotas/server
+Group  31:    1 executions (  0.0%) - Example: org.apache.zookeeper.ZooKeeperTest_RestartInjected.testDelete @ after_create_node/server
+Group  32:    1 executions (  0.0%) - Example: org.apache.zookeeper.ZooKeeperTest_RestartInjected.testStatCommand @ after_create_node/server
+Group  33:    1 executions (  0.0%) - Example: org.apache.zookeeper.test.SessionTimeoutTest_RestartInjected.testSessionExpirationAfterAllServerDown @ after_create_session/server
+Group  34:    1 executions (  0.0%) - Example: org.apache.zookeeper.server.admin.RestoreQuorumTest_RestartInjected.testRestoreAfterQuorumLost @ after_quorum_restored/server
+Group  35:    1 executions (  0.0%) - Example: org.apache.zookeeper.ZooKeeperTest_RestartInjected.testSetAclRecursive @ after_create_nodes/server
+Group  36:    1 executions (  0.0%) - Example: org.apache.zookeeper.ZooKeeperTest_RestartInjected.testSetAclRecursive @ after_set_acl_recursive/server
+Group  37:    1 executions (  0.0%) - Example: org.apache.zookeeper.ZooKeeperTest_RestartInjected.testSortedLs @ after_create_nodes/server
+Group  38:    1 executions (  0.0%) - Example: org.apache.zookeeper.ZooKeeperTest_RestartInjected.testDeleteRecursiveFail @ after_add_auth/server
+Group  39:    1 executions (  0.0%) - Example: org.apache.zookeeper.test.PersistentWatcherTest_RestartInjected.testRemoval @ after_create_nodes/server
+
+Baseline Failures Details:
+----------------------------------------------------------------------
+  1. org.apache.zookeeper.server.quorum.DIFFSyncConsistencyTest_RestartInjected.testInconsistentDueToUncommittedLog (ignored 12 restart executions)
+  2. org.apache.zookeeper.server.quorum.QuorumDigestTest_RestartInjected.testDigestMatchesDuringSnapSync (ignored 2 restart executions)
+  3. org.apache.zookeeper.server.quorum.QuorumDigestTest_RestartInjected.testDigestMatchesWithAsyncRequests (ignored 2 restart executions)
+  4. org.apache.zookeeper.server.quorum.QuorumDigestTest_RestartInjected.testDigestMatchesDuringDiffSync (ignored 1 restart executions)
+  5. org.apache.zookeeper.server.TxnLogDigestTest_RestartInjected.digestFromTxnLogsMatchesTree (ignored 1 restart executions)
+  6. org.apache.zookeeper.server.TxnLogDigestTest_RestartInjected.testTxnMissing (ignored 1 restart executions)
+  7. org.apache.zookeeper.server.quorum.ReconfigBackupTest_RestartInjected.testBackupStatic (ignored 2 restart executions)
+  8. org.apache.zookeeper.server.quorum.ReconfigFailureCasesTest_RestartInjected.testTooFewRemainingPariticipants (ignored 2 restart executions)
+  9. org.apache.zookeeper.test.ThrottledOpObserverTest_RestartInjected.testThrottledOpObserver (ignored 2 restart executions)
+ 10. org.apache.zookeeper.server.quorum.ReconfigFailureCasesTest_RestartInjected.testReconfigVersionConditionFails (ignored 2 restart executions)
+ 11. org.apache.zookeeper.test.ThrottledOpObserverTest_RestartInjected.testThrottledAclObserver (ignored 2 restart executions)
+ 12. org.apache.zookeeper.test.ThrottledOpQuorumTest_RestartInjected.testThrottledOpLeader (ignored 2 restart executions)
+ 13. org.apache.zookeeper.test.ThrottledOpQuorumTest_RestartInjected.testThrottledAclLeader (ignored 2 restart executions)
+ 14. org.apache.zookeeper.test.ThrottledOpQuorumTest_RestartInjected.testThrottledOpFollower (ignored 2 restart executions)
+ 15. org.apache.zookeeper.test.ThrottledOpQuorumTest_RestartInjected.testThrottledAclFollower (ignored 2 restart executions)
+ 16. org.apache.zookeeper.test.ThrottledOpStandaloneTest_RestartInjected.testThrottledOp (ignored 2 restart executions)
+ 17. org.apache.zookeeper.server.quorum.QuorumDigestTest_RestartInjected.testDigestMismatchesWhenTxnLost (ignored 3 restart executions)
+ 18. org.apache.zookeeper.test.ThrottledOpStandaloneTest_RestartInjected.testThrottledAcl (ignored 2 restart executions)
+ 19. org.apache.zookeeper.server.quorum.ReconfigBackupTest_RestartInjected.testVersionOfDynamicFilename (ignored 3 restart executions)
+ 20. org.apache.zookeeper.server.quorum.ReconfigFailureCasesTest_RestartInjected.testIncrementalReconfigInvokedOnHiearchicalQS (ignored 3 restart executions)
+... and 2 more baseline failures
+
+Output Files:
+----------------------------------------------------------------------
+Step 1 results: results/zookeeper/dec16/step1_execution_summary.json
+Step 2 results: results/zookeeper/dec16/step2_failures.json
+Step 3 results: results/zookeeper/dec16/step3_grouped_failures.json
+This summary:   results/zookeeper/dec16/summary.txt
+
+======================================================================
