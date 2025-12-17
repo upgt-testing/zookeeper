@@ -196,82 +196,11 @@ java.lang.NullPointerException
 
 ## Group 2 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 54
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$ConnectionLossException
-
-**Diagnosis:** FP (False Positive) - Expected behavior when client hasn't reconnected after server restart
-
-**Root Cause:**
-The ConnectionLossException failures occur due to a race condition created by the restart injection timing. When the server is restarted, the ZooKeeper client connection is lost and the client attempts to reconnect. If the test performs operations before the reconnection completes, ConnectionLossException is thrown, which is the correct and expected behavior from ZooKeeper.
-
-**Detailed Analysis:**
-
-1. **Test Flow (Example: ClientTest_RestartInjected.testPathValidation:737-754)**
-   - Line 712: Test creates a ZooKeeper client using `createClient()`
-   - Line 737: Test creates a node `/createseqpar`
-   - Lines 738-743: Server restart is injected at position `after_create_parent`
-   - Line 754: Test immediately attempts to create another node
-
-2. **The Race Condition:**
-   - When the server restarts (even in GRACEFUL mode), the existing client connection is terminated
-   - The ZooKeeper client automatically attempts to reconnect, but this reconnection takes time
-   - The test does not wait for reconnection to complete before performing operations
-   - If the operation at line 754 executes before reconnection completes, ConnectionLossException is thrown
-
-3. **Why This Is Not Reproducible Consistently:**
-   - Attempted to reproduce with multiple test executions from this group
-   - Tests passed: ClientTest_RestartInjected#testPathValidation, ZooKeeperQuotaTest_RestartInjected (multiple methods)
-   - The failure is timing-dependent: sometimes the client reconnects quickly enough, sometimes not
-   - This is a classic race condition symptom
-
-4. **Why This Is Correct Behavior:**
-   - ConnectionLossException is the proper ZooKeeper response when a client is not connected
-   - From ZooKeeper.create() at ZooKeeper.java:1347, throwing ConnectionLossException during disconnection is documented behavior
-   - In production, applications are expected to handle ConnectionLossException by:
-     - Retrying the operation after reconnection
-     - Waiting for connection state to become CONNECTED
-     - Implementing proper error handling
-
-5. **Client Connection Handling:**
-   - The test uses `createClient()` which internally creates a CountdownWatcher (ClientBase.java:189)
-   - CountdownWatcher provides `waitForConnected()` method for waiting for reconnection (ClientBase.java:133-145)
-   - However, the test does not have access to the watcher and does not wait for reconnection
-   - The test assumes the client is always connected, which is not true after a restart
-
-**Why This Is FP (Not TEST-BUG):**
-
-While one might argue this is a TEST-BUG (test should wait for reconnection), it is classified as FP because:
-
-1. **Artificial Timing Issue:** The restart position creates an artificial race condition that wouldn't occur in normal operation. Restarting immediately after creating a node and then immediately trying to use the client is an artificial test scenario.
-
-2. **Expected Exception:** ConnectionLossException is not indicating a bug - it's correctly reporting the connection state. The production code is working as designed.
-
-3. **Improper Restart Position:** The restart at "after_create_parent" followed by immediate client operations creates a timing window where disconnection is expected. This is a consequence of the restart injection strategy, not a code issue.
-
-4. **Test Logic Is Sound:** The test logic itself is correct for normal operation (without restart injection). The test is not "buggy" - it's just that the restart injection creates a state (disconnected) that the test wasn't designed to handle.
-
-**Evidence from Test Execution:**
-```
-Location: ClientTest_RestartInjected.java:737-754
-Restart Position: after_create_parent
-Failure Point: Line 754 - zk.create("/createseqpar/", ...)
-Exception: ConnectionLossException
-```
-
-**Reproduction Attempts:**
-- Test 1: ClientTest_RestartInjected#testPathValidation (after_create_parent) - PASSED
-- Test 2: ZooKeeperQuotaTest_RestartInjected#testSetQuotaWhenCreateNodeExceedBytesQuota - PASSED  
-- Test 3: ZooKeeperQuotaTest_RestartInjected#testSetQuotaWhenExceedCountSoftQuota - PASSED
-- Test 4: ZooKeeperQuotaTest_RestartInjected#testSetQuotaWhenExceedCountHardQuota - PASSED
-- Test 6: ZooKeeperQuotaTest_RestartInjected#testSetQuotaWhenExceedCountHardQuotaExtend - PASSED
-- Test 7: ZooKeeperQuotaTest_RestartInjected#testSetQuotaWhenSetQuotaLessThanExistCount - PASSED
-- Test 9: ACLRootTest_RestartInjected#testRootAcl - PASSED
-
-**Conclusion:**
-ConnectionLossException is expected and correct behavior when a ZooKeeper client loses connection during a server restart. This is not a bug in the production code or test code, but rather a consequence of the restart injection creating a temporary disconnection state. In production systems, applications properly handle this exception through retry logic or connection state monitoring.
 
 ### Generalized Stack Trace
 ```
@@ -288,6 +217,72 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 	at org.apache.zookeeper.KeeperException.create(KeeperException.java:53)
 	at org.apache.zookeeper.ZooKeeper.create(ZooKeeper.java:1347)
 	at org.apache.zookeeper.test.ClientTest_RestartInjected.testPathValidation(ClientTest_RestartInjected.java:754)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:686)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:212)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:208)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:71)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:135)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:248)
+	at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$5(DefaultLauncher.java:211)
+	at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:226)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:199)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:132)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:142)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:113)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+
 ```
 
 ### Sample Test Executions
@@ -317,87 +312,14 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 - Execution Dir: `051-db484385`
 
 ---
+
 ## Group 3 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 46
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$ConnectionLossException
-
-**Diagnosis:** FP - Inappropriate restart position causes expected ConnectionLossException
-
-**Root Cause:**
-The restart is injected at an improper position that breaks the test's logical flow. The test `testSendCloseSession()` is designed to test connection management and session closing behavior, not data persistence across restarts. The restart injection disrupts the expected continuous connection that the test relies on.
-
-**Detailed Analysis:**
-
-1. **Test Purpose**: The original test (NettyServerCnxnTest.java:110-141) verifies that when a session is closed via `sendCloseSession()`, the server properly cleans up connections and removes watches. It's testing connection-level behavior, not persistence.
-
-2. **Restart Injection Timing**: The restart is injected between line 120 (`zk.create()`) and line 128 (`zk.exists()`), breaking the connection that the test expects to maintain.
-
-3. **Connection Lifecycle**:
-   - Line 115: Client creates connection to server
-   - Line 120: Client creates znode "/a"
-   - Line 121-126: **Server restarts (GRACEFUL mode)**
-   - Line 128: Client tries to call `zk.exists()` → **ConnectionLossException**
-
-4. **Why ConnectionLossException Occurs**:
-   From test logs:
-   ```
-   09:54:02,827 - Server shutdown begins
-   09:54:02,828 - Client detects disconnection: "Session 0x1046f1189f90000... Attempting reconnect"
-   09:54:02,848 - Restart completes
-   09:54:04,464 - Client reconnects (~1.6 seconds later)
-   ```
-   The test tries to execute `zk.exists()` immediately after restart completes, but the client hasn't reconnected yet. The ConnectionLossException is **expected ZooKeeper behavior** when a client attempts an operation while disconnected.
-
-5. **This is NOT a Bug**:
-   - ZooKeeper clients are designed to throw ConnectionLossException when the connection is lost
-   - Applications are expected to handle reconnection and retry logic
-   - The production code is working correctly - the server restarts successfully and accepts reconnections
-   - The test code is also correct for its original purpose (testing without restarts)
-
-6. **Why This is a False Positive**:
-   - The restart position is semantically inappropriate: it doesn't test a meaningful restart scenario
-   - The test wasn't designed to handle mid-execution restarts; it tests session management with a continuous connection
-   - The failure is an artifact of restart injection at a position that breaks test assumptions, not a real bug
-   - If the goal were to test persistence, the restart should occur after the complete test sequence, not mid-flow
-   - The test explicitly checks connection counts (line 137) and watch counts (line 135), which require examining the same server instance without restarts
-
-**Comparison with Original Test:**
-Original (NettyServerCnxnTest.java:118-120):
-```java
-zk.create(path, "test".getBytes(...), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
-// set on watch
-assertNotNull(zk.exists(path, true), "Didn't create znode:" + path);
-```
-
-Restart-injected version adds restart in between:
-```java
-zk.create(path, "test".getBytes(...), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
-RestartFramework.at("after_create_znode")
-    .on(this)
-    .restart("server")
-    .withIndex(0)
-    .withMode(RestartMode.GRACEFUL)
-    .execute();  // <-- Connection lost here
-// set on watch - THIS FAILS because client not yet reconnected
-assertNotNull(zk.exists(path, true), "Didn't create znode:" + path);
-```
-
-**Evidence from Test Logs:**
-File: zookeeper-server/target/surefire-reports/org.apache.zookeeper.server.NettyServerCnxnTest_RestartInjected-output.txt
-
-The logs show:
-1. Server successfully shuts down and restarts
-2. Client detects disconnection and initiates reconnection
-3. Server comes back up and is ready to accept connections
-4. Reconnection completes ~1.6 seconds after restart
-5. Test fails because it doesn't wait for reconnection before calling `zk.exists()`
-
-**Conclusion:**
-This is a False Positive caused by inappropriate restart injection that disrupts a test designed to verify connection management with a continuous session. The ConnectionLossException is expected behavior, not a bug. The restart framework should not inject restarts at positions that fundamentally alter the test's semantic meaning.
 
 ### Generalized Stack Trace
 ```
@@ -515,73 +437,11 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 
 ## Group 4 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 35
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$ConnectionLossException
-
-**Diagnosis:** FP (False Positive) - Inappropriate restart timing causes client reconnection race condition and lost watch removal events
-
-**Root Cause:**
-The test failure is caused by the restart position "after_remove_child_watches" occurring at a point where it creates two timing-related issues that would not occur in normal ZooKeeper operations:
-
-1. **Client Reconnection Race Condition**: The RestartFramework waits for the server to be "up" after restart, but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test calls `zk1.setData()` immediately after restart, the client state still shows "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-2. **Lost WatchRemoved Events**: The `removeWatches()` calls complete successfully (RPC response received), but the WatchRemoved events that should be delivered to the watcher objects are separate asynchronous messages. When the server restarts immediately after removeWatches returns, these events are lost during the disconnection. The test waits for these events (via `w1.matches()`) and times out when they never arrive.
-
-**Detailed Analysis:**
-
-Test execution flow at RemoveWatchesTest_RestartInjected.java:
-1. Lines 471-472: `removeWatches()` is called to remove child watchers w1 and w2
-   - The removeWatches RPC completes successfully
-   - WatchRemoved events should be sent to watchers asynchronously
-2. Lines 473-478: Server restart happens at position "after_remove_child_watches"
-   - RestartFramework.execute() waits for server to be up
-   - Does NOT wait for clients to reconnect
-   - WatchRemoved events are lost during disconnection
-3. Line 479: `zk1.setData()` is called immediately after restart
-   - **FAILS with ConnectionLossException** because zk1 hasn't reconnected yet
-   - Client state shows "CONNECTED" but this is stale state
-   - Actual reconnection happens 1+ seconds later
-
-**Evidence from Logs:**
-```
-2025-12-17 10:04:13,952 - After restart completes
-2025-12-17 10:04:13,952 - zk1 state: CONNECTED (stale state)
-2025-12-17 10:04:13,952 - zk2 state: CONNECTED (stale state)
-2025-12-17 10:04:14,127 - SessionTrackerImpl exited (server shutting down)
-2025-12-17 10:04:15,305 - Client trying to reconnect (1.3 seconds after restart completed)
-```
-
-**Why This is FP, Not a Bug:**
-
-This is classified as a False Positive because:
-
-1. **Not a Production Code Issue**: ZooKeeper's production code is working correctly. The ConnectionLossException is the correct behavior when a client attempts an operation before reconnecting.
-
-2. **Artificial Timing Constraint**: In real ZooKeeper deployments:
-   - Applications handle ConnectionLossException by retrying operations
-   - Applications don't rely on receiving specific WatchRemoved events
-   - Server restarts don't happen with microsecond-precise timing relative to operations
-
-3. **Restart Position Problem**: The restart position "after_remove_child_watches" is inappropriate because:
-   - It doesn't account for client reconnection time
-   - It doesn't account for asynchronous event delivery
-   - It creates race conditions that wouldn't exist in real usage
-
-4. **RestartFramework Limitation**: The ClientBaseAdapter.waitActive() method only waits for the server to be accepting connections, not for existing clients to reconnect. This is a limitation of the restart injection approach, not a ZooKeeper bug.
-
-**Correct Behavior in Production:**
-- When servers restart, clients automatically detect disconnection and reconnect
-- Applications handle ConnectionLossException by retrying
-- Watch state is maintained correctly during reconnection (watches stay removed if they were removed)
-- Applications don't depend on timing of event delivery during network disruptions
-
-**Adapter Location:**
-/home/shuai/xlab/restart_testing/zookeeper/zookeeper-restart-adapter/src/main/java/org/restarttest/adapter/zookeeper/ClientBaseAdapter.java:68-78
-
-The `waitActive()` method calls `ClientBase.waitForServerUp()` which only verifies the server is accepting connections, not that existing clients have reconnected.
 
 ### Generalized Stack Trace
 ```
@@ -748,23 +608,11 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 
 ## Group 5 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 25
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$ConnectionLossException
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -879,23 +727,11 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 
 ## Group 7 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 22
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$ConnectionLossException
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -1063,23 +899,11 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 
 ## Group 8 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 22
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$ConnectionLossException
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -1246,23 +1070,11 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 
 ## Group 9 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 18
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$ConnectionLossException
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -1429,23 +1241,11 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 
 ## Group 10 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 16
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$ConnectionLossException
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -1562,23 +1362,11 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 
 ## Group 12 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 13
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$ConnectionLossException
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -1695,23 +1483,11 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 
 ## Group 13 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 10
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$ConnectionLossException
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -1826,86 +1602,11 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 
 ## Group 14 (Priority 2)
 
-**Status:** [X] TEST-BUG
+**Status:** [ ] Not started
 
 **Execution Count:** 10
 
 **Priority Reason:** Test bug - java.lang.NullPointerException thrown from test code
-
-**Diagnosis:** TEST-BUG - Test helper method doesn't handle null results from async multi operations after CONNECTIONLOSS
-
-**Root Cause:**
-The test's `multi()` helper method at MultiOperationTest_RestartInjected.java:93-130 doesn't properly handle the case when async multi operations receive `null` results due to CONNECTIONLOSS after server restart.
-
-**Detailed Analysis:**
-1. After server restart (line 1032-1037), the test immediately attempts an async multi operation (line 1042)
-2. The ZooKeeper client reports `State:CONNECTED`, but the async operation encounters CONNECTIONLOSS (rc = -4)
-3. When CONNECTIONLOSS occurs, the async callback receives `opResults = null` (line 102)
-4. The multi() helper has logic at lines 119-122 that only throws exceptions for non-READ operations:
-   ```java
-   // In case of only OpKind.READ operations, no exception is thrown. Errors only marked in form of ErrorResults.
-   if (KeeperException.Code.OK.intValue() != res.rc && ops.iterator().next().getKind() != Op.OpKind.READ) {
-       KeeperException ke = KeeperException.create(KeeperException.Code.get(res.rc));
-       throw ke;
-   }
-   return res.results;  // Returns null without checking!
-   ```
-5. Since `Op.getChildren` is a READ operation, the method returns `res.results` which is `null`
-6. The test then calls `multiChildrenList.size()` at line 1044, causing NullPointerException
-
-**Key Evidence:**
-- Test logs show: `DEBUG multi() callback: rc = -4, opResults = null`
-- Test logs show: `DEBUG multi() returning: null`
-- Test logs show: `DEBUG: multiChildrenList = null`
-- The synchronous version (useAsync=false) works fine because it blocks and succeeds
-- Only the async version (useAsync=true) fails with CONNECTIONLOSS
-
-**Buggy Code Location:**
-File: zookeeper-server/src/test/java/org/apache/zookeeper/test/MultiOperationTest_RestartInjected.java
-
-Lines 119-124 (multi() method):
-```java
-// In case of only OpKind.READ operations, no exception is thrown. Errors only marked in form of ErrorResults.
-if (KeeperException.Code.OK.intValue() != res.rc && ops.iterator().next().getKind() != Op.OpKind.READ) {
-    KeeperException ke = KeeperException.create(KeeperException.Code.get(res.rc));
-    throw ke;
-}
-return res.results;  // BUG: Can return null when rc = CONNECTIONLOSS
-```
-
-Line 1044 (testMultiGetChildrenAuthentication):
-```java
-List<OpResult> multiChildrenList = multi(zk, Arrays.asList(Op.getChildren("/foo_auth")), useAsync);
-assertEquals(multiChildrenList.size(), 1);  // BUG: No null check before using multiChildrenList
-```
-
-**Potential Fix:**
-The multi() method should handle the null result case when there's a CONNECTIONLOSS:
-
-```java
-// In case of only OpKind.READ operations, no exception is thrown. Errors only marked in form of ErrorResults.
-if (KeeperException.Code.OK.intValue() != res.rc) {
-    // If results is null or not a READ operation, throw exception
-    if (res.results == null || ops.iterator().next().getKind() != Op.OpKind.READ) {
-        KeeperException ke = KeeperException.create(KeeperException.Code.get(res.rc));
-        throw ke;
-    }
-}
-return res.results;
-```
-
-Alternatively, check for null in the calling code:
-```java
-List<OpResult> multiChildrenList = multi(zk, Arrays.asList(Op.getChildren("/foo_auth")), useAsync);
-assertNotNull(multiChildrenList, "multi() should not return null");
-assertEquals(multiChildrenList.size(), 1);
-```
-
-**Impact:**
-This is a test code issue. The test's helper method doesn't properly handle async operation errors after restart. The production ZooKeeper code is working correctly - it properly returns CONNECTIONLOSS when async operations are attempted during connection instability. The test should handle this gracefully rather than crashing.
-
-**Note:**
-The same bug exists in the original MultiOperationTest.java at the same lines, inherited by the RestartInjected version. Without restart injection, the CONNECTIONLOSS scenario doesn't occur, so the bug is never triggered in normal testing.
 
 ### Generalized Stack Trace
 ```
@@ -2065,23 +1766,11 @@ java.lang.NullPointerException
 
 ## Group 16 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 8
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$ConnectionLossException
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -2198,23 +1887,11 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 
 ## Group 17 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 7
 
 **Priority Reason:** Application exception - Caused by
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -2340,23 +2017,11 @@ Caused by: org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperE
 
 ## Group 18 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 6
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$ConnectionLossException
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -2475,23 +2140,11 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 
 ## Group 19 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 5
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$ConnectionLossException
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -2606,23 +2259,11 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 
 ## Group 21 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 4
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$ConnectionLossException
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -2737,23 +2378,11 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 
 ## Group 23 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 3
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$ConnectionLossException
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -2916,23 +2545,11 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 
 ## Group 24 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 3
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$ConnectionLossException
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -3047,23 +2664,11 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 
 ## Group 25 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 3
 
 **Priority Reason:** Application exception - Caused by
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -3190,23 +2795,11 @@ Caused by: org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperE
 
 ## Group 26 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 2
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$ConnectionLossException
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -3317,109 +2910,11 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 
 ## Group 28 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 2
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$SessionExpiredException
-
-**Diagnosis:** FP (False Positive) - Local session expiration due to inappropriate restart timing
-
-**Root Cause:**
-This SessionExpiredException occurs because the test uses **local sessions** (enabled at line 61: `localSessionsEnabled = true`), and local sessions are designed to be tied to specific servers and do NOT survive server restarts. The restart happens immediately after client creation at the "after_create_client" position, before the test can reach its intended functionality (multi-op session upgrade testing at lines 99-107).
-
-**Detailed Analysis:**
-
-1. **Test Setup (lines 58-64):** The test explicitly enables local sessions via `localSessionsEnabled = true` and `localSessionsUpgradingEnabled = true`
-
-2. **Client Creation (line 68):** `final ZooKeeper zk = createClient()` creates a client that establishes a LOCAL session with one of the servers
-
-3. **Immediate Restart (lines 70-74):** The RestartFramework restarts the leader immediately after client creation with GRACEFUL mode
-
-4. **Session Loss:** Local sessions are lightweight, server-specific sessions that:
-   - Are NOT replicated across the ensemble
-   - Do NOT survive server restarts
-   - Are lost when their host server shuts down
-   - Are designed for read-heavy workloads that can tolerate session loss
-
-5. **Expected Behavior:** When the leader (or the server hosting the local session) is restarted, the local session is correctly expired by the ZooKeeper system
-
-6. **Test Failure (line 78/96):** The test attempts to create a node using the expired session, resulting in SessionExpiredException
-
-**Why This is FP:**
-
-1. **Correct Production Behavior:** Local session expiration during server restart is EXPECTED and CORRECT behavior per ZooKeeper's design
-
-2. **Inappropriate Restart Position:** The "after_create_client" restart position prevents the test from reaching its intended logic - testing session upgrade during multi-op operations (lines 99-107)
-
-3. **Test Purpose Disrupted:** This test is meant to verify that local sessions can be upgraded to global sessions during multi-op operations. The restart injection makes this impossible to test
-
-4. **RestartFramework Limitation:** The framework doesn't understand that:
-   - Local sessions don't survive server restarts
-   - Tests need time to establish stable sessions before restarts
-   - Some restart positions are inappropriate for tests using local sessions
-
-5. **Similar to Group 29:** This is the same class of false positive as ConnectionLossException failures - the restart framework injects restarts at times that cause expected, correct client-side exceptions
-
-6. **Production Scenario Unrealistic:** In production, applications using local sessions understand they can expire and handle it gracefully. No application would immediately restart a server right after a client connects.
-
-**Evidence from Test Code:**
-
-File: MultiOpSessionUpgradeTest_RestartInjected.java
-
-Lines 58-64: Test configuration
-```java
-@BeforeEach
-@Override
-public void setUp() throws Exception {
-    localSessionsEnabled = true;              // Enables local sessions
-    localSessionsUpgradingEnabled = true;     // Enables local-to-global upgrades
-    super.setUp();
-}
-```
-
-Lines 67-78 (original): The failure sequence
-```java
-public void ephemeralCreateMultiOpTest() throws KeeperException, InterruptedException, IOException {
-    final ZooKeeper zk = createClient();  // Creates client with LOCAL session
-    RestartFramework.at("after_create_client")
-        .on(this)
-        .restart("leader")
-        .withIndex(0)
-        .withMode(RestartMode.GRACEFUL)
-        .execute();                       // Restarts leader, killing local session
-
-    String data = "test";
-    String path = "/ephemeralcreatemultiop";
-    zk.create(path, new byte[0], ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);  // SessionExpiredException
-```
-
-Lines 99-107: The actual test logic that should be tested (never reached due to restart)
-```java
-try {
-    multi = zk.multi(Arrays.asList(  // Multi-op that should trigger session upgrade
-            Op.setData(path, data.getBytes(), 0),
-            Op.create(path + "/e", data.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL),
-            Op.create(path + "/p", data.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT),
-            Op.create(path + "/q", data.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL)));
-} catch (KeeperException.SessionExpiredException e) {
-    // The test explicitly expects NO SessionExpiredException during multi-op
-    fail("received session expired for a session promotion in a multi-op");
-}
-```
-
-**Key Documentation:**
-- ZooKeeper's local sessions are documented as lightweight sessions that don't survive server failures
-- They are meant for scenarios where session loss is acceptable
-- Global sessions (the default) survive server restarts because they're replicated
-- The test is specifically testing the upgrade path from local to global sessions
-
-**Reproduction Confirmed:**
-✓ Successfully reproduced using: `mvn surefire:test -Dtest=MultiOpSessionUpgradeTest_RestartInjected#ephemeralCreateMultiOpTest -Drestart.position=after_create_client -Drestart.target=leader -Drestart.mode=GRACEFUL`
-✓ Even with added 2-second wait for reconnection, session remains expired (confirming it's truly lost, not just disconnected)
-
-**Conclusion:**
-This is NOT a bug in ZooKeeper. Local sessions are working as designed. The SessionExpiredException is the correct response when attempting to use a local session after its host server has restarted. The false positive is caused by the restart framework injecting a restart at a position that makes the test's actual functionality (session upgrade testing) impossible to execute.
 
 ### Generalized Stack Trace
 ```
@@ -3526,23 +3021,11 @@ org.apache.zookeeper.KeeperException$SessionExpiredException: KeeperErrorCode = 
 
 ## Group 29 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 2
 
 **Priority Reason:** Application exception - Caused by
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -3656,24 +3139,11 @@ Caused by: org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperE
 
 ## Group 30 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 2
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$ConnectionLossException
-
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -3784,23 +3254,11 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 
 ## Group 31 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 1
 
 **Priority Reason:** Application exception - Caused by
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -3906,23 +3364,11 @@ Caused by: org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperE
 
 ## Group 32 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 1
 
 **Priority Reason:** Application exception - Caused by
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -4030,24 +3476,11 @@ Caused by: org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperE
 
 ## Group 33 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 1
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$ConnectionLossException
-
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -4146,23 +3579,11 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 
 ## Group 35 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 1
 
 **Priority Reason:** Application exception - Caused by
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -4272,24 +3693,11 @@ Caused by: org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperE
 
 ## Group 36 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 1
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$ConnectionLossException
-
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -4388,23 +3796,11 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 
 ## Group 37 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 1
 
 **Priority Reason:** Application exception - Caused by
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -4513,24 +3909,11 @@ Caused by: org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperE
 
 ## Group 38 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 1
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$ConnectionLossException
-
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -4635,24 +4018,11 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 
 ## Group 39 (Priority 2)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 1
 
 **Priority Reason:** Application exception - org.apache.zookeeper.KeeperException$ConnectionLossException
-
-**Diagnosis:** FP (False Positive) - Client reconnection race condition after server restart
-
-**Root Cause:**
-This ConnectionLossException is caused by the same issue as Group 4 (see detailed analysis in Group 4). The RestartFramework waits for the server to be "up" after restart but does not wait for existing client connections to detect disconnection and successfully reconnect. When the test performs ZooKeeper operations immediately after restart, the client state may still show "CONNECTED" (stale state from before restart), but the actual connection is dead, resulting in ConnectionLossException.
-
-**Why This is FP:**
-1. **Production code is correct**: ConnectionLossException is the proper behavior when a client attempts an operation before reconnecting
-2. **RestartFramework limitation**: The adapter only waits for server up, not for client reconnection
-3. **Expected behavior**: In production, applications handle ConnectionLossException by retrying operations
-4. **Not a bug**: This is a timing artifact of the restart injection, not a ZooKeeper bug
-
-**Reference:** See Group 4 for detailed analysis of this class of failures.
 
 ### Generalized Stack Trace
 ```
@@ -4753,82 +4123,11 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 
 ## Group 1 (Priority 3)
 
-**Status:** [X] TEST-BUG
+**Status:** [ ] Not started
 
 **Execution Count:** 182
 
 **Priority Reason:** Exception with restart framework involvement
-
-**Diagnosis:** TEST-BUG - Missing field initialization in QuorumPeerTestBase.MainThread constructor
-
-**Root Cause:**
-The `QuorumPeerTestBase.MainThread` constructor at line 203 fails to initialize the `myid` and `clientPort` instance fields, causing `getClientPort()` to return 0 (the default int value) instead of the actual port number assigned during construction.
-
-**Detailed Analysis:**
-1. The test creates a `MainThread` instance using the constructor chain starting at line 175 of QuorumPeerTestBase.java
-2. This constructor chain ultimately calls the final constructor at lines 203-260
-3. This constructor receives `clientPort` as a parameter and writes it to the config file (line 233)
-4. However, it NEVER assigns the parameter to the instance field: `this.clientPort = clientPort;`
-5. Similarly, it never assigns: `this.myid = myid;`
-6. When the MainThreadAdapter calls `cluster.getClientPort()` at line 71, it returns 0
-7. The adapter then tries to wait for the server at "127.0.0.1:0" which fails
-
-**Buggy Code Location:**
-File: zookeeper-server/src/test/java/org/apache/zookeeper/server/quorum/QuorumPeerTestBase.java
-Lines: 203-260 (specifically missing assignments after line 203)
-
-**Comparison with Working Constructor:**
-The older constructor at lines 116-161 correctly initializes these fields:
-```java
-public MainThread(int myid, int clientPort, String quorumCfgSection, Map<String, String> otherConfigs, int tickTime) throws IOException {
-    baseDir = ClientBase.createTmpDir();
-    this.myid = myid;              // ✓ Field correctly initialized
-    this.clientPort = clientPort;  // ✓ Field correctly initialized
-    this.quorumCfgSection = quorumCfgSection;
-    this.otherConfigs = otherConfigs;
-    ...
-}
-```
-
-But the newer constructor at line 203 is missing these assignments:
-```java
-public MainThread(int myid, int clientPort, int adminServerPort, Integer secureClientPort, String quorumCfgSection, String configs, String peerType, boolean writeDynamicConfigFile, String version) throws IOException {
-    tmpDir = ClientBase.createTmpDir();
-    // ✗ MISSING: this.myid = myid;
-    // ✗ MISSING: this.clientPort = clientPort;
-
-    LOG.info("id = {} tmpDir = {} clientPort = {} adminServerPort = {}", myid, tmpDir, clientPort, adminServerPort);
-    ...
-}
-```
-
-**Evidence:**
-Debug logging added to MainThreadAdapter.waitActive() confirms the issue:
-```
-DEBUG: waitActive called, getClientPort() returned: 0
-DEBUG: Attempting to wait for server at: 127.0.0.1:0
-```
-
-**Potential Fix:**
-Add the missing field initializations at the beginning of the constructor (after line 203):
-```java
-public MainThread(int myid, int clientPort, int adminServerPort, Integer secureClientPort, String quorumCfgSection, String configs, String peerType, boolean writeDynamicConfigFile, String version) throws IOException {
-    this.myid = myid;              // ADD THIS LINE
-    this.clientPort = clientPort;  // ADD THIS LINE
-    this.quorumCfgSection = quorumCfgSection;  // ADD THIS LINE
-
-    tmpDir = ClientBase.createTmpDir();
-    LOG.info("id = {} tmpDir = {} clientPort = {} adminServerPort = {}", myid, tmpDir, clientPort, adminServerPort);
-    ...
-}
-```
-
-**Impact:**
-This is a test infrastructure bug. All tests that use the MainThread constructor with the `writeDynamicConfigFile` parameter (which goes through this constructor chain) will experience this issue when attempting to restart. The production ZooKeeper code is not affected.
-
-**Reproduction Verified:**
-✓ Successfully reproduced with: `mvn surefire:test -Dtest=Slf4JAuditLoggerTest_RestartInjected#testEphemralZNodeAuditLogs -Drestart.position=after_create_ephemeral_audit -Drestart.target=server -Drestart.mode=GRACEFUL`
-✓ Error consistently shows: `QuorumPeer failed to start at 127.0.0.1:0`
 
 ### Generalized Stack Trace
 ```
@@ -4950,58 +4249,11 @@ Caused by: java.lang.Exception: QuorumPeer failed to start at 127.0.0.1:0
 
 ## Group 6 (Priority 3)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 23
 
 **Priority Reason:** Exception with restart framework involvement
-
-**Diagnosis:** FP - Restart framework incompatibility with Oracle-based leader election
-
-**Root Cause:**
-The test uses QuorumBase with Oracle mode enabled (`qb.setUp(true, true)` at CheckTest_RestartInjected.java:123), which implements a special leader election mechanism where servers consult external oracle files to determine leadership eligibility. When a follower server restarts in this configuration, it becomes stuck in LOOKING state and cannot rejoin the cluster, causing the restart framework's `waitActive()` check to timeout.
-
-**Detailed Analysis:**
-1. The test restarts a follower server (server 1, myid=1 at 127.0.0.1:11234) at position "after_follower_test"
-2. The server restarts successfully and begins participating in the cluster (processing stat commands)
-3. However, server 1 enters LOOKING state for leader election and continuously receives notifications that server 3 is the current leader
-4. The oracle logic rejects following server 3 with message "Oracle indicates not to follow"
-5. Server 1 remains stuck in LOOKING state, refusing to join as a follower
-6. The restart framework's `waitActive()` method waits for all servers to be responsive, but server 1 never completes leader election and times out after 30 seconds
-7. Error thrown: "Server failed to start at 127.0.0.1:11234"
-
-**Evidence from Logs:**
-From the test output (lines 1141-1327 in surefire report):
-```
-2025-12-17 12:46:51,574 [myid:] - INFO  [QuorumPeer[myid=1](plain=127.0.0.1:11234)(secure=disabled):o.a.z.s.q.FastLeaderElection@1206] - Oracle indicates not to follow
-...
-2025-12-17 12:47:10,781 [myid:] - INFO  [WorkerReceiver[myid=1]:...] - Notification: my state:LOOKING; n.sid:3, n.state:LEADING, n.leader:3, n.round:0x1...
-2025-12-17 12:47:10,781 [myid:] - INFO  [QuorumPeer[myid=1](plain=127.0.0.1:11234)(secure=disabled):o.a.z.s.q.FastLeaderElection@1206] - Oracle indicates not to follow
-```
-
-Server 1 is stuck in LOOKING state and repeatedly refuses to follow the existing leader due to oracle constraints.
-
-**Oracle Configuration:**
-The test sets up oracle files in `createOraclePath()` (QuorumBase.java:144-175):
-- oraclePath_0, oraclePath_2, oraclePath_4 → "/oraclePath/0/mastership/" with value "1" (can lead)
-- oraclePath_1, oraclePath_3 → "/oraclePath/1/mastership/" with value "0" (cannot lead)
-
-Servers 1, 3, and 5 share oracle path with value "1", but the oracle logic still prevents server 1 from following server 3 after restart.
-
-**Why This is a False Positive:**
-1. **Oracle mode is not a production configuration**: Oracle-based leader election is used for specific research/testing scenarios, not standard ZooKeeper deployments
-2. **Restart framework incompatibility**: The restart framework was not designed to handle the complex oracle-based election constraints
-3. **Artificial constraint**: The oracle logic creates an election deadlock that wouldn't occur in normal deployments
-4. **Test configuration issue**: Restarting servers in oracle-enabled clusters at arbitrary positions causes unexpected election behavior
-5. **No production bug**: This reveals a limitation of the restart testing framework with oracle mode, not a bug in ZooKeeper's core functionality
-
-**Impact:**
-This is not a real bug. The restart framework should either:
-- Skip restart injection for oracle-enabled tests, or
-- Implement oracle-aware restart logic that properly handles leader election constraints
-
-**Affected Tests:**
-All 23 test executions in this group involve oracle-enabled QuorumBase clusters and fail with the same "Server failed to start" error due to the restarted server being stuck in LOOKING state.
 
 ### Generalized Stack Trace
 ```
@@ -5123,84 +4375,11 @@ Caused by: java.lang.Exception: Server failed to start at 127.0.0.1:11234
 
 ## Group 11 (Priority 3)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 13
 
 **Priority Reason:** Exception with restart framework involvement
-
-**Diagnosis:** FP (False Positive) - RestartTestingFramework adapter selection bug
-
-**Root Cause:**
-The failure is caused by a bug in the RestartTestingFramework's adapter selection logic, not by ZooKeeper code. The framework incorrectly selected `ClientBaseAdapter` for tests that extend `QuorumBase`, when it should have selected `QuorumBaseAdapter`.
-
-**Detailed Analysis:**
-
-1. **Test Class Hierarchy:**
-   - `QuorumRequestPipelineTest_RestartInjected` extends `QuorumBase` (line 48 in QuorumRequestPipelineTest_RestartInjected.java)
-   - `QuorumBase` extends `ClientBase` (line 46 in QuorumBase.java)
-
-2. **Available Adapters:**
-   - `ClientBaseAdapter`: Designed for standalone server tests, supports node roles: "server", "all"
-   - `QuorumBaseAdapter`: Designed for quorum cluster tests, supports node roles: "leader", "follower", "observer", "server", "all"
-   - Both registered via META-INF/services/org.restarttest.core.ClusterAdapter
-
-3. **The Adapter Selection Bug:**
-   - The test attempts to restart with target="leader" or "follower"
-   - The framework's `AdapterRegistry.getAdapter()` method (RestartTestingFramework/restart-core/src/main/java/org/restarttest/core/AdapterRegistry.java:139-150):
-     ```java
-     // First try exact match
-     ClusterAdapter<T> adapter = (ClusterAdapter<T>) adapters.get(clusterType);
-     if (adapter != null) {
-         return adapter;
-     }
-
-     // If no exact match, check inheritance
-     for (Map.Entry<Class<?>, ClusterAdapter<?>> entry : adapters.entrySet()) {
-         if (entry.getKey().isAssignableFrom(clusterType)) {
-             return (ClusterAdapter<T>) entry.getValue();
-         }
-     }
-     ```
-   - The adapters are stored in a `ConcurrentHashMap`, which has non-deterministic iteration order
-   - When checking inheritance, `ClientBase.isAssignableFrom(QuorumBase)` returns true because QuorumBase extends ClientBase
-   - Due to hash map ordering, `ClientBaseAdapter` is sometimes checked before `QuorumBaseAdapter`, causing it to be selected
-   - `ClientBaseAdapter` does not support "leader" or "follower" roles, so it throws: `IllegalArgumentException: Unknown node role: leader. Supported: server, all`
-
-4. **Why This Is Non-Deterministic:**
-   - ConcurrentHashMap does not guarantee iteration order
-   - Sometimes the framework selects the correct adapter (QuorumBaseAdapter), and the test passes
-   - Sometimes it selects the wrong adapter (ClientBaseAdapter), and the test fails
-   - This explains why the test cannot be reliably reproduced
-
-5. **Verification:**
-   - Attempted to reproduce the failure with the first test execution:
-     ```
-     mvn surefire:test -Dtest=QuorumRequestPipelineTest_RestartInjected#testSetAndGetACL \
-       -Drestart.position=after_get_acl -Drestart.target=leader -Drestart.mode=GRACEFUL
-     ```
-   - Test PASSED - framework selected QuorumBaseAdapter correctly this time
-   - Log shows: `Registered adapter for cluster type: org.apache.zookeeper.test.QuorumBase`
-   - Log shows: `Restarting leader at index 2` from QuorumBaseAdapter
-
-**Why This Is FP (Not a Bug in ZooKeeper):**
-
-1. **No Production Code Issue:** ZooKeeper's production code works correctly. Both adapters function properly when selected.
-
-2. **No Test Code Issue:** The test code is correct. It properly extends QuorumBase and uses valid restart targets ("leader", "follower").
-
-3. **Framework Bug:** The issue is in the RestartTestingFramework's adapter selection logic, which uses non-deterministic iteration over a ConcurrentHashMap to find matching adapters via inheritance checking.
-
-4. **Proper Fix Would Be in Framework:**
-   - Option 1: Use LinkedHashMap to maintain registration order, and register more specific adapters (QuorumBaseAdapter) before more general ones (ClientBaseAdapter)
-   - Option 2: Modify adapter selection to prefer more specific types (i.e., check if the test type is more specifically assignable)
-   - Option 3: Remove inheritance-based matching and require exact type matches
-
-**Reproduction Attempts:**
-- Test 1: QuorumRequestPipelineTest_RestartInjected#testSetAndGetACL (after_get_acl, leader) - PASSED (QuorumBaseAdapter selected)
-
-**Conclusion:**
-This is a False Positive caused by a bug in the RestartTestingFramework's adapter selection logic. The framework sometimes selects the wrong adapter due to non-deterministic hash map iteration order when checking type inheritance. This is not a ZooKeeper bug and does not indicate any issues with ZooKeeper's restart behavior or quorum functionality.
 
 ### Generalized Stack Trace
 ```
@@ -5382,76 +4561,11 @@ Caused by: java.lang.IllegalArgumentException: Unknown node role: leader. Suppor
 
 ## Group 15 (Priority 3)
 
-**Status:** [X] TEST-BUG
+**Status:** [ ] Not started
 
 **Execution Count:** 9
 
 **Priority Reason:** Exception with restart framework involvement
-
-**Diagnosis:** TEST-BUG - Missing field initialization in QuorumPeerTestBase.MainThread constructor
-
-**Root Cause:**
-The test base class `QuorumPeerTestBase.MainThread` has a constructor bug where the `myid` and `clientPort` fields are not initialized. When the restart adapter calls `getClientPort()` to verify the server is running after restart, it returns 0 (the default int value), causing the adapter to wait for the server at "127.0.0.1:0" which fails.
-
-**Detailed Analysis:**
-1. The test creates MainThread instances using the constructor at line 175 in QuorumPeerTestBase.java
-2. This constructor delegates through a chain to the main constructor at line 203
-3. The constructor at line 203 receives `myid` and `clientPort` as parameters and writes them to configuration files
-4. However, it NEVER assigns them to the instance fields `this.myid` and `this.clientPort` (declared at lines 101-102)
-5. As a result, when `getClientPort()` is called (line 398), it returns 0 instead of the actual client port
-6. The restart adapter's `waitActive()` method calls `cluster.getClientPort()` and tries to connect to "127.0.0.1:0"
-7. This causes the restart verification to fail with "QuorumPeer failed to start at 127.0.0.1:0"
-
-**Evidence:**
-Debug logging added to MainThreadAdapter.waitActive() shows:
-```
-DEBUG: Checking if server is active. clientPort = 0, hostPort = 127.0.0.1:0
-```
-
-This confirms getClientPort() returns 0 instead of the actual port number.
-
-**Buggy Code Location:**
-File: zookeeper-server/src/test/java/org/apache/zookeeper/server/quorum/QuorumPeerTestBase.java
-Lines: 203-260 (MainThread constructor)
-
-Missing field initialization:
-```java
-public MainThread(int myid, int clientPort, int adminServerPort, Integer secureClientPort,
-                  String quorumCfgSection, String configs, String peerType,
-                  boolean writeDynamicConfigFile, String version) throws IOException {
-    tmpDir = ClientBase.createTmpDir();
-    // MISSING: this.myid = myid;
-    // MISSING: this.clientPort = clientPort;
-    LOG.info("id = {} tmpDir = {} clientPort = {} adminServerPort = {}", myid, tmpDir, clientPort, adminServerPort);
-    ...
-}
-```
-
-**Potential Fix:**
-Add the missing field assignments at the beginning of the constructor:
-```java
-public MainThread(int myid, int clientPort, int adminServerPort, Integer secureClientPort,
-                  String quorumCfgSection, String configs, String peerType,
-                  boolean writeDynamicConfigFile, String version) throws IOException {
-    tmpDir = ClientBase.createTmpDir();
-    this.myid = myid;          // ADD THIS LINE
-    this.clientPort = clientPort;  // ADD THIS LINE
-    LOG.info("id = {} tmpDir = {} clientPort = {} adminServerPort = {}", myid, tmpDir, clientPort, adminServerPort);
-    ...
-}
-```
-
-**Impact:**
-This is a test infrastructure bug, not a production code issue. The bug is only exposed when restart testing is performed because the original tests don't call `getClientPort()` or `getMyid()` on MainThread instances. The production ZooKeeper code is working correctly.
-
-**Fix Applied and Verified:**
-✓ Applied the fix by adding `this.myid = myid;` and `this.clientPort = clientPort;` at line 205-206 in QuorumPeerTestBase.java
-✓ Recompiled the test code successfully
-✓ Re-ran the test with the same restart parameters: `mvn surefire:test -Dtest=NonRecoverableErrorTest_RestartInjected#testZooKeeperServiceAvailableOnLeader -Drestart.position=after_create_initial_node -Drestart.target=server -Drestart.mode=GRACEFUL`
-✓ **Result: TEST PASSED** - Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
-✓ Debug log confirms clientPort is now correctly set: "DEBUG: Checking if server is active. clientPort = 11222, hostPort = 127.0.0.1:11222"
-
-The fix completely resolves the issue. All tests in this failure group should now pass with the corrected constructor.
 
 ### Generalized Stack Trace
 ```
@@ -5578,68 +4692,11 @@ java.util.concurrent.TimeoutException: testZooKeeperServiceAvailableOnLeader() t
 
 ## Group 20 (Priority 3)
 
-**Status:** [X] TEST-BUG
+**Status:** [ ] Not started
 
 **Execution Count:** 4
 
 **Priority Reason:** Exception with restart framework involvement
-
-**Diagnosis:** TEST-BUG - Test extends wrong base class causing incorrect adapter selection
-
-**Root Cause:**
-The test `HierarchicalQuorumTest_RestartInjected` incorrectly extends `ClientBase` when it should extend `QuorumBase`. This causes the restart framework to select the wrong adapter for server restart operations.
-
-**Detailed Analysis:**
-1. The test extends `ClientBase` (HierarchicalQuorumTest_RestartInjected.java:43) but sets up a **quorum cluster** with 5 QuorumPeer servers (s1-s5), not a standalone server
-2. The test defines server fields (s1, s2, s3, s4, s5) and uses `QuorumBase.shutdown()` (line 288), which are typical of QuorumBase tests
-3. When `RestartFramework.restart("server")` is called, the framework detects the cluster type as `ClientBase` based on the class hierarchy
-4. This routes to `ClientBaseAdapter` which is designed for **standalone server** restarts, not quorum clusters
-5. `ClientBaseAdapter.restartServer()` tries to call `ClientBase.createNewServerInstance()` and bind to `hostPort` (ClientBaseAdapter.java:123)
-6. However, `hostPort` in this test is a comma-separated list of all 5 client ports ("127.0.0.1:port1,127.0.0.1:port2,...")
-7. The actual QuorumPeer servers (s1-s5) are still running and holding those ports
-8. When the adapter tries to bind to the first port, it fails with `BindException: Address already in use`
-
-**The Correct Flow:**
-If the test extended `QuorumBase`, the framework would route to `QuorumBaseAdapter`, which:
-- Understands quorum cluster architecture with fields s1-s5
-- Properly shuts down individual QuorumPeer servers
-- Calls `QuorumBase.setupServer(index)` to recreate servers
-- Handles the restart correctly without port conflicts
-
-**Buggy Code Location:**
-File: zookeeper-server/src/test/java/org/apache/zookeeper/test/HierarchicalQuorumTest_RestartInjected.java
-Line: 43
-
-**Original Code:**
-```java
-public class HierarchicalQuorumTest_RestartInjected extends ClientBase {
-```
-
-**Potential Fix:**
-Change the test to extend `QuorumBase` instead of `ClientBase`, and update field references to match QuorumBase's naming:
-```java
-public class HierarchicalQuorumTest_RestartInjected extends QuorumBase {
-```
-
-Additionally:
-1. Remove duplicate field declarations (s1-s5, s1dir-s5dir, etc.) as they're already in QuorumBase
-2. Rename `leport1-5` to `portLE1-5` to match QuorumBase
-3. Rename `clientport1-5` to `portClient1-5` to match QuorumBase
-4. Remove the `shutdown(QuorumPeer)` wrapper method and use `QuorumBase.shutdown()` directly
-
-**Impact:**
-This is a test code issue, not a production code issue. The test is incompatible with the restart framework due to incorrect base class selection.
-
-**Fix Applied and Verified:**
-✓ Changed class to extend `QuorumBase` instead of `ClientBase`
-✓ Removed duplicate field declarations
-✓ Renamed `leport*` to `portLE*` and `clientport*` to `portClient*`
-✓ Updated `shutdown()` calls to use `QuorumBase.shutdown()` directly
-✓ Recompiled the test successfully
-✓ Re-ran the test with the same restart parameters: `mvn surefire:test -Dtest=HierarchicalQuorumTest_RestartInjected#testHierarchicalQuorum -Drestart.position=before_hammer_test -Drestart.target=server -Drestart.mode=GRACEFUL`
-✓ **Result: TEST PASSED** - Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
-
-The fix completely resolves the BindException issue. The test now correctly uses QuorumBaseAdapter which understands the quorum cluster architecture and can properly restart individual servers.
 
 ### Generalized Stack Trace
 ```
@@ -5779,63 +4836,11 @@ Caused by: java.net.BindException: Address already in use
 
 ## Group 27 (Priority 3)
 
-**Status:** [X] FP
+**Status:** [ ] Not started
 
 **Execution Count:** 2
 
 **Priority Reason:** Exception with restart framework involvement
-
-**Diagnosis:** FP - Inappropriate restart position attempting to restart a follower during leader election
-
-**Root Cause:**
-The test attempts to restart a follower immediately after shutting down the cluster leader, but at this precise moment, the cluster is in the middle of a leader election process. All remaining participant servers are in the LOOKING state (searching for a new leader), not in the FOLLOWING state. Therefore, there are genuinely no followers available to restart at this position.
-
-**Detailed Analysis:**
-At CheckTest_RestartInjected.java:174, the test explicitly shuts down the leader:
-```java
-qb.shutdown(leader);  // Line 174
-```
-
-Immediately after at lines 175-180, the test tries to inject a restart targeting a "follower":
-```java
-RestartFramework.at("after_leader_shutdown")
-    .on(qb)
-    .restart("follower")  // Attempting to restart a follower
-    .withIndex(0)
-    .withMode(RestartMode.GRACEFUL)
-    .execute();
-```
-
-However, at this exact moment, the cluster state is:
-- 3 Participant servers (s1, s2, s3): s1 and s2 are both in LOOKING state, s3 (the former leader) is shut down
-- 2 Observer servers (s4, s5): Both in LOOKING state
-- **0 Followers**: No server is in the FOLLOWING state because leader election is in progress
-
-**Evidence from Debug Logging:**
-```
-2025-12-17 13:27:22,853 - === DEBUG: Checking cluster state to find followers ===
-2025-12-17 13:27:22,853 - Server 0 (s1): isAlive=true, state=LOOKING, learnerType=PARTICIPANT
-2025-12-17 13:27:22,853 - Server 1 (s2): isAlive=true, state=LOOKING, learnerType=PARTICIPANT
-2025-12-17 13:27:22,853 - Server 2 (s3): isAlive=false, state=LOOKING, learnerType=PARTICIPANT
-2025-12-17 13:27:22,853 - Server 3 (s4): isAlive=true, state=LOOKING, learnerType=OBSERVER
-2025-12-17 13:27:22,853 - Server 4 (s5): isAlive=true, state=LOOKING, learnerType=OBSERVER
-2025-12-17 13:27:22,853 - Found 0 followers: []
-```
-
-**Why This Is a False Positive:**
-1. The adapter (QuorumBaseAdapter.java:195-218) correctly checks for followers by examining `peer.getPeerState() == ServerState.FOLLOWING`
-2. At the restart injection point, no peers have `getPeerState() == FOLLOWING` because they are all in LOOKING state
-3. This is expected ZooKeeper behavior - after a leader shutdown, remaining participants enter leader election and are temporarily in LOOKING state
-4. The restart position "after_leader_shutdown" is inappropriate for restarting a follower because at this moment in time, there are legitimately no followers in the cluster
-
-**Why This Is Not a Bug:**
-- Production code is working correctly - servers properly transition to LOOKING state when leader is lost
-- Test code is not buggy - it's testing database reload scenarios after cluster disruption
-- Adapter code is working correctly - it accurately reports that no followers exist at this moment
-- The issue is purely about timing: the restart position was chosen at a moment when the cluster state doesn't support the requested operation (restart a follower when no followers exist)
-
-**Conclusion:**
-This failure is a false positive caused by an improper restart position that doesn't account for the natural cluster state transitions during leader election. The restart framework is correctly reporting that no followers are available at the injection point because the cluster is in an intermediate state where all participants are looking for a new leader.
 
 ### Generalized Stack Trace
 ```
@@ -5955,104 +4960,11 @@ Caused by: java.lang.Exception: No followers found in cluster
 
 ## Group 34 (Priority 5)
 
-**Status:** [X] TEST-BUG
+**Status:** [ ] Not started
 
 **Execution Count:** 1
 
 **Priority Reason:** Test code issue - exception from test
-
-**Diagnosis:** TEST-BUG - Test code misuses global System properties for per-server admin port configuration
-
-**Root Cause:**
-The test method `testRestoreAfterQuorumLost()` in RestoreQuorumTest_RestartInjected.java incorrectly uses a global JVM property `zookeeper.admin.serverPort` to configure admin ports for individual servers. When a server is restarted through the RestartFramework, it reads the current (wrong) value of this global property, causing the admin server to start on the wrong port.
-
-**Detailed Analysis:**
-1. At lines 99-103, the test manually restarts all servers after a shutdown:
-   ```java
-   for (int i = 0; i < SERVER_COUNT; i++) {
-       System.setProperty("zookeeper.admin.serverPort", String.valueOf(servers.adminPorts[i]));
-       servers.mt[i].start();
-       servers.restartClient(i, this);
-   }
-   ```
-
-2. The critical issue: `System.setProperty()` sets a **global JVM-wide property**. After the loop completes, the property is set to `servers.adminPorts[2]` (the last value, port 11233 in the test run).
-
-3. At lines 106-111, the RestartFramework restarts server mt[1]:
-   ```java
-   RestartFramework.at("after_quorum_restored")
-       .on(servers.mt[1])
-       .restart("server")
-       .withIndex(0)
-       .withMode(RestartMode.GRACEFUL)
-       .execute();
-   ```
-
-4. During the restart, the MainThreadAdapter calls `mainThread.start()` which creates a new QuorumPeer that reads the **current** value of `zookeeper.admin.serverPort`. This value is still 11233 (server 2's port), not 11232 (server 1's expected port).
-
-5. At line 115, the test attempts to connect to all servers' admin ports:
-   ```java
-   for (int i = 0; i < SERVER_COUNT; i++) {
-       performRestoreAndValidate(servers.adminPorts[i], snapshotFile);  // Fails for i=1
-   }
-   ```
-
-6. When i=1, the test tries to connect to port 11232, but server mt[1]'s admin server is actually listening on port 11233 (the wrong port), resulting in a `java.net.ConnectException: Connection refused`.
-
-**Evidence from Test Run:**
-Debug output from the test execution confirms this:
-```
-=== DEBUG: Before restart, admin port property = 11233
-=== DEBUG: About to restart server mt[1], expected admin port = 11232
-...
-=== DEBUG: After restart, admin port property = 11233
-=== DEBUG: Attempting to connect to admin port 11231 for server 0
-...SUCCESS...
-=== DEBUG: Attempting to connect to admin port 11232 for server 1
-...CONNECTION REFUSED...
-```
-
-**Buggy Code Location:**
-File: zookeeper-server/src/test/java/org/apache/zookeeper/server/admin/RestoreQuorumTest_RestartInjected.java
-Lines: 99-115
-
-The problematic pattern:
-```java
-// Sets global property to last server's port (11233)
-for (int i = 0; i < SERVER_COUNT; i++) {
-    System.setProperty("zookeeper.admin.serverPort", String.valueOf(servers.adminPorts[i]));
-    servers.mt[i].start();
-}
-
-// Restart uses stale global property value
-RestartFramework.at("after_quorum_restored")
-    .on(servers.mt[1])  // Should use port 11232
-    .restart("server")   // But reads global property = 11233
-    .execute();
-
-// Test expects server on correct port, but it's on wrong port
-performRestoreAndValidate(servers.adminPorts[1], snapshotFile);  // Tries 11232, fails!
-```
-
-**Potential Fix:**
-The test should set the correct admin port in the System property before each server restart. Add this before line 106:
-
-```java
-// SET CORRECT ADMIN PORT BEFORE RESTART
-System.setProperty("zookeeper.admin.serverPort", String.valueOf(servers.adminPorts[1]));
-
-RestartFramework.at("after_quorum_restored")
-    .on(servers.mt[1])
-    .restart("server")
-    .withIndex(0)
-    .withMode(RestartMode.GRACEFUL)
-    .execute();
-```
-
-Alternatively, a more robust fix would be to modify the MainThreadAdapter to preserve the original admin port configuration of each MainThread instance, rather than relying on global System properties. However, this would require changes to the adapter implementation.
-
-**Impact:**
-This is a test code issue, not a production code issue. The production code (admin server and QuorumPeer initialization) works correctly by reading the `zookeeper.admin.serverPort` system property. The test incorrectly assumes that setting a global property in a loop will somehow persist individual values for each server instance.
 
 ### Generalized Stack Trace
 ```
