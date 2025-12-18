@@ -590,6 +590,62 @@ public abstract class ClientBase extends ZKTestCase {
         }
     }
 
+    /**
+     * Waits for all tracked ZooKeeper clients to reconnect after a server restart.
+     * This method is used by the restart testing framework to ensure clients are
+     * connected before continuing tests.
+     *
+     * After a server restart, the client goes through these states:
+     * 1. CONNECTED (old state, before detecting disconnect)
+     * 2. CONNECTING (after detecting disconnect, attempting reconnect)
+     * 3. CONNECTED (after successful reconnection)
+     *
+     * This method waits for the full cycle: first waits for client to detect
+     * the disconnection, then waits for reconnection to complete.
+     *
+     * @param timeout the maximum time to wait in milliseconds
+     * @throws InterruptedException if the thread is interrupted while waiting
+     */
+    public void waitForClientReconnection(long timeout) throws InterruptedException {
+        long deadline = System.currentTimeMillis() + timeout;
+        synchronized (this) {
+            if (allClients == null || allClients.isEmpty()) {
+                return;
+            }
+            LOG.info("Waiting for {} clients to reconnect", allClients.size());
+            for (ZooKeeper zk : allClients) {
+                // First, wait for client to detect disconnection (state changes from CONNECTED)
+                // Give it a short time to detect the disconnect
+                ZooKeeper.States initialState = zk.getState();
+                if (initialState == ZooKeeper.States.CONNECTED || initialState == ZooKeeper.States.CONNECTEDREADONLY) {
+                    LOG.info("Client {} currently shows state {}, waiting for disconnect detection",
+                             zk, initialState);
+                    // Wait up to 2 seconds for disconnect detection
+                    long disconnectDeadline = Math.min(deadline, System.currentTimeMillis() + 2000);
+                    while ((zk.getState() == ZooKeeper.States.CONNECTED
+                            || zk.getState() == ZooKeeper.States.CONNECTEDREADONLY)
+                           && System.currentTimeMillis() < disconnectDeadline) {
+                        Thread.sleep(50);
+                    }
+                    LOG.info("Client {} state changed to {}", zk, zk.getState());
+                }
+
+                // Now wait for reconnection
+                while (zk.getState() != ZooKeeper.States.CONNECTED
+                       && zk.getState() != ZooKeeper.States.CONNECTEDREADONLY) {
+                    if (System.currentTimeMillis() > deadline) {
+                        LOG.warn("Timeout waiting for client {} to reconnect, state: {}",
+                                 zk, zk.getState());
+                        return; // Don't fail - let the test handle it
+                    }
+                    Thread.sleep(50);
+                }
+                LOG.info("Client {} reconnected, state: {}", zk, zk.getState());
+            }
+            LOG.info("All {} clients reconnected", allClients.size());
+        }
+    }
+
     @AfterEach
     public void tearDown() throws Exception {
         LOG.info("tearDown starting");

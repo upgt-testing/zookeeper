@@ -75,6 +75,10 @@ public class ClientBaseAdapter implements ClusterAdapter<ClientBase> {
             throw new Exception("Server failed to start at " + hostPort);
         }
         LOG.info("Server is up at {}", hostPort);
+
+        // Wait for existing ZooKeeper clients to reconnect after server restart
+        LOG.info("Waiting for clients to reconnect...");
+        cluster.waitForClientReconnection(ClientBase.CONNECTION_TIMEOUT);
     }
 
     @Override
