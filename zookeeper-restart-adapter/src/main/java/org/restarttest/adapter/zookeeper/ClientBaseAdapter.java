@@ -19,7 +19,10 @@
 package org.restarttest.adapter.zookeeper;
 
 import java.io.File;
+import java.io.IOException;
 import org.apache.zookeeper.server.ServerCnxnFactory;
+import org.apache.zookeeper.server.ZKDatabase;
+import org.apache.zookeeper.server.ZooKeeperServer;
 import org.apache.zookeeper.test.ClientBase;
 import org.restarttest.core.ClusterAdapter;
 import org.restarttest.core.RestartMode;
@@ -130,12 +133,24 @@ public class ClientBaseAdapter implements ClusterAdapter<ClientBase> {
                 break;
 
             case CRASH:
-                // Abrupt shutdown - just call shutdown without waiting
+                // Abrupt shutdown - close database but don't wait for server down
                 if (factory != null) {
+                    ZKDatabase zkDb = null;
+                    ZooKeeperServer zs = factory.getZooKeeperServer();
+                    if (zs != null) {
+                        zkDb = zs.getZKDatabase();
+                    }
                     factory.shutdown();
+                    if (zkDb != null) {
+                        try {
+                            zkDb.close();
+                        } catch (IOException e) {
+                            LOG.warn("Error closing database in crash mode", e);
+                        }
+                    }
                 }
 
-                // Immediate restart
+                // Immediate restart (no waitForServerDown)
                 factory = ClientBase.createNewServerInstance(null, hostPort, maxCnxns);
                 cluster.serverFactory = factory;
                 ClientBase.startServerInstance(tmpDir, factory, hostPort, 1);
@@ -144,7 +159,19 @@ public class ClientBaseAdapter implements ClusterAdapter<ClientBase> {
             case DELAYED_CRASH:
                 // Crash and wait before restart
                 if (factory != null) {
+                    ZKDatabase zkDbDelayed = null;
+                    ZooKeeperServer zsDelayed = factory.getZooKeeperServer();
+                    if (zsDelayed != null) {
+                        zkDbDelayed = zsDelayed.getZKDatabase();
+                    }
                     factory.shutdown();
+                    if (zkDbDelayed != null) {
+                        try {
+                            zkDbDelayed.close();
+                        } catch (IOException e) {
+                            LOG.warn("Error closing database in delayed crash mode", e);
+                        }
+                    }
                 }
 
                 Thread.sleep(500); // Default delay
