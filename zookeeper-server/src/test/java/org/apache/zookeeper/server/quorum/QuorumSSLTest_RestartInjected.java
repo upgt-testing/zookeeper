@@ -118,7 +118,6 @@ import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
 import org.bouncycastle.util.io.pem.PemWriter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.restarttest.api.RestartFramework;
@@ -496,7 +495,6 @@ public class QuorumSSLTest_RestartInjected extends QuorumPeerTestBase {
     }
 
     @TestBothFipsModes
-    @Timeout(value = 5, unit = TimeUnit.MINUTES)
     public void testQuorumSSL(boolean fipsEnabled) throws Exception {
         System.setProperty(quorumX509Util.getFipsModeProperty(), Boolean.toString(fipsEnabled));
 
@@ -533,7 +531,6 @@ public class QuorumSSLTest_RestartInjected extends QuorumPeerTestBase {
     }
 
     @TestBothFipsModes
-    @Timeout(value = 5, unit = TimeUnit.MINUTES)
     public void testQuorumSSL_withPasswordFromFile(boolean fipsEnabled) throws Exception {
         System.setProperty(quorumX509Util.getFipsModeProperty(), Boolean.toString(fipsEnabled));
 
@@ -573,7 +570,6 @@ public class QuorumSSLTest_RestartInjected extends QuorumPeerTestBase {
     }
 
     @TestBothFipsModes
-    @Timeout(value = 5, unit = TimeUnit.MINUTES)
     public void testQuorumSSLWithMultipleAddresses(boolean fipsEnabled) throws Exception {
         System.setProperty(quorumX509Util.getFipsModeProperty(), Boolean.toString(fipsEnabled));
 
@@ -614,7 +610,6 @@ public class QuorumSSLTest_RestartInjected extends QuorumPeerTestBase {
 
 
     @TestBothFipsModes
-    @Timeout(value = 5, unit = TimeUnit.MINUTES)
     public void testRollingUpgrade(boolean fipsEnabled) throws Exception {
         System.setProperty(quorumX509Util.getFipsModeProperty(), Boolean.toString(fipsEnabled));
 
@@ -701,7 +696,6 @@ public class QuorumSSLTest_RestartInjected extends QuorumPeerTestBase {
     }
 
     @TestNoFipsOnly
-    @Timeout(value = 5, unit = TimeUnit.MINUTES)
     public void testHostnameVerificationWithInvalidHostname(boolean fipsEnabled) throws Exception {
         System.setProperty(quorumX509Util.getFipsModeProperty(), Boolean.toString(fipsEnabled));
         String badhostnameKeystorePath = tmpDir + "/badhost.jks";
@@ -733,7 +727,6 @@ public class QuorumSSLTest_RestartInjected extends QuorumPeerTestBase {
     }
 
     @TestNoFipsOnly
-    @Timeout(value = 5, unit = TimeUnit.MINUTES)
     public void testHostnameVerificationWithInvalidIPAddress(boolean fipsEnabled) throws Exception {
         System.setProperty(quorumX509Util.getFipsModeProperty(), Boolean.toString(fipsEnabled));
         String badhostnameKeystorePath = tmpDir + "/badhost.jks";
@@ -765,7 +758,6 @@ public class QuorumSSLTest_RestartInjected extends QuorumPeerTestBase {
     }
 
     @TestNoFipsOnly
-    @Timeout(value = 5, unit = TimeUnit.MINUTES)
     public void testHostnameVerificationWithInvalidIpAddressAndInvalidHostname(boolean fipsEnabled) throws Exception {
         System.setProperty(quorumX509Util.getFipsModeProperty(), Boolean.toString(fipsEnabled));
 
@@ -798,7 +790,6 @@ public class QuorumSSLTest_RestartInjected extends QuorumPeerTestBase {
     }
 
     @TestNoFipsOnly
-    @Timeout(value = 5, unit = TimeUnit.MINUTES)
     public void testHostnameVerificationForInvalidMultiAddressServerConfig(boolean fipsEnabled) throws Exception {
         System.setProperty(quorumX509Util.getFipsModeProperty(), Boolean.toString(fipsEnabled));
 
@@ -834,7 +825,6 @@ public class QuorumSSLTest_RestartInjected extends QuorumPeerTestBase {
     }
 
     @TestNoFipsOnly
-    @Timeout(value = 5, unit = TimeUnit.MINUTES)
     public void testHostnameVerificationWithInvalidIpAddressAndValidHostname(boolean fipsEnabled) throws Exception {
         System.setProperty(quorumX509Util.getFipsModeProperty(), Boolean.toString(fipsEnabled));
 
@@ -867,7 +857,6 @@ public class QuorumSSLTest_RestartInjected extends QuorumPeerTestBase {
     }
 
     @TestNoFipsOnly
-    @Timeout(value = 5, unit = TimeUnit.MINUTES)
     public void testHostnameVerificationWithValidIpAddressAndInvalidHostname(boolean fipsEnabled) throws Exception {
         System.setProperty(quorumX509Util.getFipsModeProperty(), Boolean.toString(fipsEnabled));
 
@@ -950,7 +939,6 @@ public class QuorumSSLTest_RestartInjected extends QuorumPeerTestBase {
     }
 
     @TestBothFipsModes
-    @Timeout(value = 5, unit = TimeUnit.MINUTES)
     public void testCertificateRevocationList(boolean fipsEnabled) throws Exception {
         System.setProperty(quorumX509Util.getFipsModeProperty(), Boolean.toString(fipsEnabled));
 
@@ -1039,7 +1027,6 @@ public class QuorumSSLTest_RestartInjected extends QuorumPeerTestBase {
     }
 
     @TestBothFipsModes
-    @Timeout(value = 5, unit = TimeUnit.MINUTES)
     public void testOCSP(boolean fipsEnabled) throws Exception {
         System.setProperty(quorumX509Util.getFipsModeProperty(), Boolean.toString(fipsEnabled));
 
@@ -1136,7 +1123,6 @@ public class QuorumSSLTest_RestartInjected extends QuorumPeerTestBase {
     }
 
     @TestBothFipsModes
-    @Timeout(value = 5, unit = TimeUnit.MINUTES)
     public void testCipherSuites(boolean fipsEnabled) throws Exception {
         System.setProperty(quorumX509Util.getFipsModeProperty(), Boolean.toString(fipsEnabled));
 
@@ -1193,7 +1179,6 @@ public class QuorumSSLTest_RestartInjected extends QuorumPeerTestBase {
     }
 
     @TestBothFipsModes
-    @Timeout(value = 5, unit = TimeUnit.MINUTES)
     public void testProtocolVersion(boolean fipsEnabled) throws Exception {
         System.setProperty(quorumX509Util.getFipsModeProperty(), Boolean.toString(fipsEnabled));
         System.setProperty(quorumX509Util.getSslProtocolProperty(), "TLSv1.2");

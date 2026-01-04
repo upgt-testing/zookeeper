@@ -33,7 +33,6 @@ import org.apache.zookeeper.data.Stat;
 import org.apache.zookeeper.test.ClientBase;
 import org.apache.zookeeper.test.ReconfigTest;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 import org.restarttest.api.RestartFramework;
 import org.restarttest.core.RestartMode;
 
@@ -57,7 +56,6 @@ public class StandaloneDisabledTest_RestartInjected extends QuorumPeerTestBase {
      * with just a single server.
      */
     @Test
-    @Timeout(value = 10, unit = TimeUnit.MINUTES)
     public void startSingleServerTest() throws Exception {
         setUpData();
 

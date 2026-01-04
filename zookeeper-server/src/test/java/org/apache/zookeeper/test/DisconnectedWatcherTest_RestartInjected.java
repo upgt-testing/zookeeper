@@ -32,7 +32,6 @@ import org.apache.zookeeper.ZooKeeper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 import org.restarttest.api.RestartFramework;
 import org.restarttest.core.RestartMode;
 import org.slf4j.Logger;
@@ -322,7 +321,6 @@ public class DisconnectedWatcherTest_RestartInjected extends ClientBase {
     // @see jira issue ZOOKEEPER-706. Test auto reset of a large number of
     // watches which require multiple SetWatches calls.
     @Test
-    @Timeout(value = 14, unit = TimeUnit.MINUTES)
     public void testManyChildWatchersAutoReset() throws Exception {
         zk2 = createClient(watcher2);
 

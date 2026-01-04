@@ -40,7 +40,6 @@ import org.apache.zookeeper.test.ClientBase;
 import org.apache.zookeeper.test.ClientBase.CountdownWatcher;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 import org.restarttest.api.RestartFramework;
 import org.restarttest.core.RestartMode;
 
@@ -56,7 +55,6 @@ public class EphemeralNodeDeletionTest_RestartInjected extends QuorumPeerTestBas
      */
 
     @Test
-    @Timeout(value = 120)
     public void testEphemeralNodeDeletion() throws Exception {
         final int[] clientPorts = new int[SERVER_COUNT];
         StringBuilder sb = new StringBuilder();

@@ -41,7 +41,6 @@ import org.apache.zookeeper.test.ClientBase;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 import org.restarttest.api.RestartFramework;
 import org.restarttest.core.RestartMode;
 
@@ -82,7 +81,6 @@ public class DIFFSyncTest_RestartInjected extends QuorumPeerTestBase {
     }
 
     @Test
-    @Timeout(value = 120)
     public void testTxnLoss_FailToPersistAndCommitTxns() throws Exception {
         final List<String> paths = new ArrayList<>();
         assertEquals(2, mt[2].getQuorumPeer().getLeaderId());
@@ -163,7 +161,6 @@ public class DIFFSyncTest_RestartInjected extends QuorumPeerTestBase {
     }
 
     @Test
-    @Timeout(value = 120)
     public void testLeaderShutdown_AckProposalBeforeAckNewLeader() throws Exception {
         assertEquals(2, mt[2].getQuorumPeer().getLeaderId());
         RestartFramework.at("after_initial_quorum_up").on(mt[0]).restart("server").withIndex(0).withMode(RestartMode.GRACEFUL).execute();

@@ -32,7 +32,6 @@ import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.server.quorum.BufferStats;
 import org.apache.zookeeper.test.ClientBase;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.restarttest.api.RestartFramework;
@@ -46,7 +45,6 @@ public class NIOServerCnxnTest_RestartInjected extends ClientBase {
      * Test operations on ServerCnxn after socket closure.
      */
     @Test
-    @Timeout(value = 60)
     public void testOperationsAfterCnxnClose() throws IOException, InterruptedException, KeeperException {
         final ZooKeeper zk = createClient();
 

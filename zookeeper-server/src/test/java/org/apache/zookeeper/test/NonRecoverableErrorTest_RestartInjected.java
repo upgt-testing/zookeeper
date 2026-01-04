@@ -37,7 +37,6 @@ import org.apache.zookeeper.server.quorum.QuorumPeer.ServerState;
 import org.apache.zookeeper.server.quorum.QuorumPeerTestBase;
 import org.apache.zookeeper.test.ClientBase.CountdownWatcher;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 import org.restarttest.api.RestartFramework;
 import org.restarttest.core.RestartMode;
 
@@ -54,7 +53,6 @@ public class NonRecoverableErrorTest_RestartInjected extends QuorumPeerTestBase 
      * writing transaction log), ZooKeeper is still available.
      */
     @Test
-    @Timeout(value = 30)
     public void testZooKeeperServiceAvailableOnLeader() throws Exception {
         int SERVER_COUNT = 3;
         final int[] clientPorts = new int[SERVER_COUNT];

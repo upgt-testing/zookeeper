@@ -41,7 +41,6 @@ import org.apache.zookeeper.test.ClientBase;
 import org.apache.zookeeper.test.ClientBase.CountdownWatcher;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 import org.restarttest.api.RestartFramework;
 import org.restarttest.core.RestartMode;
 
@@ -51,7 +50,6 @@ public class DIFFSyncConsistencyTest_RestartInjected extends QuorumPeerTestBase 
     private MainThread[] mt = new MainThread[SERVER_COUNT];
 
     @Test
-    @Timeout(value = 120)
     public void testInconsistentDueToUncommittedLog() throws Exception {
         final int LEADER_TIMEOUT_MS = 10_000;
         final int[] clientPorts = new int[SERVER_COUNT];

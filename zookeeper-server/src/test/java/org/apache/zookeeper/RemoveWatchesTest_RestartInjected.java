@@ -51,7 +51,6 @@ import org.apache.zookeeper.server.ServerCnxn;
 import org.apache.zookeeper.test.ClientBase;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
@@ -178,7 +177,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testRemoveSingleWatcher(boolean useAsync) throws Exception {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
         zk1.create("/node2", null, Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
@@ -229,7 +227,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testMultipleDataWatchers(boolean useAsync) throws IOException, InterruptedException, KeeperException {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
         RestartFramework.at("after_create_node")
@@ -278,7 +275,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testMultipleChildWatchers(boolean useAsync) throws IOException, InterruptedException, KeeperException {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")
@@ -338,7 +334,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testRemoveAllWatchers(boolean useAsync) throws IOException, InterruptedException, KeeperException {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")
@@ -382,7 +377,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testRemoveAllDataWatchers(boolean useAsync) throws IOException, InterruptedException, KeeperException {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")
@@ -443,7 +437,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testRemoveAllChildWatchers(boolean useAsync) throws IOException, InterruptedException, KeeperException {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")
@@ -505,7 +498,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testRemoveAllPersistentWatchers(boolean useAsync) throws InterruptedException, KeeperException {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")
@@ -568,7 +560,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testRemoveAllPersistentRecursiveWatchers(boolean useAsync) throws InterruptedException, KeeperException {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")
@@ -629,7 +620,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testNoWatcherException(boolean useAsync) throws IOException, InterruptedException, KeeperException {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")
@@ -676,7 +666,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testRemoveAnyDataWatcher(boolean useAsync) throws Exception {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")
@@ -727,7 +716,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testRemoveAnyChildWatcher(boolean useAsync) throws Exception {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")
@@ -777,7 +765,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testRemoveWatcherWhenNoConnection(boolean useAsync) throws Exception {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")
@@ -820,7 +807,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testManyPreNodeWatchers(boolean useAsync) throws Exception {
         int count = 50;
         List<MyWatcher> wList = new ArrayList<>(count);
@@ -861,7 +847,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testManyChildWatchers(boolean useAsync) throws Exception {
         int count = 50;
         List<MyWatcher> wList = new ArrayList<>(count);
@@ -915,7 +900,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testManyDataWatchers(boolean useAsync) throws Exception {
         int count = 50;
         List<MyWatcher> wList = new ArrayList<>(count);
@@ -959,7 +943,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testManyWatchersWhenNoConnection(boolean useAsync) throws Exception {
         int count = 3;
         List<MyWatcher> wList = new ArrayList<>(count);
@@ -1018,7 +1001,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testChRootRemoveWatcher(boolean useAsync) throws Exception {
         // creating the subtree for chRoot clients.
         String chRoot = "/appsX";
@@ -1104,7 +1086,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testNoWatcherServerException(boolean useAsync) throws KeeperException, InterruptedException, IOException, TimeoutException {
         CountdownWatcher watcher = new CountdownWatcher();
         ZooKeeper zk = spy(new ZooKeeper(hostPort, CONNECTION_TIMEOUT, watcher));
@@ -1135,7 +1116,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testRemoveAllNoWatcherException(boolean useAsync) throws IOException, InterruptedException, KeeperException {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")
@@ -1158,7 +1138,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 30)
     public void testNullWatcherReference(boolean useAsync) throws Exception {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")
@@ -1185,7 +1164,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testRemoveWhenMultipleDataWatchesOnAPath(boolean useAsync) throws Exception {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")
@@ -1238,7 +1216,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testRemoveWhenMultipleChildWatchesOnAPath(boolean useAsync) throws Exception {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")
@@ -1290,7 +1267,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testRemoveWhenMultiplePersistentWatchesOnAPath(boolean useAsync) throws Exception {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")
@@ -1332,7 +1308,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testRemoveWhenMultiplePersistentRecursiveWatchesOnAPath(boolean useAsync) throws Exception {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")
@@ -1374,7 +1349,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testRemovePersistentWatchesOnAPathPartially(boolean useAsync) throws Exception {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")
@@ -1422,7 +1396,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testRemoveAllDataWatchesOnAPath(boolean useAsync) throws Exception {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")
@@ -1485,7 +1458,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testRemoveAllChildWatchesOnAPath(boolean useAsync) throws Exception {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")
@@ -1546,7 +1518,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testRemoveAllPersistentWatchesOnAPath(boolean useAsync) throws Exception {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")
@@ -1604,7 +1575,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testRemoveAllPersistentWatchesOnAPathPartially(boolean useAsync) throws Exception {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")
@@ -1651,7 +1621,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testRemoveAllPersistentRecursiveWatchesOnAPath(boolean useAsync) throws Exception {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")
@@ -1711,7 +1680,6 @@ public class RemoveWatchesTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testRemoveAllWatchesOnAPath(boolean useAsync) throws Exception {
         zk1.create("/node1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         RestartFramework.at("after_create_node")

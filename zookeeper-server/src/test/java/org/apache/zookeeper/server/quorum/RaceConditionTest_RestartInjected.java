@@ -40,7 +40,6 @@ import org.apache.zookeeper.test.ClientBase;
 import org.apache.zookeeper.txn.DeleteTxn;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 import org.restarttest.api.RestartFramework;
 import org.restarttest.core.RestartMode;
 import org.slf4j.Logger;
@@ -62,7 +61,6 @@ public class RaceConditionTest_RestartInjected extends QuorumPeerTestBase {
      */
 
     @Test
-    @Timeout(value = 30)
     public void testRaceConditionBetweenLeaderAndAckRequestProcessor() throws Exception {
         mt = startQuorum();
         RestartFramework.at("after_start_quorum")

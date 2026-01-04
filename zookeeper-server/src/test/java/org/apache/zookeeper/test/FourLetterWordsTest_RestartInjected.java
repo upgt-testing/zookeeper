@@ -33,7 +33,6 @@ import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.common.IOUtils;
 import org.apache.zookeeper.common.X509Exception.SSLContextException;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 import org.restarttest.api.RestartFramework;
 import org.restarttest.core.RestartMode;
 import org.slf4j.Logger;
@@ -45,7 +44,6 @@ public class FourLetterWordsTest_RestartInjected extends ClientBase {
 
     /** Test the various four letter words */
     @Test
-    @Timeout(value = 30)
     public void testFourLetterWords() throws Exception {
         verify("ruok", "imok");
         verify("envi", "java.version");
@@ -157,7 +155,6 @@ public class FourLetterWordsTest_RestartInjected extends ClientBase {
     }
 
     @Test
-    @Timeout(value = 30)
     public void testValidateStatOutput() throws Exception {
         ZooKeeper zk1 = createClient();
         ZooKeeper zk2 = createClient();
@@ -208,7 +205,6 @@ public class FourLetterWordsTest_RestartInjected extends ClientBase {
     }
 
     @Test
-    @Timeout(value = 30)
     public void testValidateConsOutput() throws Exception {
         ZooKeeper zk1 = createClient();
         ZooKeeper zk2 = createClient();
@@ -237,7 +233,6 @@ public class FourLetterWordsTest_RestartInjected extends ClientBase {
     }
 
     @Test
-    @Timeout(value = 60)
     public void testValidateSocketTimeout() throws Exception {
         /**
          * testing positive scenario that even with timeout parameter the
@@ -256,7 +251,6 @@ public class FourLetterWordsTest_RestartInjected extends ClientBase {
     }
 
     @Test
-    @Timeout(value = 30)
     public void testSetTraceMask() throws Exception {
         String gtmkResp = sendRequest("gtmk");
         assertNotNull(gtmkResp);

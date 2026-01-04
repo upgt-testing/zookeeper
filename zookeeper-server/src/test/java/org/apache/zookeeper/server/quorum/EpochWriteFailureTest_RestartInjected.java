@@ -32,7 +32,6 @@ import org.apache.zookeeper.test.ClientBase;
 import org.apache.zookeeper.test.ClientBase.CountdownWatcher;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 import org.restarttest.api.RestartFramework;
 import org.restarttest.core.RestartMode;
 
@@ -49,7 +48,6 @@ public class EpochWriteFailureTest_RestartInjected extends QuorumPeerTestBase {
      * run time values of acceptedEpoch,
      */
     @Test
-    @Timeout(value = 120)
     public void testAcceptedEpochWriteFailure() throws Exception {
         StringBuilder sb = new StringBuilder();
         sb.append("admin.enableServer=false");

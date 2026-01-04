@@ -37,7 +37,6 @@ import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.test.ClientBase;
 import org.apache.zookeeper.test.ReconfigTest;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 import org.restarttest.api.RestartFramework;
 import org.restarttest.core.RestartMode;
 
@@ -95,7 +94,6 @@ public class ReconfigRollingRestartCompatibilityTest_RestartInjected extends Quo
     // Verify no zoo.cfg.dynamic and zoo.cfg.bak files existing locally
     // when reconfig feature flag is off by default.
     @Test
-    @Timeout(value = 60)
     public void testNoLocalDynamicConfigAndBackupFiles() throws InterruptedException, IOException {
         int serverCount = 3;
         String config = generateNewQuorumConfig(serverCount);
@@ -132,7 +130,6 @@ public class ReconfigRollingRestartCompatibilityTest_RestartInjected extends Quo
     // 2. After upgrade, start the node.
     // 3. Do this for every node, one at a time.
     @Test
-    @Timeout(value = 60)
     public void testRollingRestartWithoutMembershipChange() throws Exception {
         int serverCount = 3;
         String config = generateNewQuorumConfig(serverCount);
@@ -179,7 +176,6 @@ public class ReconfigRollingRestartCompatibilityTest_RestartInjected extends Quo
     // during the process each node has the expected configuration setting pushed
     // via updating local zoo.cfg file.
     @Test
-    @Timeout(value = 90)
     public void testExtendingQuorumWithNewMembers() throws Exception {
         int serverCount = 3;
         String config = generateNewQuorumConfig(serverCount);

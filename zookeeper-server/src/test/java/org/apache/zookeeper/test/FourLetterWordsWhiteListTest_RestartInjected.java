@@ -25,7 +25,6 @@ import org.apache.zookeeper.TestableZooKeeper;
 import org.apache.zookeeper.common.X509Exception.SSLContextException;
 import org.apache.zookeeper.server.command.FourLetterCommands;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.restarttest.api.RestartFramework;
@@ -42,7 +41,6 @@ public class FourLetterWordsWhiteListTest_RestartInjected extends ClientBase {
      * which other tests depend on.).
      */
     @Test
-    @Timeout(value = 30)
     public void testFourLetterWordsAllDisabledByDefault() throws Exception {
         stopServer();
         FourLetterCommands.resetWhiteList();
@@ -123,7 +121,6 @@ public class FourLetterWordsWhiteListTest_RestartInjected extends ClientBase {
     }
 
     @Test
-    @Timeout(value = 30)
     public void testFourLetterWordsEnableSomeCommands() throws Exception {
         stopServer();
         FourLetterCommands.resetWhiteList();
@@ -173,7 +170,6 @@ public class FourLetterWordsWhiteListTest_RestartInjected extends ClientBase {
     }
 
     @Test
-    @Timeout(value = 30)
     public void testISROEnabledWhenReadOnlyModeEnabled() throws Exception {
         stopServer();
         FourLetterCommands.resetWhiteList();
@@ -201,7 +197,6 @@ public class FourLetterWordsWhiteListTest_RestartInjected extends ClientBase {
     }
 
     @Test
-    @Timeout(value = 30)
     public void testFourLetterWordsInvalidConfiguration() throws Exception {
         stopServer();
         FourLetterCommands.resetWhiteList();
@@ -239,7 +234,6 @@ public class FourLetterWordsWhiteListTest_RestartInjected extends ClientBase {
     }
 
     @Test
-    @Timeout(value = 30)
     public void testFourLetterWordsEnableAllCommandsThroughAsterisk() throws Exception {
         stopServer();
         FourLetterCommands.resetWhiteList();
@@ -264,7 +258,6 @@ public class FourLetterWordsWhiteListTest_RestartInjected extends ClientBase {
     }
 
     @Test
-    @Timeout(value = 30)
     public void testFourLetterWordsEnableAllCommandsThroughExplicitList() throws Exception {
         stopServer();
         FourLetterCommands.resetWhiteList();

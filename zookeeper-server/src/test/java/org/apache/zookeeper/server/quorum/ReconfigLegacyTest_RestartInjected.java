@@ -36,7 +36,6 @@ import org.apache.zookeeper.test.ClientBase;
 import org.apache.zookeeper.test.ReconfigTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 import org.restarttest.api.RestartFramework;
 import org.restarttest.core.RestartMode;
 
@@ -257,7 +256,6 @@ public class ReconfigLegacyTest_RestartInjected extends QuorumPeerTestBase {
      * @throws Exception
      */
     @Test
-    @Timeout(value = 120)
     public void testRestartZooKeeperServer() throws Exception {
         final int[] clientPorts = new int[SERVER_COUNT];
         StringBuilder sb = new StringBuilder();

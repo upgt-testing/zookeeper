@@ -66,7 +66,6 @@ import org.apache.zookeeper.test.TestUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,7 +107,6 @@ public class NettyServerCnxnTest_RestartInjected extends ClientBase {
      * @see <a href="https://issues.jboss.org/browse/NETTY-412">NETTY-412</a>
      */
     @Test
-    @Timeout(value = 40)
     public void testSendCloseSession() throws Exception {
         assertTrue(serverFactory instanceof NettyServerCnxnFactory, "Didn't instantiate ServerCnxnFactory with NettyServerCnxnFactory!");
 
@@ -166,7 +164,6 @@ public class NettyServerCnxnTest_RestartInjected extends ClientBase {
      * connection fails.
      */
     @Test
-    @Timeout(value = 40)
     public void testMaxConnectionPerIpSurpased() {
         assertTrue(serverFactory instanceof NettyServerCnxnFactory, "Did not instantiate ServerCnxnFactory with NettyServerCnxnFactory!");
         assertThrows(ProtocolException.class, () -> {

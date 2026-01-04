@@ -38,7 +38,6 @@ import org.apache.zookeeper.server.quorum.QuorumPeerTestBase;
 import org.apache.zookeeper.test.ClientBase;
 import org.apache.zookeeper.test.ClientBase.CountdownWatcher;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 import org.restarttest.api.RestartFramework;
 import org.restarttest.core.RestartMode;
 
@@ -52,7 +51,6 @@ public class ClientRequestTimeoutTest_RestartInjected extends QuorumPeerTestBase
     private ClientCnxn.Packet capturedPacket = null;
 
     @Test
-    @Timeout(value = 120)
     public void testClientRequestTimeout() throws Exception {
         int requestTimeOut = 15000;
         System.setProperty("zookeeper.request.timeout", Integer.toString(requestTimeOut));

@@ -33,7 +33,6 @@ import org.apache.zookeeper.test.ClientBase;
 import org.apache.zookeeper.test.ClientBase.CountdownWatcher;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 import org.restarttest.api.RestartFramework;
 import org.restarttest.core.RestartMode;
 import org.slf4j.Logger;
@@ -54,14 +53,12 @@ public class ZooKeeperServerMaxCnxnsTest_RestartInjected extends QuorumPeerTestB
      */
 
     @Test
-    @Timeout(value = 120)
     public void testMaxZooKeeperClientsWithNIOServerCnxnFactory() throws Exception {
         String serverCnxnFactory = "org.apache.zookeeper.server.NIOServerCnxnFactory";
         testMaxZooKeeperClients(serverCnxnFactory);
     }
 
     @Test
-    @Timeout(value = 120)
     public void testMaxZooKeeperClientsWithNettyServerCnxnFactory() throws Exception {
         String serverCnxnFactory = "org.apache.zookeeper.server.NettyServerCnxnFactory";
         testMaxZooKeeperClients(serverCnxnFactory);

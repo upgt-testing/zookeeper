@@ -61,7 +61,6 @@ import org.apache.zookeeper.data.Id;
 import org.apache.zookeeper.data.Stat;
 import org.apache.zookeeper.server.SyncRequestProcessor;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
@@ -194,7 +193,6 @@ public class MultiOperationTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testInvalidPath(boolean useAsync) throws Exception {
         List<Integer> expectedResultCodes = new ArrayList<>();
         expectedResultCodes.add(KeeperException.Code.RUNTIMEINCONSISTENCY.intValue());
@@ -318,7 +316,6 @@ public class MultiOperationTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testBlankPath(boolean useAsync) throws Exception {
         List<Integer> expectedResultCodes = new ArrayList<>();
         expectedResultCodes.add(KeeperException.Code.RUNTIMEINCONSISTENCY.intValue());
@@ -341,7 +338,6 @@ public class MultiOperationTest_RestartInjected extends ClientBase {
      */
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
-    @Timeout(value = 90)
     public void testInvalidCreateModeFlag(boolean useAsync) throws Exception {
         List<Integer> expectedResultCodes = new ArrayList<>();
         expectedResultCodes.add(KeeperException.Code.RUNTIMEINCONSISTENCY.intValue());

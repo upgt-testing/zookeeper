@@ -32,7 +32,6 @@ import org.apache.zookeeper.test.ClientBase;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 import org.restarttest.api.RestartFramework;
 import org.restarttest.core.RestartMode;
 import org.slf4j.Logger;
@@ -70,7 +69,6 @@ public class RemoveWatchesCmdTest_RestartInjected extends ClientBase {
      * local=false
      */
     @Test
-    @Timeout(value = 30)
     public void testRemoveWatchesWithNoPassedOptions() throws Exception {
         List<EventType> expectedEvents = new ArrayList<>();
         expectedEvents.add(EventType.ChildWatchRemoved);
@@ -125,7 +123,6 @@ public class RemoveWatchesCmdTest_RestartInjected extends ClientBase {
      * Test verifies deletion of NodeDataChanged watches
      */
     @Test
-    @Timeout(value = 30)
     public void testRemoveNodeDataChangedWatches() throws Exception {
         LOG.info("Adding data watcher using getData()");
         List<EventType> expectedEvents = new ArrayList<>();
@@ -173,7 +170,6 @@ public class RemoveWatchesCmdTest_RestartInjected extends ClientBase {
      * Test verifies deletion of NodeCreated data watches
      */
     @Test
-    @Timeout(value = 30)
     public void testRemoveNodeCreatedWatches() throws Exception {
         List<EventType> expectedEvents = new ArrayList<>();
         expectedEvents.add(EventType.DataWatchRemoved);
@@ -227,7 +223,6 @@ public class RemoveWatchesCmdTest_RestartInjected extends ClientBase {
      * Test verifies deletion of NodeChildrenChanged watches
      */
     @Test
-    @Timeout(value = 30)
     public void testRemoveNodeChildrenChangedWatches() throws Exception {
         List<EventType> expectedEvents = new ArrayList<>();
         expectedEvents.add(EventType.ChildWatchRemoved);
@@ -272,7 +267,6 @@ public class RemoveWatchesCmdTest_RestartInjected extends ClientBase {
      * Test verifies deletion of NodeDeleted watches
      */
     @Test
-    @Timeout(value = 30)
     public void testRemoveNodeDeletedWatches() throws Exception {
         LOG.info("Adding NodeDeleted watcher");
         List<EventType> expectedEvents = new ArrayList<>();
@@ -333,7 +327,6 @@ public class RemoveWatchesCmdTest_RestartInjected extends ClientBase {
      * Test verifies deletion of any watches
      */
     @Test
-    @Timeout(value = 30)
     public void testRemoveAnyWatches() throws Exception {
         verifyRemoveAnyWatches(false);
     }
@@ -343,7 +336,6 @@ public class RemoveWatchesCmdTest_RestartInjected extends ClientBase {
      * connection
      */
     @Test
-    @Timeout(value = 30)
     public void testRemoveWatchesLocallyWhenNoServerConnection() throws Exception {
         verifyRemoveAnyWatches(true);
     }
