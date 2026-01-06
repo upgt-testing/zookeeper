@@ -8,8 +8,8 @@ This file tracks test failure groups ordered by priority for debugging.
 
 ---
 
-## [ ] Group 6: HIGHEST PRIORITY - Likely Bug
-**Status:** Not started
+## [BUG] Group 6: HIGHEST PRIORITY - Likely Bug
+**Status:** BUG - See bugs/BUG-GROUP-6.md
 **Total Occurrences:** 3 test executions
 
 ### Generalized Stacktrace
@@ -123,8 +123,8 @@ java.lang.NullPointerException
 
 ---
 
-## [ ] Group 11: HIGHEST PRIORITY - Likely Bug
-**Status:** Not started
+## [BUG] Group 11: HIGHEST PRIORITY - Likely Bug
+**Status:** BUG - See bugs/BUG-GROUP-11.md
 **Total Occurrences:** 1 test executions
 
 ### Generalized Stacktrace
@@ -232,8 +232,8 @@ Caused by: java.lang.NullPointerException
 
 ---
 
-## [ ] Group 2: MEDIUM-HIGH PRIORITY - Possible Bug
-**Status:** Not started
+## [FP] Group 2: MEDIUM-HIGH PRIORITY - Possible Bug
+**Status:** FP - See FPs/FP-GROUP-2.md
 **Total Occurrences:** 32 test executions
 
 ### Generalized Stacktrace
