@@ -82,6 +82,11 @@ public class ClientBaseAdapter implements ClusterAdapter<ClientBase> {
         // Wait for existing ZooKeeper clients to reconnect after server restart
         LOG.info("Waiting for clients to reconnect...");
         cluster.waitForClientReconnection(ClientBase.CONNECTION_TIMEOUT);
+
+        // Additional fixed wait for clients not tracked in allClients
+        // (e.g., clients created directly with new ZooKeeper(...))
+        LOG.info("Additional wait for untracked clients to reconnect...");
+        Thread.sleep(5000);
     }
 
     @Override
