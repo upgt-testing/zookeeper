@@ -18,6 +18,7 @@
 
 package org.restarttest.adapter.zookeeper;
 
+import org.apache.zookeeper.server.admin.AdminServer;
 import org.apache.zookeeper.server.quorum.QuorumPeer;
 import org.apache.zookeeper.server.quorum.QuorumPeerTestBase;
 import org.apache.zookeeper.test.ClientBase;
@@ -27,6 +28,11 @@ import org.restarttest.health.HealthCheck;
 import org.restarttest.state.StateCapture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.FileReader;
+import java.lang.reflect.Field;
+import java.util.Properties;
 
 /**
  * Adapter for ZooKeeper quorum peer tests using QuorumPeerTestBase.MainThread.
@@ -88,6 +94,13 @@ public class MainThreadAdapter implements ClusterAdapter<QuorumPeerTestBase.Main
             throw new Exception("QuorumPeer not running after restart");
         }
 
+        // Additional wait for admin server and other auxiliary services to be ready
+        // The admin server (Jetty HTTP) runs on a separate port and takes extra time to start
+        // Note: We can't properly set the admin port since it's only passed via system property
+        // which gets overwritten by other servers during startup
+        LOG.info("Waiting additional time for admin server and auxiliary services...");
+        Thread.sleep(10000);
+
         LOG.info("QuorumPeer is active at {}", hostPort);
     }
 
@@ -123,6 +136,10 @@ public class MainThreadAdapter implements ClusterAdapter<QuorumPeerTestBase.Main
 
         LOG.info("Restarting MainThread at {} with mode {}", hostPort, mode);
 
+        // Get admin port from the running server before shutdown
+        String adminPort = getAdminPortFromServer(mainThread);
+        LOG.info("Admin server port before restart: {}", adminPort);
+
         switch (mode) {
             case GRACEFUL:
                 // Graceful shutdown
@@ -131,6 +148,12 @@ public class MainThreadAdapter implements ClusterAdapter<QuorumPeerTestBase.Main
 
                 // Wait for server to be down
                 ClientBase.waitForServerDown(hostPort, ClientBase.CONNECTION_TIMEOUT);
+
+                // Set admin port system property before restart
+                if (adminPort != null) {
+                    LOG.info("Setting admin server port to {} before restart", adminPort);
+                    System.setProperty("zookeeper.admin.serverPort", adminPort);
+                }
 
                 // Restart
                 mainThread.start();
@@ -148,6 +171,11 @@ public class MainThreadAdapter implements ClusterAdapter<QuorumPeerTestBase.Main
                     Thread.sleep(100); // Brief pause
                 }
 
+                // Set admin port system property before restart
+                if (adminPort != null) {
+                    System.setProperty("zookeeper.admin.serverPort", adminPort);
+                }
+
                 // Restart immediately
                 mainThread.start();
                 break;
@@ -161,6 +189,11 @@ public class MainThreadAdapter implements ClusterAdapter<QuorumPeerTestBase.Main
 
                 Thread.sleep(500); // Default delay
 
+                // Set admin port system property before restart
+                if (adminPort != null) {
+                    System.setProperty("zookeeper.admin.serverPort", adminPort);
+                }
+
                 mainThread.start();
                 break;
 
@@ -169,5 +202,74 @@ public class MainThreadAdapter implements ClusterAdapter<QuorumPeerTestBase.Main
         }
 
         LOG.info("MainThread restarted successfully at {}", hostPort);
+    }
+
+    /**
+     * Get the admin server port from the running QuorumPeer using reflection.
+     */
+    private String getAdminPortFromServer(QuorumPeerTestBase.MainThread mainThread) {
+        try {
+            QuorumPeer qp = mainThread.getQuorumPeer();
+            if (qp == null) {
+                LOG.warn("QuorumPeer is null, cannot get admin port");
+                return null;
+            }
+
+            // Access adminServer field via reflection
+            Field adminServerField = QuorumPeer.class.getDeclaredField("adminServer");
+            adminServerField.setAccessible(true);
+            Object adminServer = adminServerField.get(qp);
+
+            if (adminServer == null) {
+                LOG.warn("AdminServer is null");
+                return null;
+            }
+
+            // The JettyAdminServer stores the port in its server's connector
+            // Try to get port from Jetty Server
+            Class<?> jettyAdminClass = adminServer.getClass();
+            Field serverField = jettyAdminClass.getDeclaredField("server");
+            serverField.setAccessible(true);
+            Object jettyServer = serverField.get(adminServer);
+
+            if (jettyServer != null) {
+                // Get port from Jetty Server's connectors
+                java.lang.reflect.Method getConnectorsMethod = jettyServer.getClass().getMethod("getConnectors");
+                Object[] connectors = (Object[]) getConnectorsMethod.invoke(jettyServer);
+                if (connectors != null && connectors.length > 0) {
+                    // Get port from first connector
+                    java.lang.reflect.Method getPortMethod = connectors[0].getClass().getMethod("getLocalPort");
+                    int port = (int) getPortMethod.invoke(connectors[0]);
+                    LOG.info("Got admin server port {} from Jetty connector", port);
+                    return String.valueOf(port);
+                }
+            }
+        } catch (Exception e) {
+            LOG.warn("Failed to get admin port via reflection: {}", e.getMessage());
+        }
+        return null;
+    }
+
+    /**
+     * Read the admin server port from the config file.
+     */
+    private String readAdminPortFromConfig(QuorumPeerTestBase.MainThread mainThread) {
+        try {
+            File confFile = mainThread.getConfFile();
+            if (confFile != null && confFile.exists()) {
+                Properties props = new Properties();
+                try (FileReader reader = new FileReader(confFile)) {
+                    props.load(reader);
+                }
+                String adminPort = props.getProperty("admin.serverPort");
+                if (adminPort != null) {
+                    LOG.info("Read admin.serverPort={} from config file {}", adminPort, confFile);
+                    return adminPort;
+                }
+            }
+        } catch (Exception e) {
+            LOG.warn("Failed to read admin port from config file: {}", e.getMessage());
+        }
+        return null;
     }
 }
