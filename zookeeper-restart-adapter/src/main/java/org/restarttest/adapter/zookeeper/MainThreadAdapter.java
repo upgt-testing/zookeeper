@@ -42,6 +42,9 @@ public class MainThreadAdapter implements ClusterAdapter<QuorumPeerTestBase.Main
 
     private static final Logger LOG = LoggerFactory.getLogger(MainThreadAdapter.class);
     private final MainThreadStateCapture stateCapture;
+    // Store the client port before shutdown since MainThread.getClientPort() may return 0
+    // due to a bug in certain constructor chains in QuorumPeerTestBase.MainThread
+    private int savedClientPort = 0;
 
     public MainThreadAdapter() {
         this.stateCapture = new MainThreadStateCapture();
@@ -75,6 +78,36 @@ public class MainThreadAdapter implements ClusterAdapter<QuorumPeerTestBase.Main
     @Override
     public void waitActive(QuorumPeerTestBase.MainThread cluster) throws Exception {
         int clientPort = cluster.getClientPort();
+        LOG.info("MainThread.getClientPort() = {}", clientPort);
+
+        // If clientPort is 0 or -1, try to get it from saved value (captured before shutdown)
+        if (clientPort <= 0 && savedClientPort > 0) {
+            clientPort = savedClientPort;
+            LOG.info("Using saved client port: {}", clientPort);
+        }
+
+        // If still no port, try to get it from the QuorumPeer (if it's been initialized)
+        if (clientPort <= 0) {
+            QuorumPeer qp = cluster.getQuorumPeer();
+            if (qp != null) {
+                int qpPort = qp.getClientPort();
+                LOG.info("QuorumPeer.getClientPort() = {}", qpPort);
+                if (qpPort > 0) {
+                    clientPort = qpPort;
+                }
+            }
+        }
+
+        // If still no port, try reading from config file
+        if (clientPort <= 0) {
+            clientPort = readClientPortFromConfig(cluster);
+            LOG.info("Read client port from config file: {}", clientPort);
+        }
+
+        if (clientPort <= 0) {
+            throw new Exception("Could not determine client port for MainThread");
+        }
+
         String hostPort = "127.0.0.1:" + clientPort;
 
         // Wait for server to be up
@@ -132,6 +165,22 @@ public class MainThreadAdapter implements ClusterAdapter<QuorumPeerTestBase.Main
 
     private void restartMainThread(QuorumPeerTestBase.MainThread mainThread, RestartMode mode) throws Exception {
         int clientPort = mainThread.getClientPort();
+
+        // If MainThread.getClientPort() returns 0 (due to constructor chain bug),
+        // get the port from the running QuorumPeer before shutdown
+        if (clientPort <= 0) {
+            QuorumPeer qp = mainThread.getQuorumPeer();
+            if (qp != null) {
+                clientPort = qp.getClientPort();
+                LOG.info("Got client port {} from QuorumPeer (MainThread.getClientPort() returned 0)", clientPort);
+            }
+        }
+
+        // Save the port for use in waitActive()
+        if (clientPort > 0) {
+            savedClientPort = clientPort;
+        }
+
         String hostPort = "127.0.0.1:" + clientPort;
 
         LOG.info("Restarting MainThread at {} with mode {}", hostPort, mode);
@@ -271,5 +320,89 @@ public class MainThreadAdapter implements ClusterAdapter<QuorumPeerTestBase.Main
             LOG.warn("Failed to read admin port from config file: {}", e.getMessage());
         }
         return null;
+    }
+
+    /**
+     * Read the client port from the config file.
+     * Handles both simple "clientPort=X" format and dynamic config format
+     * where port is embedded in "server.N=..." lines.
+     */
+    private int readClientPortFromConfig(QuorumPeerTestBase.MainThread mainThread) {
+        try {
+            File confFile = mainThread.getConfFile();
+            if (confFile == null || !confFile.exists()) {
+                return 0;
+            }
+
+            // First try to read clientPort directly
+            Properties props = new Properties();
+            try (FileReader reader = new FileReader(confFile)) {
+                props.load(reader);
+            }
+
+            String clientPortStr = props.getProperty("clientPort");
+            if (clientPortStr != null) {
+                try {
+                    int port = Integer.parseInt(clientPortStr.trim());
+                    LOG.info("Read clientPort={} from config file {}", port, confFile);
+                    return port;
+                } catch (NumberFormatException e) {
+                    LOG.warn("Invalid clientPort value: {}", clientPortStr);
+                }
+            }
+
+            // If clientPort not found, try to extract from server lines
+            // Format: server.N=host:port:port:type;host:clientPort
+            int myid = mainThread.getMyid();
+            String serverLine = props.getProperty("server." + myid);
+            if (serverLine != null) {
+                // Parse the server line to extract client port
+                // Format: host:port:port:type;host:clientPort or host:port:port:type;clientPort
+                int semiIndex = serverLine.lastIndexOf(';');
+                if (semiIndex > 0 && semiIndex < serverLine.length() - 1) {
+                    String afterSemi = serverLine.substring(semiIndex + 1);
+                    // afterSemi could be "host:port" or just "port"
+                    int colonIndex = afterSemi.lastIndexOf(':');
+                    String portStr = colonIndex >= 0 ? afterSemi.substring(colonIndex + 1) : afterSemi;
+                    try {
+                        int port = Integer.parseInt(portStr.trim());
+                        LOG.info("Extracted clientPort={} from server.{} line: {}", port, myid, serverLine);
+                        return port;
+                    } catch (NumberFormatException e) {
+                        LOG.warn("Failed to parse client port from server line: {}", serverLine);
+                    }
+                }
+            }
+
+            // Try reading dynamic config file if present
+            File[] dynamicFiles = mainThread.getDynamicFiles();
+            if (dynamicFiles != null && dynamicFiles.length > 0) {
+                for (File dynFile : dynamicFiles) {
+                    Properties dynProps = new Properties();
+                    try (FileReader reader = new FileReader(dynFile)) {
+                        dynProps.load(reader);
+                    }
+                    serverLine = dynProps.getProperty("server." + myid);
+                    if (serverLine != null) {
+                        int semiIndex = serverLine.lastIndexOf(';');
+                        if (semiIndex > 0 && semiIndex < serverLine.length() - 1) {
+                            String afterSemi = serverLine.substring(semiIndex + 1);
+                            int colonIndex = afterSemi.lastIndexOf(':');
+                            String portStr = colonIndex >= 0 ? afterSemi.substring(colonIndex + 1) : afterSemi;
+                            try {
+                                int port = Integer.parseInt(portStr.trim());
+                                LOG.info("Extracted clientPort={} from dynamic config server.{} line: {}", port, myid, serverLine);
+                                return port;
+                            } catch (NumberFormatException e) {
+                                LOG.warn("Failed to parse client port from dynamic server line: {}", serverLine);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            LOG.warn("Failed to read client port from config file: {}", e.getMessage());
+        }
+        return 0;
     }
 }

@@ -121,7 +121,17 @@ public class ClientBaseAdapter implements ClusterAdapter<ClientBase> {
         File tmpDir = cluster.tmpDir;
         int maxCnxns = cluster.maxCnxns;
         ServerCnxnFactory factory = cluster.serverFactory;
-        boolean isSecure = factory != null && factory.isSecure();
+
+        // Validate that this test actually uses ClientBase's standalone server infrastructure
+        if (factory == null) {
+            throw new IllegalStateException(
+                "Cannot restart server: serverFactory is null. " +
+                "This test extends ClientBase but does not use its standalone server infrastructure. " +
+                "The test may be using QuorumPeer or other server types that require a different adapter. " +
+                "hostPort=" + hostPort);
+        }
+
+        boolean isSecure = factory.isSecure();
 
         LOG.info("Restarting server at {} with mode {}", hostPort, mode);
 
