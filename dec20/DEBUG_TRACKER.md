@@ -346,8 +346,8 @@ org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = 
 
 ---
 
-## [ ] Group 8: MEDIUM-HIGH PRIORITY - Possible Bug
-**Status:** Not started
+## [FP] Group 8: MEDIUM-HIGH PRIORITY - Possible Bug
+**Status:** FP - See FPs/FP-GROUP-8.md
 **Total Occurrences:** 2 test executions
 
 ### Generalized Stacktrace
@@ -451,8 +451,8 @@ org.apache.zookeeper.KeeperException$SessionExpiredException: KeeperErrorCode = 
 
 ---
 
-## [ ] Group 9: MEDIUM-HIGH PRIORITY - Possible Bug
-**Status:** Not started
+## [FP] Group 9: MEDIUM-HIGH PRIORITY - Possible Bug
+**Status:** FP - See FPs/FP-GROUP-9.md
 **Total Occurrences:** 1 test executions
 
 ### Generalized Stacktrace
@@ -565,8 +565,8 @@ java.net.ConnectException: Connection refused (Connection refused)
 
 ---
 
-## [ ] Group 5: MEDIUM-HIGH PRIORITY - Possible Bug
-**Status:** Not started
+## [FP] Group 5: MEDIUM-HIGH PRIORITY - Possible Bug
+**Status:** FP - See FPs/FP-GROUP-5.md
 **Total Occurrences:** 4 test executions
 
 ### Generalized Stacktrace
@@ -697,8 +697,8 @@ Caused by: java.net.BindException: Address already in use
 
 ---
 
-## [ ] Group 1: LOWER PRIORITY - Test Infrastructure/Timeout
-**Status:** Not started
+## [FP] Group 1: LOWER PRIORITY - Test Infrastructure/Timeout
+**Status:** FP - See FPs/FP-GROUP-1.md
 **Total Occurrences:** 190 test executions
 
 ### Generalized Stacktrace
@@ -815,8 +815,8 @@ Caused by: java.lang.Exception: QuorumPeer failed to start at 127.0.0.1:0
 
 ---
 
-## [ ] Group 3: LOWER PRIORITY - Test Infrastructure/Timeout
-**Status:** Not started
+## [FP] Group 3: LOWER PRIORITY - Test Infrastructure/Timeout
+**Status:** FP - See FPs/FP-GROUP-3.md
 **Total Occurrences:** 26 test executions
 
 ### Generalized Stacktrace
