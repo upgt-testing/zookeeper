@@ -80,6 +80,9 @@ public class QuorumBase extends ClientBase {
     protected boolean localSessionsEnabled = false;
     protected boolean localSessionsUpgradingEnabled = false;
 
+    // Track whether Oracle was used during setup for proper restart support
+    protected boolean useOracle = false;
+
 
     @BeforeEach
     @Override
@@ -213,6 +216,7 @@ public class QuorumBase extends ClientBase {
             assertEquals(portClient5, s5.getClientPort());
         } else {
             createOraclePath();
+            useOracle = true;
 
             LOG.info("creating QuorumPeer 1 port {}", portClient1);
             s1 = new QuorumPeer(peers, s1dir, s1dir, portClient1, 3, 1, tickTime, initLimit, syncLimit, connectToLearnerMasterLimit, oracleDir
@@ -442,31 +446,67 @@ public class QuorumBase extends ClientBase {
             peers.put(Long.valueOf(5), new QuorumServer(5, new InetSocketAddress(LOCALADDR, port5), new InetSocketAddress(LOCALADDR, portLE5), new InetSocketAddress(LOCALADDR, portClient5), LearnerType.PARTICIPANT));
         }
 
-        switch (i) {
-        case 1:
-            LOG.info("creating QuorumPeer 1 port {}", portClient1);
-            s1 = new QuorumPeer(peers, s1dir, s1dir, portClient1, 3, 1, tickTime, initLimit, syncLimit, connectToLearnerMasterLimit);
-            assertEquals(portClient1, s1.getClientPort());
-            break;
-        case 2:
-            LOG.info("creating QuorumPeer 2 port {}", portClient2);
-            s2 = new QuorumPeer(peers, s2dir, s2dir, portClient2, 3, 2, tickTime, initLimit, syncLimit, connectToLearnerMasterLimit);
-            assertEquals(portClient2, s2.getClientPort());
-            break;
-        case 3:
-            LOG.info("creating QuorumPeer 3 port {}", portClient3);
-            s3 = new QuorumPeer(peers, s3dir, s3dir, portClient3, 3, 3, tickTime, initLimit, syncLimit, connectToLearnerMasterLimit);
-            assertEquals(portClient3, s3.getClientPort());
-            break;
-        case 4:
-            LOG.info("creating QuorumPeer 4 port {}", portClient4);
-            s4 = new QuorumPeer(peers, s4dir, s4dir, portClient4, 3, 4, tickTime, initLimit, syncLimit, connectToLearnerMasterLimit);
-            assertEquals(portClient4, s4.getClientPort());
-            break;
-        case 5:
-            LOG.info("creating QuorumPeer 5 port {}", portClient5);
-            s5 = new QuorumPeer(peers, s5dir, s5dir, portClient5, 3, 5, tickTime, initLimit, syncLimit, connectToLearnerMasterLimit);
-            assertEquals(portClient5, s5.getClientPort());
+        if (useOracle && oracleDir != null) {
+            // Create QuorumPeer with Oracle configuration
+            switch (i) {
+            case 1:
+                LOG.info("creating QuorumPeer 1 port {} with Oracle", portClient1);
+                s1 = new QuorumPeer(peers, s1dir, s1dir, portClient1, 3, 1, tickTime, initLimit, syncLimit, connectToLearnerMasterLimit,
+                        oracleDir.getAbsolutePath() + oraclePath_0 + mastership);
+                assertEquals(portClient1, s1.getClientPort());
+                break;
+            case 2:
+                LOG.info("creating QuorumPeer 2 port {} with Oracle", portClient2);
+                s2 = new QuorumPeer(peers, s2dir, s2dir, portClient2, 3, 2, tickTime, initLimit, syncLimit, connectToLearnerMasterLimit,
+                        oracleDir.getAbsolutePath() + oraclePath_1 + mastership);
+                assertEquals(portClient2, s2.getClientPort());
+                break;
+            case 3:
+                LOG.info("creating QuorumPeer 3 port {} with Oracle", portClient3);
+                s3 = new QuorumPeer(peers, s3dir, s3dir, portClient3, 3, 3, tickTime, initLimit, syncLimit, connectToLearnerMasterLimit,
+                        oracleDir.getAbsolutePath() + oraclePath_2 + mastership);
+                assertEquals(portClient3, s3.getClientPort());
+                break;
+            case 4:
+                LOG.info("creating QuorumPeer 4 port {} with Oracle", portClient4);
+                s4 = new QuorumPeer(peers, s4dir, s4dir, portClient4, 3, 4, tickTime, initLimit, syncLimit, connectToLearnerMasterLimit,
+                        oracleDir.getAbsolutePath() + oraclePath_3 + mastership);
+                assertEquals(portClient4, s4.getClientPort());
+                break;
+            case 5:
+                LOG.info("creating QuorumPeer 5 port {} with Oracle", portClient5);
+                s5 = new QuorumPeer(peers, s5dir, s5dir, portClient5, 3, 5, tickTime, initLimit, syncLimit, connectToLearnerMasterLimit,
+                        oracleDir.getAbsolutePath() + oraclePath_4 + mastership);
+                assertEquals(portClient5, s5.getClientPort());
+            }
+        } else {
+            // Create QuorumPeer without Oracle configuration
+            switch (i) {
+            case 1:
+                LOG.info("creating QuorumPeer 1 port {}", portClient1);
+                s1 = new QuorumPeer(peers, s1dir, s1dir, portClient1, 3, 1, tickTime, initLimit, syncLimit, connectToLearnerMasterLimit);
+                assertEquals(portClient1, s1.getClientPort());
+                break;
+            case 2:
+                LOG.info("creating QuorumPeer 2 port {}", portClient2);
+                s2 = new QuorumPeer(peers, s2dir, s2dir, portClient2, 3, 2, tickTime, initLimit, syncLimit, connectToLearnerMasterLimit);
+                assertEquals(portClient2, s2.getClientPort());
+                break;
+            case 3:
+                LOG.info("creating QuorumPeer 3 port {}", portClient3);
+                s3 = new QuorumPeer(peers, s3dir, s3dir, portClient3, 3, 3, tickTime, initLimit, syncLimit, connectToLearnerMasterLimit);
+                assertEquals(portClient3, s3.getClientPort());
+                break;
+            case 4:
+                LOG.info("creating QuorumPeer 4 port {}", portClient4);
+                s4 = new QuorumPeer(peers, s4dir, s4dir, portClient4, 3, 4, tickTime, initLimit, syncLimit, connectToLearnerMasterLimit);
+                assertEquals(portClient4, s4.getClientPort());
+                break;
+            case 5:
+                LOG.info("creating QuorumPeer 5 port {}", portClient5);
+                s5 = new QuorumPeer(peers, s5dir, s5dir, portClient5, 3, 5, tickTime, initLimit, syncLimit, connectToLearnerMasterLimit);
+                assertEquals(portClient5, s5.getClientPort());
+            }
         }
     }
 
