@@ -41,6 +41,7 @@
   <properties>
     <!-- Can be overridden with -Drestart.config=... -->
     <restart.config>${project.basedir}/restarts-config/restart-config.json</restart.config>
+      <restart.tracking.agent>/workspace/RestartTestingFramework/restart-tracking-agent/target/restart-tracking-agent-1.0.0-SNAPSHOT.jar</restart.tracking.agent>
   </properties>
 
   <dependencies>
@@ -61,7 +62,7 @@
         <configuration>
           <forkCount>${surefire-forkcount}</forkCount>
           <reuseForks>false</reuseForks>
-          <argLine>-Xmx512m</argLine>
+          <argLine>-javaagent:${restart.tracking.agent} -Xmx512m</argLine>
           <basedir>${project.basedir}</basedir>
           <redirectTestOutputToFile>true</redirectTestOutputToFile>
           <systemPropertyVariables>
