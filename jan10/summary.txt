@@ -1,0 +1,65 @@
+======================================================================
+Test Result Analysis Summary
+======================================================================
+Generated: 2026-01-11 15:05:09
+
+Step 1: Execution Parsing
+----------------------------------------------------------------------
+Total baseline executions: 557
+Total restart executions: 1324
+
+Step 2: Failure Analysis
+----------------------------------------------------------------------
+Baseline failures: 26
+Restart failures (baseline passed): 229
+Ignored restart executions (baseline failed): 65
+
+Step 3: Failure Grouping
+----------------------------------------------------------------------
+Unique failure groups: 9
+Total restart failures analyzed: 0
+
+Group Distribution:
+----------------------------------------------------------------------
+Group   1:   48 executions (  0.0%) - Example: org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected.testSync @ after_setup/leader
+Group   2:   28 executions (  0.0%) - Example: org.apache.zookeeper.server.quorum.EphemeralNodeDeletionTest_RestartInjected.testEphemeralNodeDeletion @ after_close_session/server
+Group   3:   15 executions (  0.0%) - Example: org.apache.zookeeper.test.BufferSizeTest_RestartInjected.testStartupFailureSnapshot @ after_stop_server/server
+Group   4:    3 executions (  0.0%) - Example: org.apache.zookeeper.server.SnapshotDigestTest_RestartInjected.testBackwardCompatible @ after_create_compatible_node/server
+Group   5:    3 executions (  0.0%) - Example: org.apache.zookeeper.server.MultiOpSessionUpgradeTest_RestartInjected.ephemeralCreateMultiOpTest @ after_create_client/leader
+Group   6:    2 executions (  0.0%) - Example: org.apache.zookeeper.test.CheckTest_RestartInjected.testClusterDatabaseReloadAfterCheck @ after_leader_shutdown/follower
+Group   7:    2 executions (  0.0%) - Example: org.apache.zookeeper.test.PersistentWatcherTest_RestartInjected.testDisconnect @ after_add_watch/server
+Group   8:    1 executions (  0.0%) - Example: org.apache.zookeeper.test.SaslAuthRequiredFailNoSASLTest_RestartInjected.testClientOpWithoutSASLConfigured @ after_auth_failure/server
+Group   9:    1 executions (  0.0%) - Example: org.apache.zookeeper.server.quorum.ReconfigLegacyTest_RestartInjected.testConfigFileBackwardCompatibility @ after_servers_restart/server
+
+Baseline Failures Details:
+----------------------------------------------------------------------
+  1. org.apache.zookeeper.test.ThrottledOpObserverTest_RestartInjected.testThrottledAclObserver (ignored 2 restart executions)
+  2. org.apache.zookeeper.server.quorum.DIFFSyncConsistencyTest_RestartInjected.testInconsistentDueToUncommittedLog (ignored 12 restart executions)
+  3. org.apache.zookeeper.test.ThrottledOpQuorumTest_RestartInjected.testThrottledOpLeader (ignored 2 restart executions)
+  4. org.apache.zookeeper.test.ThrottledOpQuorumTest_RestartInjected.testThrottledAclLeader (ignored 2 restart executions)
+  5. org.apache.zookeeper.test.ThrottledOpQuorumTest_RestartInjected.testThrottledOpFollower (ignored 2 restart executions)
+  6. org.apache.zookeeper.test.ThrottledOpQuorumTest_RestartInjected.testThrottledAclFollower (ignored 2 restart executions)
+  7. org.apache.zookeeper.test.ThrottledOpStandaloneTest_RestartInjected.testThrottledOp (ignored 2 restart executions)
+  8. org.apache.zookeeper.test.ThrottledOpStandaloneTest_RestartInjected.testThrottledAcl (ignored 2 restart executions)
+  9. org.apache.zookeeper.server.TxnLogDigestTest_RestartInjected.checkTxnCompatibleWithAndWithoutDigest (ignored 2 restart executions)
+ 10. org.apache.zookeeper.server.quorum.ReconfigBackupTest_RestartInjected.testVersionOfDynamicFilename (ignored 3 restart executions)
+ 11. org.apache.zookeeper.server.quorum.ReconfigFailureCasesTest_RestartInjected.testIncrementalReconfigInvokedOnHiearchicalQS (ignored 3 restart executions)
+ 12. org.apache.zookeeper.server.quorum.QuorumDigestTest_RestartInjected.testDigestMatchesDuringDiffSync (ignored 1 restart executions)
+ 13. org.apache.zookeeper.ZKUtilTest_RestartInjected.testUnreadableFileInput (ignored 1 restart executions)
+ 14. org.apache.zookeeper.server.quorum.RaceConditionTest_RestartInjected.testRaceConditionBetweenLeaderAndAckRequestProcessor (ignored 5 restart executions)
+ 15. org.apache.zookeeper.audit.Slf4JAuditLoggerTest_RestartInjected.testEphemralZNodeAuditLogs (ignored 1 restart executions)
+ 16. org.apache.zookeeper.server.quorum.QuorumDigestTest_RestartInjected.testDigestMatchesDuringSnapSync (ignored 2 restart executions)
+ 17. org.apache.zookeeper.server.quorum.QuorumDigestTest_RestartInjected.testDigestMatchesWithAsyncRequests (ignored 2 restart executions)
+ 18. org.apache.zookeeper.server.TxnLogDigestTest_RestartInjected.digestFromTxnLogsMatchesTree (ignored 1 restart executions)
+ 19. org.apache.zookeeper.server.quorum.ReconfigBackupTest_RestartInjected.testBackupStatic (ignored 2 restart executions)
+ 20. org.apache.zookeeper.server.TxnLogDigestTest_RestartInjected.testTxnMissing (ignored 1 restart executions)
+... and 6 more baseline failures
+
+Output Files:
+----------------------------------------------------------------------
+Step 1 results: results-jan10/zookeeper/jan10/step1_execution_summary.json
+Step 2 results: results-jan10/zookeeper/jan10/step2_failures.json
+Step 3 results: results-jan10/zookeeper/jan10/step3_grouped_failures.json
+This summary:   results-jan10/zookeeper/jan10/summary.txt
+
+======================================================================

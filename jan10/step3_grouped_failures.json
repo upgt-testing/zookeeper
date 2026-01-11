@@ -1,0 +1,1112 @@
+{
+  "failure_groups": [
+    {
+      "group_id": 1,
+      "generalized_stacktrace": "Caused by: java.lang.IllegalArgumentException\n\tat org.restarttest.adapter.zookeeper.ClientBaseAdapter.restartNode(ClientBaseAdapter.java)",
+      "raw_stacktrace_sample": "org.restarttest.core.RestartException: Restart failed at position after_setup\n\tat org.restarttest.core.RestartExecutor.execute(RestartExecutor.java:85)\n\tat org.restarttest.api.RestartPointBuilder.execute(RestartPointBuilder.java:182)\n\tat org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected.testSync(QuorumRequestPipelineTest_RestartInjected.java:345)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:686)\n\tat org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestTemplateMethod(TimeoutExtension.java:92)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:212)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:208)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:71)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:135)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask$DefaultDynamicTestExecutor.execute(NodeTestTask.java:198)\n\tat org.junit.jupiter.engine.descriptor.TestTemplateTestDescriptor.execute(TestTemplateTestDescriptor.java:138)\n\tat org.junit.jupiter.engine.descriptor.TestTemplateTestDescriptor.lambda$execute$2(TestTemplateTestDescriptor.java:106)\n\tat java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)\n\tat java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)\n\tat java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:175)\n\tat java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)\n\tat java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)\n\tat java.util.stream.ReferencePipeline$11$1.accept(ReferencePipeline.java:440)\n\tat java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)\n\tat java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)\n\tat java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)\n\tat java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)\n\tat java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)\n\tat java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:948)\n\tat java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:647)\n\tat java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:272)\n\tat java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)\n\tat java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)\n\tat java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:948)\n\tat java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)\n\tat java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)\n\tat java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)\n\tat java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)\n\tat java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)\n\tat java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:485)\n\tat java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:272)\n\tat java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)\n\tat java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)\n\tat java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)\n\tat java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1384)\n\tat java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)\n\tat java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)\n\tat java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)\n\tat java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)\n\tat java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)\n\tat java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:485)\n\tat java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:272)\n\tat java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1384)\n\tat java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)\n\tat java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)\n\tat java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)\n\tat java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)\n\tat java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)\n\tat java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:485)\n\tat org.junit.jupiter.engine.descriptor.TestTemplateTestDescriptor.execute(TestTemplateTestDescriptor.java:106)\n\tat org.junit.jupiter.engine.descriptor.TestTemplateTestDescriptor.execute(TestTemplateTestDescriptor.java:41)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:135)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat java.util.ArrayList.forEach(ArrayList.java:1259)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat java.util.ArrayList.forEach(ArrayList.java:1259)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:248)\n\tat org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$5(DefaultLauncher.java:211)\n\tat org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:226)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:199)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:132)\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:142)\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:113)\n\tat org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)\n\tat org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)\n\tat org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)\n\tat org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)\nCaused by: java.lang.IllegalArgumentException: Unknown node role: leader. Supported: server, all\n\tat org.restarttest.adapter.zookeeper.ClientBaseAdapter.restartNode(ClientBaseAdapter.java:59)\n\tat org.restarttest.adapter.zookeeper.ClientBaseAdapter.restartNode(ClientBaseAdapter.java:38)\n\tat org.restarttest.core.RestartExecutor.restartSingleNode(RestartExecutor.java:190)\n\tat org.restarttest.core.RestartExecutor.performRestart(RestartExecutor.java:174)\n\tat org.restarttest.core.RestartExecutor.executeRestart(RestartExecutor.java:112)\n\tat org.restarttest.core.RestartExecutor.execute(RestartExecutor.java:83)\n\t... 123 more\n",
+      "test_executions": [
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testSync",
+          "position": "after_setup",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "012-36fe680b",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-10/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testSync",
+          "position": "after_create_node",
+          "target": "follower",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "013-d0417e89",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-10/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testSync",
+          "position": "after_sync",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "014-87a7b9d3",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-10/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testSynchronousSync",
+          "position": "after_setup",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "013-8c85a119",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-20/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testSynchronousSync",
+          "position": "after_create_node",
+          "target": "follower",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "014-971ec706",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-20/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testSynchronousSync",
+          "position": "after_sync_task",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "015-6f549e2e",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-20/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.FourLetterWordsQuorumTest_RestartInjected",
+          "testMethod": "testFourLetterWords",
+          "position": "after_initial_verifications",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "002-6d13590d",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-26/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.FourLetterWordsQuorumTest_RestartInjected",
+          "testMethod": "testFourLetterWords",
+          "position": "after_create_client",
+          "target": "follower",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "003-62600339",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-26/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.FourLetterWordsQuorumTest_RestartInjected",
+          "testMethod": "testFourLetterWords",
+          "position": "after_set_watch",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "004-c61c3042",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-26/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.FourLetterWordsQuorumTest_RestartInjected",
+          "testMethod": "testFourLetterWords",
+          "position": "after_watch_verifications",
+          "target": "follower",
+          "mode": "GRACEFUL",
+          "index": "1",
+          "executionDir": "005-6e588447",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-26/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.FourLetterWordsQuorumTest_RestartInjected",
+          "testMethod": "testFourLetterWords",
+          "position": "after_close_client",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "006-e0df66c7",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-26/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.FourLetterWordsQuorumTest_RestartInjected",
+          "testMethod": "testFourLetterWords",
+          "position": "after_final_verifications",
+          "target": "follower",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "007-43e1bcec",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-26/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.QuorumMajorityTest_RestartInjected",
+          "testMethod": "testMajQuorums",
+          "position": "after_initial_election_check",
+          "target": "follower",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "002-93ffa430",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-50/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.QuorumMajorityTest_RestartInjected",
+          "testMethod": "testMajQuorums",
+          "position": "after_setup_all_followers",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "003-4eb88f88",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-50/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.QuorumMajorityTest_RestartInjected",
+          "testMethod": "testMajQuorums",
+          "position": "after_first_quorum_test",
+          "target": "follower",
+          "mode": "GRACEFUL",
+          "index": "1",
+          "executionDir": "004-55d27a44",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-50/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.QuorumMajorityTest_RestartInjected",
+          "testMethod": "testMajQuorums",
+          "position": "after_setup_with_observers",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "005-3c9557ff",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-50/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.QuorumMajorityTest_RestartInjected",
+          "testMethod": "testMajQuorums",
+          "position": "after_second_quorum_test",
+          "target": "observer",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "006-3b76e4f9",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-50/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.QuorumOracleMajTest_RestartInjected",
+          "testMethod": "testMajQuorums",
+          "position": "after_jmx_verification",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "002-e7253efd",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-51/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.QuorumOracleMajTest_RestartInjected",
+          "testMethod": "testMajQuorums",
+          "position": "after_setup",
+          "target": "follower",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "003-17287372",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-51/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.QuorumOracleMajTest_RestartInjected",
+          "testMethod": "testMajQuorums",
+          "position": "after_get_leader",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "004-2f5441b1",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-51/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testSetAndGetACL",
+          "position": "after_setup",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "007-ff1c5c5d",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-57/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testSetAndGetACL",
+          "position": "after_create_node",
+          "target": "follower",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "008-17eb5e04",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-57/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testSetAndGetACL",
+          "position": "after_get_acl",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "009-2262b471",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-57/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testSetAndGetACL",
+          "position": "after_set_acl",
+          "target": "follower",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "010-1603d730",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-57/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testSetAndGetChildren",
+          "position": "after_setup",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "007-54ec8708",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-58/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testSetAndGetChildren",
+          "position": "after_create_parent",
+          "target": "follower",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "008-b6b3d619",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-58/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testSetAndGetChildren",
+          "position": "after_create_children",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "009-44e334d2",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-58/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testSetAndGetChildren",
+          "position": "after_get_children",
+          "target": "follower",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "010-a664ce80",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-58/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testSetAndGetChildren2",
+          "position": "after_setup",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "007-3b57c40b",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-59/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testSetAndGetChildren2",
+          "position": "after_create_parent",
+          "target": "follower",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "008-49327312",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-59/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testSetAndGetChildren2",
+          "position": "after_create_children",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "009-68864659",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-59/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testSetAndGetChildren2",
+          "position": "after_get_children2",
+          "target": "follower",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "010-f22d61d0",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-59/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testCreate",
+          "position": "after_setup",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "012-0d99c56c",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-67/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testCreate",
+          "position": "after_create",
+          "target": "follower",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "013-f15b88c4",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-67/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testCreate",
+          "position": "after_get_data",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "014-65b1dcfd",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-67/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testCreate2",
+          "position": "after_setup",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "012-9cfefd48",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-68/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testCreate2",
+          "position": "after_create2",
+          "target": "follower",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "013-3e6fd6de",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-68/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testCreate2",
+          "position": "after_get_data",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "014-5a3444fc",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-68/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testDelete",
+          "position": "after_setup",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "012-63593e54",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-69/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testDelete",
+          "position": "after_create_node",
+          "target": "follower",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "013-50322a34",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-69/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testDelete",
+          "position": "after_delete",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "014-05f86e53",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-69/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testSetAndGetData",
+          "position": "after_setup",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "002-95001899",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-70/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testSetAndGetData",
+          "position": "after_create_node",
+          "target": "follower",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "003-00cb38db",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-70/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testSetAndGetData",
+          "position": "after_set_data",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "004-4bb75aef",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-70/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testSetAndGetData",
+          "position": "after_get_data",
+          "target": "follower",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "005-58214d8f",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-70/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testExists",
+          "position": "after_setup",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "012-f48f2b9e",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-70/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testExists",
+          "position": "after_create_node",
+          "target": "follower",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "013-314390d0",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-70/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.QuorumRequestPipelineTest_RestartInjected",
+          "testMethod": "testExists",
+          "position": "after_exists",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "014-1f4cbdd9",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-70/zookeeper-server.zip"
+        }
+      ],
+      "execution_count": 48
+    },
+    {
+      "group_id": 2,
+      "generalized_stacktrace": "Caused by: java.lang.Exception\n\tat org.restarttest.adapter.zookeeper.MainThreadAdapter.waitActive(MainThreadAdapter.java)",
+      "raw_stacktrace_sample": "org.restarttest.core.RestartException: Restart failed at position after_close_session\n\tat org.restarttest.core.RestartExecutor.execute(RestartExecutor.java:85)\n\tat org.restarttest.api.RestartPointBuilder.execute(RestartPointBuilder.java:182)\n\tat org.apache.zookeeper.server.quorum.EphemeralNodeDeletionTest_RestartInjected.testEphemeralNodeDeletion(EphemeralNodeDeletionTest_RestartInjected.java:138)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:686)\n\tat org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:212)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:208)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:71)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:135)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat java.util.ArrayList.forEach(ArrayList.java:1259)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat java.util.ArrayList.forEach(ArrayList.java:1259)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:248)\n\tat org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$5(DefaultLauncher.java:211)\n\tat org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:226)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:199)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:132)\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:142)\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:113)\n\tat org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)\n\tat org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)\n\tat org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)\n\tat org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)\nCaused by: java.lang.Exception: QuorumPeer failed to start at 127.0.0.1:11222\n\tat org.restarttest.adapter.zookeeper.MainThreadAdapter.waitActive(MainThreadAdapter.java:116)\n\tat org.restarttest.adapter.zookeeper.MainThreadAdapter.waitActive(MainThreadAdapter.java:41)\n\tat org.restarttest.core.RestartExecutor.executeRestart(RestartExecutor.java:116)\n\tat org.restarttest.core.RestartExecutor.execute(RestartExecutor.java:83)\n\t... 67 more\n",
+      "test_executions": [
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.EphemeralNodeDeletionTest_RestartInjected",
+          "testMethod": "testEphemeralNodeDeletion",
+          "position": "after_close_session",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "006-2514ff9d",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-07/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.DIFFSyncTest_RestartInjected",
+          "testMethod": "testTxnLoss_FailToPersistAndCommitTxns",
+          "position": "after_s1_shutdown",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "006-555aa2d4",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-09/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.DIFFSyncTest_RestartInjected",
+          "testMethod": "testTxnLoss_FailToPersistAndCommitTxns",
+          "position": "after_s2_shutdown",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "008-d86e024d",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-09/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.CurrentEpochWriteFailureTest_RestartInjected",
+          "testMethod": "testReadCurrentEpochFromAcceptedEpochTmpFile",
+          "position": "after_shutdown_servers",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "007-27f06b5e",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-10/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.CurrentEpochWriteFailureTest_RestartInjected",
+          "testMethod": "testReadCurrentEpochFromAcceptedEpochTmpFile",
+          "position": "after_create_file_scenario",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "008-fafe15f3",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-10/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.DIFFSyncTest_RestartInjected",
+          "testMethod": "testLeaderShutdown_AckProposalBeforeAckNewLeader",
+          "position": "after_s1_shut_down",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "006-84af267d",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-11/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.ReconfigDuringLeaderSyncTest_RestartInjected",
+          "testMethod": "testDuringLeaderSync",
+          "position": "after_joiner_started",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "005-5da41d92",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-12/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.ReconfigBackupTest_RestartInjected",
+          "testMethod": "testReconfigCreateNewVersionFile",
+          "position": "after_old_cluster_start",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "002-80920b93",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-21/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.ReconfigFailureCasesTest_RestartInjected",
+          "testMethod": "testObserverToParticipantConversionFails",
+          "position": "after_remove_observer",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "004-b7eb2e6a",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-22/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.ClientSSLTest_RestartInjected",
+          "testMethod": "testSecureStandaloneServer",
+          "position": "after_standalone_server_started",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "013-d23babbc",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-29/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.ClientSSLTest_RestartInjected",
+          "testMethod": "testSecureStandaloneServer",
+          "position": "after_create_standalone_test_node",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "014-c1bf7d68",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-29/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.ClientSSLTest_RestartInjected",
+          "testMethod": "testSecureStandaloneServer",
+          "position": "after_delete_standalone_test_node",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "015-8b9fafae",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-29/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.LearnerMetricsTest_RestartInjected",
+          "testMethod": "testLearnerMetricsTest",
+          "position": "after_participants_start",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "002-8353f04f",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-35/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.LearnerMetricsTest_RestartInjected",
+          "testMethod": "testLearnerMetricsTest",
+          "position": "after_observer_start",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "003-8a2000c6",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-35/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.ObserverTest_RestartInjected",
+          "testMethod": "testObserverOnly",
+          "position": "after_observer_only_start",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "029-23d2c8f1",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-39/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.ObserverTest_RestartInjected",
+          "testMethod": "testObserverWithStandlone",
+          "position": "after_observer_standalone_start",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "029-c9631865",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-40/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.ReconfigLegacyTest_RestartInjected",
+          "testMethod": "testReconfigRemoveClientFromStatic",
+          "position": "after_servers_start",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "002-3ce7b866",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-41/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.ClientRequestTimeoutTest_RestartInjected",
+          "testMethod": "testClientRequestTimeoutTime",
+          "position": "after_client_connected",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "016-4dd633a3",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-47/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.ClientRequestTimeoutTest_RestartInjected",
+          "testMethod": "testClientRequestTimeoutTime",
+          "position": "before_timeout_timing_test",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "017-867b8a66",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-47/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.ClientRequestTimeoutTest_RestartInjected",
+          "testMethod": "testClientRequestTimeoutTimeSimulatingSpuriousWakeup",
+          "position": "after_client_connected",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "016-2bea0177",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-48/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.ClientRequestTimeoutTest_RestartInjected",
+          "testMethod": "testClientRequestTimeoutTimeSimulatingSpuriousWakeup",
+          "position": "before_spurious_wakeup_test",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "017-2fcfb7d6",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-48/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.ObserverMasterTest_RestartInjected",
+          "testMethod": "testObserver",
+          "position": "after_q2_shutdown",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "005-567ce927",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-49/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.StandaloneTest_RestartInjected",
+          "testMethod": "testNoDynamicConfig",
+          "position": "after_standalone_server_up",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "029-eb9fcd77",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-53/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.StandaloneTest_RestartInjected",
+          "testMethod": "testClientPortInDynamicFile",
+          "position": "after_dynamic_config_server_up",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "029-6d09d1c5",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-54/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.StandaloneTest_RestartInjected",
+          "testMethod": "testClientPortInStaticFile",
+          "position": "after_static_config_server_up",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "029-e63103d7",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-55/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.ReconfigLegacyTest_RestartInjected",
+          "testMethod": "testConfigFileBackwardCompatibility",
+          "position": "after_initial_servers_start",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "007-47cd3f90",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-60/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.ReconfigLegacyTest_RestartInjected",
+          "testMethod": "testRestartZooKeeperServer",
+          "position": "after_servers_restart",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "009-a4be03bb",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-61/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.EpochWriteFailureTest_RestartInjected",
+          "testMethod": "testAcceptedEpochWriteFailure",
+          "position": "after_problematic_server_start",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "004-a0212af0",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-68/zookeeper-server.zip"
+        }
+      ],
+      "execution_count": 28
+    },
+    {
+      "group_id": 3,
+      "generalized_stacktrace": "Caused by: java.lang.IllegalStateException\n\tat org.restarttest.adapter.zookeeper.ClientBaseAdapter.restartServer(ClientBaseAdapter.java)",
+      "raw_stacktrace_sample": "org.restarttest.core.RestartException: Restart failed at position after_stop_server\n\tat org.restarttest.core.RestartExecutor.execute(RestartExecutor.java:85)\n\tat org.restarttest.api.RestartPointBuilder.execute(RestartPointBuilder.java:182)\n\tat org.apache.zookeeper.test.BufferSizeTest_RestartInjected.testStartupFailure(BufferSizeTest_RestartInjected.java:190)\n\tat org.apache.zookeeper.test.BufferSizeTest_RestartInjected.testStartupFailureSnapshot(BufferSizeTest_RestartInjected.java:179)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:686)\n\tat org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:212)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:208)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:71)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:135)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat java.util.ArrayList.forEach(ArrayList.java:1259)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat java.util.ArrayList.forEach(ArrayList.java:1259)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:248)\n\tat org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$5(DefaultLauncher.java:211)\n\tat org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:226)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:199)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:132)\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:142)\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:113)\n\tat org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)\n\tat org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)\n\tat org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)\n\tat org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)\nCaused by: java.lang.IllegalStateException: Cannot restart server: serverFactory is null. This test extends ClientBase but does not use its standalone server infrastructure. The test may be using QuorumPeer or other server types that require a different adapter. hostPort=127.0.0.1:11222\n\tat org.restarttest.adapter.zookeeper.ClientBaseAdapter.restartServer(ClientBaseAdapter.java:127)\n\tat org.restarttest.adapter.zookeeper.ClientBaseAdapter.restartNode(ClientBaseAdapter.java:57)\n\tat org.restarttest.adapter.zookeeper.ClientBaseAdapter.restartNode(ClientBaseAdapter.java:38)\n\tat org.restarttest.core.RestartExecutor.restartSingleNode(RestartExecutor.java:190)\n\tat org.restarttest.core.RestartExecutor.performRestart(RestartExecutor.java:174)\n\tat org.restarttest.core.RestartExecutor.executeRestart(RestartExecutor.java:112)\n\tat org.restarttest.core.RestartExecutor.execute(RestartExecutor.java:83)\n\t... 68 more\n",
+      "test_executions": [
+        {
+          "testClass": "org.apache.zookeeper.test.BufferSizeTest_RestartInjected",
+          "testMethod": "testStartupFailureSnapshot",
+          "position": "after_stop_server",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "018-dc49d866",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-08/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.NettyServerCnxnFactoryTest_RestartInjected",
+          "testMethod": "testRebind",
+          "position": "after_start_factory",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "017-fdd58d30",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-27/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.NettyServerCnxnFactoryTest_RestartInjected",
+          "testMethod": "testRebind",
+          "position": "after_reconfigure",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "018-1bd5ffe0",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-27/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.LoadFromLogTest_RestartInjected",
+          "testMethod": "testDatadirAutocreate",
+          "position": "after_stop_server",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "029-3cfbd13f",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-27/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.NettyServerCnxnFactoryTest_RestartInjected",
+          "testMethod": "testRebindIPv4IPv6",
+          "position": "after_start_ipv4_factory",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "017-58fd7a64",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-28/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.NettyServerCnxnFactoryTest_RestartInjected",
+          "testMethod": "testRebindIPv4IPv6",
+          "position": "after_reconfigure_ipv6",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "018-d01e07fa",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-28/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.HierarchicalQuorumTest_RestartInjected",
+          "testMethod": "testHierarchicalQuorum",
+          "position": "before_hammer_test",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "020-5e2745c2",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-28/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.HierarchicalQuorumTest_RestartInjected",
+          "testMethod": "testHierarchicalQuorum",
+          "position": "after_hammer_test",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "021-9e27219f",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-28/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.InvalidSnapshotTest_RestartInjected",
+          "testMethod": "testInvalidSnapshot",
+          "position": "after_stop_server",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "003-2979ed49",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-31/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.InvalidSnapshotTest_RestartInjected",
+          "testMethod": "testInvalidSnapshot",
+          "position": "after_corrupt_snapshot",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "004-709836dc",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-31/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.QuorumOracleMajTest_RestartInjected",
+          "testMethod": "testMajQuorums",
+          "position": "after_no_drop_connection_test",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "005-09a5d9ae",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-51/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.QuorumOracleMajTest_RestartInjected",
+          "testMethod": "testMajQuorums",
+          "position": "after_drop_connection_test",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "1",
+          "executionDir": "006-e4c2b6b6",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-51/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.BufferSizeTest_RestartInjected",
+          "testMethod": "testStartup",
+          "position": "after_stop_server",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "009-b2a0c9e2",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-67/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.BufferSizeTest_RestartInjected",
+          "testMethod": "testStartupFailureSet",
+          "position": "after_stop_server",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "019-8aa34bff",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-69/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.BufferSizeTest_RestartInjected",
+          "testMethod": "testStartupFailureCreate",
+          "position": "after_stop_server",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "019-2d6efc29",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-70/zookeeper-server.zip"
+        }
+      ],
+      "execution_count": 15
+    },
+    {
+      "group_id": 4,
+      "generalized_stacktrace": "java.lang.NullPointerException\n\tat org.apache.zookeeper.server.persistence.FileTxnSnapLog.save(FileTxnSnapLog.java)",
+      "raw_stacktrace_sample": "java.lang.NullPointerException\n\tat org.apache.zookeeper.server.persistence.FileTxnSnapLog.save(FileTxnSnapLog.java:482)\n\tat org.apache.zookeeper.server.ZooKeeperServer.takeSnapshot(ZooKeeperServer.java:575)\n\tat org.apache.zookeeper.server.ZooKeeperServer.takeSnapshot(ZooKeeperServer.java:559)\n\tat org.apache.zookeeper.server.ZooKeeperServer.takeSnapshot(ZooKeeperServer.java:555)\n\tat org.apache.zookeeper.server.SnapshotDigestTest_RestartInjected.testCompatibleHelper(SnapshotDigestTest_RestartInjected.java:223)\n\tat org.apache.zookeeper.server.SnapshotDigestTest_RestartInjected.testBackwardCompatible(SnapshotDigestTest_RestartInjected.java:198)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:686)\n\tat org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:212)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:208)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:71)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:135)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat java.util.ArrayList.forEach(ArrayList.java:1259)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat java.util.ArrayList.forEach(ArrayList.java:1259)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:248)\n\tat org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$5(DefaultLauncher.java:211)\n\tat org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:226)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:199)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:132)\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:142)\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:113)\n\tat org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)\n\tat org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)\n\tat org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)\n\tat org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)\n",
+      "test_executions": [
+        {
+          "testClass": "org.apache.zookeeper.server.SnapshotDigestTest_RestartInjected",
+          "testMethod": "testBackwardCompatible",
+          "position": "after_create_compatible_node",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "018-3e904399",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-18/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.SnapshotDigestTest_RestartInjected",
+          "testMethod": "testBackwardCompatible",
+          "position": "after_create_compatible_node",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "019-3e904399ce63",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-18/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.SnapshotDigestTest_RestartInjected",
+          "testMethod": "testDifferentDigestVersion",
+          "position": "after_create_node",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "025-efe633f0",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-58/zookeeper-server.zip"
+        }
+      ],
+      "execution_count": 3
+    },
+    {
+      "group_id": 5,
+      "generalized_stacktrace": "org.apache.zookeeper.KeeperException$SessionExpiredException\n\tat org.apache.zookeeper.KeeperException.create(KeeperException.java)",
+      "raw_stacktrace_sample": "org.apache.zookeeper.KeeperException$SessionExpiredException: KeeperErrorCode = Session expired for /ephemeralcreatemultiop\n\tat org.apache.zookeeper.KeeperException.create(KeeperException.java:133)\n\tat org.apache.zookeeper.KeeperException.create(KeeperException.java:53)\n\tat org.apache.zookeeper.ZooKeeper.create(ZooKeeper.java:1347)\n\tat org.apache.zookeeper.server.MultiOpSessionUpgradeTest_RestartInjected.ephemeralCreateMultiOpTest(MultiOpSessionUpgradeTest_RestartInjected.java:78)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:686)\n\tat org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:212)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:208)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:71)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:135)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat java.util.ArrayList.forEach(ArrayList.java:1259)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat java.util.ArrayList.forEach(ArrayList.java:1259)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:248)\n\tat org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$5(DefaultLauncher.java:211)\n\tat org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:226)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:199)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:132)\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:142)\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:113)\n\tat org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)\n\tat org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)\n\tat org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)\n\tat org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)\n",
+      "test_executions": [
+        {
+          "testClass": "org.apache.zookeeper.server.MultiOpSessionUpgradeTest_RestartInjected",
+          "testMethod": "ephemeralCreateMultiOpTest",
+          "position": "after_create_client",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "002-cd7dc94c",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-32/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.MultiOpSessionUpgradeTest_RestartInjected",
+          "testMethod": "directCheckUpgradeSessionTest",
+          "position": "after_create_client",
+          "target": "leader",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "002-280d4393",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-33/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.ReconfigLegacyTest_RestartInjected",
+          "testMethod": "testReconfigRemoveClientFromStatic",
+          "position": "after_reconfig",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "005-3fb75922",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-41/zookeeper-server.zip"
+        }
+      ],
+      "execution_count": 3
+    },
+    {
+      "group_id": 6,
+      "generalized_stacktrace": "Caused by: java.lang.Exception\n\tat org.restarttest.adapter.zookeeper.QuorumBaseAdapter.restartFollower(QuorumBaseAdapter.java)",
+      "raw_stacktrace_sample": "org.restarttest.core.RestartException: Restart failed at position after_leader_shutdown\n\tat org.restarttest.core.RestartExecutor.execute(RestartExecutor.java:85)\n\tat org.restarttest.api.RestartPointBuilder.execute(RestartPointBuilder.java:182)\n\tat org.apache.zookeeper.test.CheckTest_RestartInjected.testClusterDatabaseReloadAfterCheck(CheckTest_RestartInjected.java:180)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:686)\n\tat org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:212)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:208)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:71)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:135)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat java.util.ArrayList.forEach(ArrayList.java:1259)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat java.util.ArrayList.forEach(ArrayList.java:1259)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:248)\n\tat org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$5(DefaultLauncher.java:211)\n\tat org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:226)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:199)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:132)\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:142)\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:113)\n\tat org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)\n\tat org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)\n\tat org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)\n\tat org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)\nCaused by: java.lang.Exception: No followers found in cluster\n\tat org.restarttest.adapter.zookeeper.QuorumBaseAdapter.restartFollower(QuorumBaseAdapter.java:202)\n\tat org.restarttest.adapter.zookeeper.QuorumBaseAdapter.restartNode(QuorumBaseAdapter.java:62)\n\tat org.restarttest.adapter.zookeeper.QuorumBaseAdapter.restartNode(QuorumBaseAdapter.java:40)\n\tat org.restarttest.core.RestartExecutor.restartSingleNode(RestartExecutor.java:190)\n\tat org.restarttest.core.RestartExecutor.performRestart(RestartExecutor.java:174)\n\tat org.restarttest.core.RestartExecutor.executeRestart(RestartExecutor.java:112)\n\tat org.restarttest.core.RestartExecutor.execute(RestartExecutor.java:83)\n\t... 67 more\n",
+      "test_executions": [
+        {
+          "testClass": "org.apache.zookeeper.test.CheckTest_RestartInjected",
+          "testMethod": "testClusterDatabaseReloadAfterCheck",
+          "position": "after_leader_shutdown",
+          "target": "follower",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "014-e125c7c5",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-26/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.CheckTest_RestartInjected",
+          "testMethod": "testClusterDatabaseReloadAfterCheck",
+          "position": "after_database_load",
+          "target": "follower",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "015-c0d5cb8c",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-26/zookeeper-server.zip"
+        }
+      ],
+      "execution_count": 2
+    },
+    {
+      "group_id": 7,
+      "generalized_stacktrace": "org.apache.zookeeper.KeeperException$ConnectionLossException\n\tat org.apache.zookeeper.KeeperException.create(KeeperException.java)",
+      "raw_stacktrace_sample": "org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = ConnectionLoss for /a\n\tat org.apache.zookeeper.KeeperException.create(KeeperException.java:101)\n\tat org.apache.zookeeper.KeeperException.create(KeeperException.java:53)\n\tat org.apache.zookeeper.ZooKeeper.create(ZooKeeper.java:1347)\n\tat org.apache.zookeeper.test.PersistentWatcherTest_RestartInjected.internalTestBasic(PersistentWatcherTest_RestartInjected.java:140)\n\tat org.apache.zookeeper.test.PersistentWatcherTest_RestartInjected.testDisconnect(PersistentWatcherTest_RestartInjected.java:218)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:686)\n\tat org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:212)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:208)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:71)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:135)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat java.util.ArrayList.forEach(ArrayList.java:1259)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat java.util.ArrayList.forEach(ArrayList.java:1259)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:248)\n\tat org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$5(DefaultLauncher.java:211)\n\tat org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:226)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:199)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:132)\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:142)\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:113)\n\tat org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)\n\tat org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)\n\tat org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)\n\tat org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)\n",
+      "test_executions": [
+        {
+          "testClass": "org.apache.zookeeper.test.PersistentWatcherTest_RestartInjected",
+          "testMethod": "testDisconnect",
+          "position": "after_add_watch",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "008-dc9aadab",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-32/zookeeper-server.zip"
+        },
+        {
+          "testClass": "org.apache.zookeeper.test.PersistentRecursiveWatcherTest_RestartInjected",
+          "testMethod": "testDisconnect",
+          "position": "after_add_watch_before_disconnect",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "029-fcc50cef",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-44/zookeeper-server.zip"
+        }
+      ],
+      "execution_count": 2
+    },
+    {
+      "group_id": 8,
+      "generalized_stacktrace": "java.util.concurrent.TimeoutException\n\tat org.apache.zookeeper.test.ClientBase$CountdownWatcher.waitForDisconnected(ClientBase.java)",
+      "raw_stacktrace_sample": "java.util.concurrent.TimeoutException: Did not disconnect: connected(true), syncConnected(true), readOnlyConnected(false)\n\tat org.apache.zookeeper.test.ClientBase$CountdownWatcher.waitForDisconnected(ClientBase.java:178)\n\tat org.apache.zookeeper.test.SaslAuthRequiredFailNoSASLTest_RestartInjected.testClientOpWithoutSASLConfigured(SaslAuthRequiredFailNoSASLTest_RestartInjected.java:71)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:686)\n\tat org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:212)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:208)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:71)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:135)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat java.util.ArrayList.forEach(ArrayList.java:1259)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat java.util.ArrayList.forEach(ArrayList.java:1259)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:248)\n\tat org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$5(DefaultLauncher.java:211)\n\tat org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:226)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:199)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:132)\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:142)\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:113)\n\tat org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)\n\tat org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)\n\tat org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)\n\tat org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)\n",
+      "test_executions": [
+        {
+          "testClass": "org.apache.zookeeper.test.SaslAuthRequiredFailNoSASLTest_RestartInjected",
+          "testMethod": "testClientOpWithoutSASLConfigured",
+          "position": "after_auth_failure",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "022-c17e2561",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-57/zookeeper-server.zip"
+        }
+      ],
+      "execution_count": 1
+    },
+    {
+      "group_id": 9,
+      "generalized_stacktrace": "Caused by: java.lang.NullPointerException\n\tat org.apache.zookeeper.server.quorum.QuorumPeer.shutdown(QuorumPeer.java)",
+      "raw_stacktrace_sample": "org.restarttest.core.RestartException: Restart failed at position after_servers_restart\n\tat org.restarttest.core.RestartExecutor.execute(RestartExecutor.java:85)\n\tat org.restarttest.api.RestartPointBuilder.execute(RestartPointBuilder.java:182)\n\tat org.apache.zookeeper.server.quorum.ReconfigLegacyTest_RestartInjected.testConfigFileBackwardCompatibility(ReconfigLegacyTest_RestartInjected.java:128)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:686)\n\tat org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)\n\tat org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:212)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:208)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137)\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:71)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:135)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat java.util.ArrayList.forEach(ArrayList.java:1259)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat java.util.ArrayList.forEach(ArrayList.java:1259)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:248)\n\tat org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$5(DefaultLauncher.java:211)\n\tat org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:226)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:199)\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:132)\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:142)\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:113)\n\tat org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)\n\tat org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)\n\tat org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)\n\tat org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)\nCaused by: java.lang.NullPointerException\n\tat org.apache.zookeeper.server.quorum.QuorumPeer.shutdown(QuorumPeer.java:1650)\n\tat org.apache.zookeeper.test.QuorumBase.shutdown(QuorumBase.java:549)\n\tat org.apache.zookeeper.server.quorum.QuorumPeerTestBase$TestQPMain.shutdown(QuorumPeerTestBase.java:83)\n\tat org.apache.zookeeper.server.quorum.QuorumPeerTestBase$MainThread.shutdown(QuorumPeerTestBase.java:353)\n\tat org.restarttest.adapter.zookeeper.MainThreadAdapter.restartMainThread(MainThreadAdapter.java:195)\n\tat org.restarttest.adapter.zookeeper.MainThreadAdapter.restartNode(MainThreadAdapter.java:64)\n\tat org.restarttest.adapter.zookeeper.MainThreadAdapter.restartNode(MainThreadAdapter.java:41)\n\tat org.restarttest.core.RestartExecutor.restartSingleNode(RestartExecutor.java:190)\n\tat org.restarttest.core.RestartExecutor.performRestart(RestartExecutor.java:174)\n\tat org.restarttest.core.RestartExecutor.executeRestart(RestartExecutor.java:112)\n\tat org.restarttest.core.RestartExecutor.execute(RestartExecutor.java:83)\n\t... 67 more\n",
+      "test_executions": [
+        {
+          "testClass": "org.apache.zookeeper.server.quorum.ReconfigLegacyTest_RestartInjected",
+          "testMethod": "testConfigFileBackwardCompatibility",
+          "position": "after_servers_restart",
+          "target": "server",
+          "mode": "GRACEFUL",
+          "index": "0",
+          "executionDir": "009-e77e450e",
+          "modulePath": "/Volumes/JFO_SSD/restart_testing/cloudlab_results/zookeeper/jan10/RestartLogs_20260110_shuaiwang516_zookeeper-restart-test_jan10_zookeeper-zookeeper-server-60/zookeeper-server.zip"
+        }
+      ],
+      "execution_count": 1
+    }
+  ],
+  "statistics": {
+    "unique_failure_groups": 9,
+    "total_non_assertion_failures": 103,
+    "total_assertion_failures": 126,
+    "root_cause_depth": 1
+  }
+}
