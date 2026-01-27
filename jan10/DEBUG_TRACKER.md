@@ -13,7 +13,7 @@ Groups are ordered by likelihood of being actual bugs:
 
 ### Group 4: NullPointerException in FileTxnSnapLog.save
 
-[ ] Not started
+[x] FP - Stale Reference Issue (see FPs/FP-GROUP-4.md)
 
 **Test Executions**: 3 failures
 
@@ -23,7 +23,7 @@ java.lang.NullPointerException
 	at org.apache.zookeeper.server.persistence.FileTxnSnapLog.save(FileTxnSnapLog.java)
 ```
 
-**Analysis**: NPE in ZooKeeper's transaction/snapshot log persistence layer. This is a potential bug in ZooKeeper core - the FileTxnSnapLog is not properly initialized or has null references when save() is called after restart.
+**Analysis**: FP - The test holds a stale reference to the old ZooKeeperServer after restart. When the server is restarted, the old server's FileTxnSnapLog.close() sets snapLog=null, but the test's `server` variable still points to the old instance. When `server.takeSnapshot()` is called, it uses the closed FileTxnSnapLog, causing NPE. This is not a ZooKeeper bug, but an improper restart injection position that invalidates object references.
 
 ---
 
@@ -192,7 +192,7 @@ Caused by: java.lang.Exception
 
 | Priority | Group ID | Exception Type | Count | Verdict |
 |----------|----------|----------------|-------|---------|
-| HIGH | 4 | NullPointerException (FileTxnSnapLog.save) | 3 | Likely Bug |
+| HIGH | 4 | NullPointerException (FileTxnSnapLog.save) | 3 | FP - Stale Reference |
 | HIGH | 9 | NullPointerException (QuorumPeer.shutdown) | 1 | Likely Bug |
 | MEDIUM | 5 | SessionExpiredException | 3 | Needs Inspection |
 | MEDIUM | 7 | ConnectionLossException | 2 | Expected |
@@ -211,4 +211,6 @@ The majority of failures (93 out of 103 = **90%**) are FALSE POSITIVES caused by
 
 **Recommendation**: Fix the restart framework adapter to support leader/follower/observer roles for ZooKeeper quorum tests.
 
-Only **4 failures** (Groups 4 and 9) represent potential actual bugs in ZooKeeper - both are NPEs in core ZooKeeper code (FileTxnSnapLog and QuorumPeer).
+**Update (Group 4)**: Group 4 (3 failures) has been confirmed as a FALSE POSITIVE - caused by stale object reference after restart injection. The test's `server` variable becomes stale after restart, pointing to the closed old server instance.
+
+Only **1 failure** (Group 9) represents a potential actual bug in ZooKeeper - NPE in QuorumPeer.shutdown.
